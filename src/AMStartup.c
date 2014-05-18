@@ -72,12 +72,13 @@
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
+#include "../util/src/utils.h"
 
 
 // ---------------- Constant definitions
 
 // ---------------- Macro definitions
-#define SERV_PORT 3000 /*port*/
+
 
 // ---------------- Structures/Types
 
@@ -95,9 +96,12 @@ int main(int argc, char* argv[])
 {
 	int nAvatars; 
 	int Difficulty; 
-	char *filename; 
+//	char *filename; 
 	int sockinit; 
 	struct sockaddr_in servaddr;
+	int MazePort; 
+	int MazeWidth; 
+	int MazeHeight; 
 
 	/******************************* args check *******************************/
 	if (argc < 4) {
@@ -144,23 +148,63 @@ int main(int argc, char* argv[])
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_addr.s_addr= inet_addr(argv[4]);
-	servaddr.sin_port =  htons(SERV_PORT); //convert to big-endian order
+	servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
 
 	// connection of the client to the socket 
 	if (connect(sockinit, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
 		perror("Problem connecting to the server.\n");
 		exit(3);
-	} else {
-		printf("connected\n"); 
-	}
+	} 
 
 	// send the message
-	send(sockinit, sendline, strlen(sendline), 0);
+	AM_Message *initialize;
 
+	initialize = calloc(1, sizeof(AM_Message)); 
+	MALLOC_CHECK(stderr,initialize);  
+
+	initialize->type = htonl(AM_INIT); 
+	initialize->init.nAvatars = htonl(nAvatars); 
+	initialize->init.Difficulty = htonl(Difficulty); 
+
+	send(sockinit, initialize, sizeof(initialize), 0);
+
+	printf("sent\n"); 
+
+	// receive a reply  
+	AM_Message *initreply; 
+
+	initreply = calloc(1, sizeof(AM_Message)); 
+	MALLOC_CHECK(stderr,initreply); 
+
+	if( recv(sockinit, initreply, sizeof(initreply) , 0) < 0)
+	{
+		perror("The server terminated prematurely.\n");
+		exit(4); 
+	}
+
+	if (IS_AM_ERROR(initreply->type))
+	{
+	    // something went wrong
+	    perror("Something went wrong.\n");
+	    exit(5);
+	}
+
+	printf("received\n"); 
+	printf("init type: %d\n", ntohl(initreply->type)); 
+
+	MazePort = ntohl(initreply->init_ok.MazePort);  
+	MazeWidth = ntohl(initreply->init_ok.MazeWidth); 
+	MazeHeight = ntohl(initreply->init_ok.MazeHeight); 
+	printf("originalwidth: %d\n", initreply->init_ok.MazeWidth); 
+	printf("Port:%d\n", MazePort); 
+	printf("Width:%d\n", MazeWidth); 
+	printf("Height: %d\n", MazeHeight); 
 
 
 
 /*
+
+AM_INIT_OK
 
     AM_INIT
 

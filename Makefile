@@ -11,7 +11,7 @@ UTILLIB = $(UTILDIR)libtseutil.a
 EXEC = AMStartup
 OBJS = src/AMStartup.o
 SRCS = src/AMStartup.c 
-HDRS = ../utils/src/amazing.h 
+HDRS = ../util/src/amazing.h ../util/src/utils.h
 
 
 
