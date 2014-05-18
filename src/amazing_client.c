@@ -1,7 +1,7 @@
 /* ========================================================================== */
-/* File: AMStartup.c - Final Project 
+/* File: amazing_client.c - Final Project 
  *
- * Author: Janice Yip
+ * Author: Oseleta
  * Date: 05/16/2014
  *
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
@@ -151,97 +151,9 @@ int main(int argc, char* argv[])
 
 
 	/************************** send AM_INIT message **************************/
-	// create a socket for the client
-	if ((sockinit = socket (AF_INET, SOCK_STREAM, 0)) < 0) {
-		perror("Problem creating the socket.\n");
-		exit(2);
-	}
-
-	// creation of the socket
-	memset(&servaddr, 0, sizeof(servaddr));
-	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr= inet_addr(argv[4]);
-	servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
-
-	// connection of the client to the socket 
-	if (connect(sockinit, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
-		perror("Problem connecting to the server.\n");
-		exit(3);
-	} 
-
-	// send the message
-	AM_Message *initialize;
-
-	initialize = calloc(1, sizeof(AM_Message)); 
-	MALLOC_CHECK(stderr,initialize);  
-
-	initialize->type = htonl(AM_INIT); 
-	initialize->init.nAvatars = htonl(nAvatars); 
-	initialize->init.Difficulty = htonl(Difficulty); 
-
-	send(sockinit, initialize, sizeof(initialize), 0);
-
-	printf("sent\n"); 
-
-	/************************** send AM_INIT message **************************/
-	// receive a reply  
-	AM_Message *initreply; 
-
-	initreply = calloc(1, sizeof(AM_Message)); 
-	MALLOC_CHECK(stderr,initreply); 
-
-	if( recv(sockinit, initreply, sizeof(initreply) , 0) < 0)
-	{
-		perror("The server terminated prematurely.\n");
-		exit(4); 
-	}
-
-	// catch errors? 
-	if (IS_AM_ERROR(initreply->type))
-	{
-	    // something went wrong
-	    perror("Something went wrong.\n");
-	    exit(5);
-	} else if (ntohl(initreply->type) != AM_INIT_OK) {
-		printf("not ok\n"); 
-	} else {
-		printf("received\n"); 
-		printf("init type: %d\n", ntohl(initreply->type)); 
-
-		// set the variables based on the reply 
-		MazePort = ntohl(initreply->init_ok.MazePort);  
-		MazeWidth = ntohl(initreply->init_ok.MazeWidth); 
-		MazeHeight = ntohl(initreply->init_ok.MazeHeight); 
-		printf("originalwidth: %d\n", initreply->init_ok.MazeWidth); 
-		printf("Port:%d\n", MazePort); 
-		printf("Width:%d\n", MazeWidth); 
-		printf("Height: %d\n", MazeHeight); 
-	}
-
-	/**************************** start Avatars ****************************/
-	
-	AMStartup extracts the MazePort from the message, 
-	and then starts up N threads or processes (one for each Avatar) 
-	running the main client software, each with the appropriate start 
-	parameters (see Startup section below).
 
 
-/*
 
-AM_INIT_OK
-
-    AM_INIT
-
-AM_INIT	nAvatars	Difficulty
-AMStartup builds the AM_INIT message with the nAvatars and Difficulty and 
-sends it to the server on the AM_SERVER_PORT port identified in amazing.h.
-
-If the initialization succeeds, the server will respond with an AM_INIT_OK message.
-
-If nAvatars is greater than AM_MAX_AVATAR or the Difficulty is greater than 
-AM_MAX_DIFFICULTY, the server will respond with an AM_INIT_FAILED message.
-
-*/
 	/**************************** create log file ****************************/
 
 
