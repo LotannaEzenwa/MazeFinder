@@ -181,18 +181,19 @@ status = getaddrinfo(argv[3], "http", &hints, &servinfo);
 	    // something went wrong
 	    perror("Something went wrong.\n");
 	    exit(5);
-	} else if (ntohl(msg.type) != AM_INIT_OK) {
-		printf("not ok\n"); 
 	} else {
-		printf("received\n"); 
-
-		// set the variables based on the reply 
-		MazePort = ntohl(msg.init_ok.MazePort);  
-		MazeWidth = ntohl(msg.init_ok.MazeWidth); 
-		MazeHeight = ntohl(msg.init_ok.MazeHeight); 
-		printf("Port:%d\n", MazePort); 
-		printf("Width:%d\n", MazeWidth); 
-		printf("Height: %d\n", MazeHeight); 
+		if (ntohl(msg.type) != AM_INIT_OK) {
+			perror("Message received was not AM_INIT_OK.\n"); 
+			exit(6); 
+		} else {
+			// set the variables based on the reply 
+			MazePort = ntohl(msg.init_ok.MazePort);  
+			MazeWidth = ntohl(msg.init_ok.MazeWidth); 
+			MazeHeight = ntohl(msg.init_ok.MazeHeight); 
+			printf("Port:%d\n", MazePort); 
+			printf("Width:%d\n", MazeWidth); 
+			printf("Height: %d\n", MazeHeight);
+		} 
 	}
 
 
