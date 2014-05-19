@@ -16,6 +16,12 @@ Queue * createQueue() {
 	return queue;	
 }
 
+int comparefunc(QueueNode *first, QueueNode *second) {
+	if (first->data < second->data) {
+		return 1;
+	}
+	return 0;
+}
 /*
  * Function to add a node to the proper place in the queue
  */
@@ -42,7 +48,11 @@ void PriorityAdd(Queue *queue, void *data) {
 
 		// iterate through the queue looking to see where the new node should go
 		// queue is in order from greatest to least freq of word
+<<<<<<< HEAD
 		while (new->cost < pointer->cost) {
+=======
+		while (comparefunc(new,pointer)) {
+>>>>>>> e5bdfce73f0ee2fb23794d96f5c1fe488fc0a7f5
 			if (pointer->next != NULL) {
 				pointer=pointer->next;
 			}
