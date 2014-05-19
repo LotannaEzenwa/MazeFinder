@@ -19,12 +19,11 @@ Queue * createQueue() {
 /*
  * Function to add a node to the proper place in the queue
  */
-void PriorityAdd(Queue *queue, int docid, int freq) {
+void PriorityAdd(Queue *queue, void *data) {
 	// if there's nothing in the queue, create the first node
 	if (NULL == queue->tail) {
 		QueueNode *firstNode = calloc(1,sizeof(QueueNode));
-		firstNode->docid=docid;
-		firstNode->freq=freq;
+		firstNode->data = data;
 		firstNode->next=NULL;
 		firstNode->prev=firstNode;
 
@@ -39,9 +38,7 @@ void PriorityAdd(Queue *queue, int docid, int freq) {
 		// allocate memory
 		QueueNode *new = calloc(1,sizeof(QueueNode));
 		QueueNode *pointer = queue->head;
-
-		new->docid=docid;
-		new->freq=freq;	
+		new->data =data;
 
 		// iterate through the queue looking to see where the new node should go
 		// queue is in order from greatest to least freq of word
