@@ -185,13 +185,11 @@ status = getaddrinfo(argv[3], "http", &hints, &servinfo);
 		printf("not ok\n"); 
 	} else {
 		printf("received\n"); 
-//		printf("init type: %d\n", ntohl(initreply->type)); 
 
 		// set the variables based on the reply 
 		MazePort = ntohl(msg.init_ok.MazePort);  
 		MazeWidth = ntohl(msg.init_ok.MazeWidth); 
 		MazeHeight = ntohl(msg.init_ok.MazeHeight); 
-//		printf("originalwidth: %d\n", initreply->init_ok.MazeWidth); 
 		printf("Port:%d\n", MazePort); 
 		printf("Width:%d\n", MazeWidth); 
 		printf("Height: %d\n", MazeHeight); 
