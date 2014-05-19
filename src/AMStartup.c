@@ -61,7 +61,6 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
-#include "amazing_client.h"
 
 
 // ---------------- Constant definitions
@@ -200,6 +199,11 @@ status = getaddrinfo(argv[3], "http", &hints, &servinfo);
 		MazeWidth = ntohl(initreply->init_ok.MazeWidth); 
 		MazeHeight = ntohl(initreply->init_ok.MazeHeight); 
 		printf("originalwidth: %d\n", initreply->init_ok.MazeWidth); 
+<<<<<<< HEAD
+		printf("Port:%lu\n", MazePort); 
+		printf("Width:%lu\n", MazeWidth); 
+		printf("Height: %lu\n", MazeHeight); 
+=======
 		printf("Port:%d\n", MazePort); 
 		printf("Width:%d\n", MazeWidth); 
 		printf("Height: %d\n", MazeHeight);
@@ -207,6 +211,7 @@ status = getaddrinfo(argv[3], "http", &hints, &servinfo);
 		int visited[MazeWidth][MazeHeight];
 		memset(visited,0,sizeof(visited));
 
+>>>>>>> 944f7fc9df2a8557c8a8b09f3134e6317291f9ae
 	}
 
 
@@ -226,32 +231,12 @@ status = getaddrinfo(argv[3], "http", &hints, &servinfo);
 	fprintf(fp, "%d, %d, %s\n", id, MazePort, ctime(&cur)); 
 	fclose(fp); 
 
-
-
-/*	AMStartup extracts the MazePort from the message, 
-	and then starts up N threads or processes (one for each Avatar) 
-	running the main client software, each with the appropriate start 
-	parameters (see Startup section below).
-
-
-If the initialization succeeds, the server will respond with an AM_INIT_OK message.
-
-If nAvatars is greater than AM_MAX_AVATAR or the Difficulty is greater than 
-AM_MAX_DIFFICULTY, the server will respond with an AM_INIT_FAILED message.
-
-*/
-
 	/***************************** start Avatars *****************************/
 	
 	pthread_t t1;
 
+	// each avatar gets its id 
 
-  int iret1 = pthread_create(&t1, NULL, amazing_client, NULL);
-  if (iret1) {
-    fprintf(stderr, 
-            "pthread_create failed, rc=%d\n",iret1);
-    exit(iret1);
-  }  
 
 //	./amazing_client 0 nAvatars Difficulty 129.170.212.235 10829 Amazing_3_2.log
 
