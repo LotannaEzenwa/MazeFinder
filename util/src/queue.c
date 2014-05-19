@@ -42,7 +42,7 @@ void PriorityAdd(Queue *queue, void *data) {
 
 		// iterate through the queue looking to see where the new node should go
 		// queue is in order from greatest to least freq of word
-		while (new->freq < pointer->freq) {
+		while (comparefunc(new,pointer)) {
 			if (pointer->next != NULL) {
 				pointer=pointer->next;
 			}

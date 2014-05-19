@@ -12,7 +12,6 @@
 #define QUEUE_H
 
 // ---------------- Prerequisites e.g., Requires "math.h"
-#include "common.h"                          // common functionality
 
 // ---------------- Constants
 
@@ -33,7 +32,7 @@ typedef struct Queue {
 
 // ---------------- Prototypes/Macros
 Queue *createQueue();
-void PriorityAdd(Queue *queue, int docid, int freq);
+void PriorityAdd(Queue *queue, void *data);
 QueueNode *pop(Queue *queue);
 void removeNode(QueueNode *node);
 
