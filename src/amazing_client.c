@@ -6,7 +6,8 @@
  *
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  * 		When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
- * Commandline input: AMStartup [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] [MAZEPORT] [FILENAME] 
+ * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] 
+ *              [IPADDRESS] [MAZEPORT] [FILENAME] 
  *
  * 
  * Example command input
@@ -105,7 +106,7 @@ int main(int argc, char* argv[])
 	int MazeHeight; 
 
 	/******************************* args check *******************************/
-	if (argc < 4) {
+	if (argc != 7) {
 		fprintf(stderr, "Incorrect number of arguments. Exiting now.\n"); 
 		exit(1); 
 	}
