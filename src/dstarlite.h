@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "../util/src/amazing.h"
 #include "../util/src/queue.h"
 
 
@@ -22,22 +23,24 @@ typedef struct MazeNode{
 		
 }MazeNode;
 
+typedef struct PathNode{
+
+		XYPos position;
+		struct PathNode *next;
+		struct PathNode *prev;
+} PathNode;
 
 typedef struct OpenQueue{
-	Node *head;
-	Node *tail;
+	PathNode *head;
+	PathNode *tail;
 } OpenQueue;
 
-typedef struct PathNode{
-		XYPos position;
-		PathNode *next;
-		PathNode *prev;
-} PathNode;
+
 
 typedef struct Path{
 	PathNode *head;
 	PathNode *tail;
-}
+}Path;
 
 int MH(MazeNode n1, MazeNode n2);
 
