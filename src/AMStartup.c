@@ -55,7 +55,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <time.h>
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
@@ -65,7 +65,7 @@
 // ---------------- Constant definitions
 
 // ---------------- Macro definitions
-
+#define MAX_FILE_NAME 100
 
 // ---------------- Structures/Types
 
@@ -84,12 +84,14 @@ int main(int argc, char* argv[])
 	int avatarId; 
 	int nAvatars; 
 	int Difficulty; 
-//	char *filename; 
+	char filename[MAX_FILE_NAME]; 
 	int sockinit; 
 	struct sockaddr_in servaddr;
 	int MazePort; 
 	int MazeWidth; 
 	int MazeHeight; 
+	time_t cur;
+	FILE *fp; 
 
 	/******************************* args check *******************************/
 	if (argc < 4) {
@@ -205,16 +207,29 @@ int main(int argc, char* argv[])
 		printf("Height: %d\n", MazeHeight); 
 	}
 
-	/**************************** start Avatars ****************************/
-	
+
+	// create log file for avatars 
+	time (&cur);
+//	printf ("Current time is: %s", ctime (&cur));
+	uid_t id = getuid(); 
+
+//	printf("id: %llu\n", (unsigned long long) id); 
+
+	sprintf(filename,"AMAZING_%d_%d_%d.log", id, nAvatars, Difficulty); 
+//	printf("filename: %s\n", filename); 
+
+	// first line of file should contain $USER, the MazePort, and the date & time
+	fp = fopen(filename, "w"); 
+	printf("%d, %d, %s\n", id, MazePort, ctime(&cur)); 
+	fprintf(fp, "%d, %d, %s\n", id, MazePort, ctime(&cur)); 
+
+
+
+
 /*	AMStartup extracts the MazePort from the message, 
 	and then starts up N threads or processes (one for each Avatar) 
 	running the main client software, each with the appropriate start 
 	parameters (see Startup section below).
-
-
-
-
 
 
 If the initialization succeeds, the server will respond with an AM_INIT_OK message.
@@ -223,8 +238,10 @@ If nAvatars is greater than AM_MAX_AVATAR or the Difficulty is greater than
 AM_MAX_DIFFICULTY, the server will respond with an AM_INIT_FAILED message.
 
 */
-	/**************************** create log file ****************************/
 
+	/***************************** start Avatars *****************************/
+	
+	
 
 }
 
