@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
 	// creation of the socket
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr= inet_addr(ipAddress`);
+	servaddr.sin_addr.s_addr= inet_addr(ipAddress);
 	servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
 
 	// connection of the client to the socket 
@@ -220,7 +220,7 @@ int main(int argc, char* argv[])
 	
 
 	// each avatar gets its id 
-	
+
 
 
 //	./amazing_client 0 nAvatars Difficulty 129.170.212.235 10829 Amazing_3_2.log
