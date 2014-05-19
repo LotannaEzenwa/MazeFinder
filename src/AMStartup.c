@@ -202,7 +202,11 @@ int main(int argc, char* argv[])
 		printf("originalwidth: %d\n", initreply->init_ok.MazeWidth); 
 		printf("Port:%d\n", MazePort); 
 		printf("Width:%d\n", MazeWidth); 
-		printf("Height: %d\n", MazeHeight); 
+		printf("Height: %d\n", MazeHeight);
+ 
+		int visited[MazeWidth][MazeHeight];
+		memset(visited,0,sizeof(visited));
+
 	}
 
 	/**************************** start Avatars ****************************/
