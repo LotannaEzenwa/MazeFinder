@@ -125,7 +125,16 @@ int main(int argc, char* argv[])
     }
 
     // check hostname 
+int status;
+struct addrinfo hints;
+struct addrinfo *servinfo;  // will point to the results
 
+memset(&hints, 0, sizeof hints); // make sure the struct is empty
+hints.ai_family = AF_INET;     // don't care IPv4 or IPv6
+hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
+
+// get ready to connect
+status = getaddrinfo(argv[3], "http", &hints, &servinfo);
 
 
 	/************************** send AM_INIT message **************************/
