@@ -87,9 +87,9 @@ int main(int argc, char* argv[])
 	char filename[MAX_FILE_NAME]; 
 	int sockinit; 
 	struct sockaddr_in servaddr;
-	int MazePort; 
-	int MazeWidth; 
-	int MazeHeight; 
+	uint32_t MazePort; 
+	uint32_t MazeWidth; 
+	uint32_t MazeHeight; 
 	time_t cur;
 	FILE *fp; 
 
@@ -147,62 +147,45 @@ int main(int argc, char* argv[])
 	} 
 
 	// send the message
-	AM_Message *initialize;
+	AM_Message msg;
 
-	initialize = calloc(1, sizeof(AM_Message)); 
-	MALLOC_CHECK(stderr,initialize);  
+	msg.type = htonl(AM_INIT); 
+	msg.init.nAvatars = htonl(nAvatars); 
+	msg.init.Difficulty = htonl(Difficulty); 
 
-	initialize->type = htonl(AM_INIT); 
-	initialize->init.nAvatars = htonl(nAvatars); 
-	initialize->init.Difficulty = htonl(Difficulty); 
-
-	send(sockinit, initialize, sizeof(initialize), 0);
+	send(sockinit, &msg, sizeof(msg), 0);
 
 	printf("sent\n"); 
 
-	/************************** send AM_INIT message **************************/
-	// receive a reply  
-	AM_Message *initreply; 
+	/*********************** receive AM_INIT_OK message ***********************/
+	// receive a reply   
 
-	initreply = calloc(1, sizeof(AM_Message)); 
-	MALLOC_CHECK(stderr,initreply); 
-
-	if( recv(sockinit, initreply, sizeof(initreply) , 0) < 0)
+	if( recv(sockinit, &msg, sizeof(msg) , 0) < 0)
 	{
 		perror("The server terminated prematurely.\n");
 		exit(4); 
 	}
 
 	// catch errors? 
-	if (IS_AM_ERROR(initreply->type))
+	if (IS_AM_ERROR(msg.type))
 	{
 	    // something went wrong
 	    perror("Something went wrong.\n");
 	    exit(5);
-	} else if (ntohl(initreply->type) != AM_INIT_OK) {
+	} else if (ntohl(msg.type) != AM_INIT_OK) {
 		printf("not ok\n"); 
 	} else {
 		printf("received\n"); 
-		printf("init type: %d\n", ntohl(initreply->type)); 
+//		printf("init type: %d\n", ntohl(initreply->type)); 
 
 		// set the variables based on the reply 
-		MazePort = ntohl(initreply->init_ok.MazePort);  
-		MazeWidth = ntohl(initreply->init_ok.MazeWidth); 
-		MazeHeight = ntohl(initreply->init_ok.MazeHeight); 
-		printf("originalwidth: %d\n", initreply->init_ok.MazeWidth); 
-<<<<<<< HEAD
-		printf("Port:%lu\n", MazePort); 
-		printf("Width:%lu\n", MazeWidth); 
-		printf("Height: %lu\n", MazeHeight); 
-=======
+		MazePort = ntohl(msg.init_ok.MazePort);  
+		MazeWidth = ntohl(msg.init_ok.MazeWidth); 
+		MazeHeight = ntohl(msg.init_ok.MazeHeight); 
+//		printf("originalwidth: %d\n", initreply->init_ok.MazeWidth); 
 		printf("Port:%d\n", MazePort); 
 		printf("Width:%d\n", MazeWidth); 
-		printf("Height: %d\n", MazeHeight);
- 
-		int visited[MazeWidth][MazeHeight];
-		memset(visited,0,sizeof(visited));
-
->>>>>>> 944f7fc9df2a8557c8a8b09f3134e6317291f9ae
+		printf("Height: %d\n", MazeHeight); 
 	}
 
 
