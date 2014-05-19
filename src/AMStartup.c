@@ -218,9 +218,9 @@ int main(int argc, char* argv[])
 
 	/***************************** start Avatars *****************************/
 	
-	pthread_t t1;
 
 	// each avatar gets its id 
+	
 
 
 //	./amazing_client 0 nAvatars Difficulty 129.170.212.235 10829 Amazing_3_2.log
