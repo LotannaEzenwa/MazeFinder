@@ -57,6 +57,7 @@
 #include <arpa/inet.h>
 #include <time.h>
 #include <pthread.h>
+#include <netdb.h>
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
