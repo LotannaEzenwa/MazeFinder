@@ -190,9 +190,19 @@ int main(int argc, char* argv[])
 		MazeWidth = ntohl(initreply->init_ok.MazeWidth); 
 		MazeHeight = ntohl(initreply->init_ok.MazeHeight); 
 		printf("originalwidth: %d\n", initreply->init_ok.MazeWidth); 
+<<<<<<< HEAD
 		printf("Port:%lu\n", MazePort); 
 		printf("Width:%lu\n", MazeWidth); 
 		printf("Height: %lu\n", MazeHeight); 
+=======
+		printf("Port:%d\n", MazePort); 
+		printf("Width:%d\n", MazeWidth); 
+		printf("Height: %d\n", MazeHeight);
+ 
+		int visited[MazeWidth][MazeHeight];
+		memset(visited,0,sizeof(visited));
+
+>>>>>>> 944f7fc9df2a8557c8a8b09f3134e6317291f9ae
 	}
 
 
