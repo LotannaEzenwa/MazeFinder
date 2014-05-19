@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "../util/src/queue.h"
 
 
 typedef enum {WALL, OPEN, BLOCK} status;
@@ -23,17 +24,14 @@ typedef struct MazeNode{
 
 
 typedef struct OpenQueue{
-	
 	Node *head;
 	Node *tail;
-	
 } OpenQueue;
 
 typedef struct PathNode{
 		XYPos position;
 		PathNode *next;
 		PathNode *prev;
-		
 } PathNode;
 
 typedef struct Path{
