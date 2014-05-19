@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr= inet_addr(ipAddress);
-    servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
+    servaddr.sin_port =  htons(MazePort); //convert to big-endian order
 
     // connection of the client to the socket 
     if (connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
@@ -201,8 +201,6 @@ Each Avatar will, on its turn, sends an AM_AVATAR_MOVE message to the server spe
  which direction it wishes to move. That direction will be determined by the heuristics the team comes 
  up with for guiding the Avatars to find each other in the maze. */
 
-
-	/**************************** create log file ****************************/
 
 
 }

@@ -51,13 +51,15 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <time.h>
 #include <pthread.h>
 #include <netdb.h>
+#include <unistd.h>
+#include <errno.h> //For errno - the error number
+#include <netdb.h> //hostent
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
@@ -68,6 +70,7 @@
 
 // ---------------- Macro definitions
 #define MAX_FILE_NAME 100
+#define MAX_CMD_LEN 100 
 
 // ---------------- Structures/Types
 
@@ -125,19 +128,11 @@ int main(int argc, char* argv[])
     }
 
 	// check hostname 
-	int status;
-	struct addrinfo hints;
-	struct addrinfo *servinfo;  // will point to the results
+	struct hostent *he;
+	struct in_addr ipadd;
 
-	memset(&hints, 0, sizeof hints); // make sure the struct is empty
-	hints.ai_family = AF_INET;     // IPv4
-	hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
-
-	// get ready to connect
-	status = getaddrinfo(argv[3], AM_SERVER_PORT, &hints, &servinfo);
-	struct sockaddr_in *ipv4 = (struct sockaddr_in *)servinfo->ai_addr;
-	char ipAddress[INET_ADDRSTRLEN];
-	inet_ntop(AF_INET, &(ipv4->sin_addr), ipAddress, INET_ADDRSTRLEN);
+	he = gethostbyname(argv[3]); 
+	ipadd = *(struct in_addr *)he->h_addr_list[0]; 
 
 	/************************** send AM_INIT message **************************/
 	// create a socket for the client
@@ -149,7 +144,7 @@ int main(int argc, char* argv[])
 	// creation of the socket
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr= inet_addr(ipAddress);
+	servaddr.sin_addr.s_addr= inet_addr(inet_ntoa(ipadd));
 	servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
 
 	// connection of the client to the socket 
@@ -217,11 +212,35 @@ int main(int argc, char* argv[])
 	fclose(fp); 
 
 	/***************************** start Avatars *****************************/
+	// fork processes so that each avatar gets its own id 
+	int i; 
+	pid_t parent = getpid();
+	pid_t pid;
+
+	for ( i=0; i < nAvatars; i++ ) {
+		pid = fork();
+
+		if (pid == -1) {
+			perror("Failed to fork.\n"); 
+		    exit(EXIT_FAILURE); 	// error, failed to fork()
+		} else if (pid > 0) {
+		    int status;
+		    //waitpid(pid, &status, 0);
+		} else {
+		    // we are the child
+		    char command[MAX_CMD_LEN]; 
+			sprintf(command, "./amazing_client %d %d %d %s %d %s", 
+				i, nAvatars, Difficulty, he->h_name, MazePort, filename); 
+			printf("%s\n", command); 
+
+		    //execve(...);
+		    _exit(EXIT_FAILURE);   // exec never returns
+		}
+
+
+	}
 	
-
-	// each avatar gets its id 
-
-
+	// when server replies, end program 
 
 //	./amazing_client 0 nAvatars Difficulty 129.170.212.235 10829 Amazing_3_2.log
 
