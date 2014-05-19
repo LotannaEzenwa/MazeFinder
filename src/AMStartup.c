@@ -123,18 +123,20 @@ int main(int argc, char* argv[])
     	printf("Difficulty %d\n", Difficulty); 
     }
 
-    // check hostname 
-int status;
-struct addrinfo hints;
-struct addrinfo *servinfo;  // will point to the results
+	// check hostname 
+	int status;
+	struct addrinfo hints;
+	struct addrinfo *servinfo;  // will point to the results
 
-memset(&hints, 0, sizeof hints); // make sure the struct is empty
-hints.ai_family = AF_INET;     // don't care IPv4 or IPv6
-hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
+	memset(&hints, 0, sizeof hints); // make sure the struct is empty
+	hints.ai_family = AF_INET;     // IPv4
+	hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
 
-// get ready to connect
-status = getaddrinfo(argv[3], "http", &hints, &servinfo);
-
+	// get ready to connect
+	status = getaddrinfo(argv[3], AM_SERVER_PORT, &hints, &servinfo);
+	struct sockaddr_in *ipv4 = (struct sockaddr_in *)servinfo->ai_addr;
+	char ipAddress[INET_ADDRSTRLEN];
+	inet_ntop(AF_INET, &(ipv4->sin_addr), ipAddress, INET_ADDRSTRLEN);
 
 	/************************** send AM_INIT message **************************/
 	// create a socket for the client
@@ -146,7 +148,7 @@ status = getaddrinfo(argv[3], "http", &hints, &servinfo);
 	// creation of the socket
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr= inet_addr(argv[3]);
+	servaddr.sin_addr.s_addr= inet_addr(ipAddress`);
 	servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
 
 	// connection of the client to the socket 
