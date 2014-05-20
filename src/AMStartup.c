@@ -169,16 +169,13 @@ int main(int argc, char* argv[])
 
 	/*********************** receive AM_INIT_OK message ***********************/
 	// receive a reply   
-
-	if( recv(sockinit, &msg, sizeof(msg) , 0) < 0)
-	{
+	if( recv(sockinit, &msg, sizeof(msg) , 0) < 0) {
 		perror("The server terminated prematurely.\n");
 		exit(4); 
 	}
 
-	// catch errors? 
-	if (IS_AM_ERROR(msg.type))
-	{
+	// catch errors
+	if (IS_AM_ERROR(msg.type)) {
 	    perror("Something went wrong.\n");
 	    exit(5);
 	} else {

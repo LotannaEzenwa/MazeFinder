@@ -1,12 +1,12 @@
-# Filename: Lab6 Query Makefile
+# Filename: Amazing Project Makefile
 # Description: The make file is to build up the query.
 CC = gcc
-CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb
+CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -lpthread -lc 
 SRCDIR = src/
 UTILDIR = ../util/src/
 UTILFLAG = -ltseutil
 UTILC=
-UTILH= $(UTILDIR)amazing.h $(UTILDIR)utils.h
+UTILH= $(UTILDIR)amazing.h $(UTILDIR)utils.h $(UTILDIR)shm_com.h
 
 #UTILLIB = $(UTILDIR)libtseutil.a 
 
