@@ -19,8 +19,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <limits.h>
-=======
-
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/queue.h"
