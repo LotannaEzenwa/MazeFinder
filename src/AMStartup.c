@@ -65,6 +65,7 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
+#include "maze.h"
 
 // ---------------- Constant definitions
 
@@ -206,13 +207,13 @@ int main(int argc, char* argv[])
 
 	printf("here");
     	// start graphics
-    	parselog(MazePort,MazeWidth,MazeHeight);
+    //	parselog(MazePort,MazeWidth,MazeHeight);
 	printf("finished");
 
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 
 	int i; 
-	pid_t parent = getpid();
+	//pid_t parent = getpid();
 	pid_t pid;
 
 	for ( i=0; i < nAvatars; i++ ) {
@@ -223,7 +224,7 @@ int main(int argc, char* argv[])
 			perror("Failed to fork.\n"); 
 		    exit(EXIT_FAILURE); 	// error, failed to fork()
 		} else if (pid > 0) {
-		    int status;
+		    //int status;
 		    //waitpid(pid, &status, 0);
 		} else {
 		    char avId[MAX_ID_LEN]; 
