@@ -17,7 +17,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
-
+#include <gtk/gtk.h>
 // ---------------- Local includes  e.g., "file.h"
 #include "dstarlite.h"
 #include "../util/src/amazing.h"
@@ -31,7 +31,7 @@
 
 // ---------------- Private prototypes
 
-void maze(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
+void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 	FILE *logfile;
 	char *filename = "/var/tmp/%zu/log.out";
 	char buffer[24];
@@ -103,6 +103,14 @@ void maze(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 			mazearray[counter] = newnode;
 			counter += 1;
 		}
-	}
-	
+	}	
+}
+
+int main (int argc, char *argv[]) {
+	GtkWidget *window;
+	gtk_init(&argc,&argv);
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_widget_show(window);
+	gtk_main();
+	return(0);
 }

@@ -205,7 +205,7 @@ int main(int argc, char* argv[])
 	fclose(fp); 
 
 	// start graphics
-	maze(MazePort);
+	parselog(MazePort,MazeWidth,MazeHeight);
 
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 
