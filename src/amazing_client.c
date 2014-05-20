@@ -200,7 +200,6 @@ int main(int argc, char* argv[])
     // check mazewidth 
     MazeWidth = atoi(argv[7]); 
     MazeHeight = atoi(argv[8]); 
-
     
     /*************************** open shared memory ***************************/
     shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);

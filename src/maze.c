@@ -31,7 +31,7 @@
 
 // ---------------- Private prototypes
 
-void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
+void parselog(uint32_t mazeport, int mazewidth, int mazeheight){
 	FILE *logfile;
 	char *filename = "/var/tmp/%zu/log.out";
 	char buffer[24];
