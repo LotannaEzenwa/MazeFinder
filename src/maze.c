@@ -17,7 +17,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
+
 // ---------------- Local includes  e.g., "file.h"
+//#include "dstarlite.h"
 
 // ---------------- Constant/Macro definitions
 
@@ -31,7 +33,13 @@ void maze(uint32_t mazeport){
 	FILE *logfile;
 	char *filename = "/var/tmp/%zu/log.out";
 	char buffer[24];
-
+	char *block;
+	char *cell;
+	char *readin = calloc(strlen("MazeCell") +1, sizeof(char));
+	int linelen = 45;
+	MazeNode *newnode;
+	int xcord;
+	int ycord;
 	
 	sprintf(buffer,filename,mazeport);
 	
@@ -45,11 +53,25 @@ void maze(uint32_t mazeport){
 
 	system(command);
 
-	if (logfile = fopen("maze.log", "r") == NULL) {
+	if ((logfile = fopen("maze.log", "r")) == NULL) {
 		printf("Could not open file\n");
 		exit(1);
 	}
 
+	block = calloc(linelen+1,sizeof(char));
+	while ((cell = fgets(block,linelen,logfile)) != NULL) {
+		sscanf(cell,"%s",readin);
+		if (strcmp(readin,"MazeCell") == 0) {
+			newnode = calloc(1,sizeof(MazeNode));
+			cell += strlen(readin) + 2;
+			sscanf(cell,"%d",&xcord);
+			cell += 4;
+			sscanf(cell,"%d",&ycord);
+			printf("x:%d y:%d ",xcord,ycord);
+			cell += 5 + strlen("walls: ");
+			printf("next: %c",cell[0]);
+			
+		}
+	}
 	
-	return 0;
 }
