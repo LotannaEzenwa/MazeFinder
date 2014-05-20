@@ -40,6 +40,8 @@ typedef struct MazeNode
 {
 
 	NodeKey key;
+	uint32_t g;
+	uint32_t rhs;
 	float costToGoal;
 	XYPos position;
 	status north;
