@@ -102,8 +102,8 @@ int main(int argc, char* argv[])
 	int sockfd; 
 	struct sockaddr_in servaddr;
 	int MazePort; 
-	int MazeWidth; 
-	int MazeHeight; 
+//	int MazeWidth; 
+//	int MazeHeight; 
 
     printf("in this function\n"); 
     printf("arg1: %s\n", argv[0]); 
@@ -196,7 +196,6 @@ int main(int argc, char* argv[])
     send(sockfd, &msg, sizeof(msg), 0);
 
     printf("sent\n"); 
-    return(1); 
 
     /************************** listen for avatarID **************************/
     if( recv(sockfd, &msg, sizeof(msg) , 0) < 0)
@@ -205,27 +204,35 @@ int main(int argc, char* argv[])
         exit(4); 
     } 
 
-    printf("done\n"); 
-    return(1); 
+    printf("received\n"); 
 
-/*    if (IS_AM_ERROR(msg.type))
+    // check if error 
+    if (IS_AM_ERROR(msg.type))
     {
         perror("Something went wrong.\n");
         exit(5);
+    } 
+
+    // check error type 
+    if (ntohl(msg.type) != AM_AVATAR_TURN) {
+        perror("Message received was not AM_AVATAR_TURN.\n"); 
+        exit(6); 
     } else {
-        if (ntohl(msg.type) != AM_INIT_OK) {
-            perror("Message received was not AM_INIT_OK.\n"); 
-            exit(6); 
+        // if the avatar is the one to move, move 
+        if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
+            printf("make a move\n"); 
+            msg.type = htonl(AM_AVATAR_MOVE); 
+            msg.avatar_move.AvatarId = htonl(avatarId); 
+            msg.avatar_move.Direction = htonl(M_SOUTH); 
         } else {
-            // set the variables based on the reply 
-            MazePort = ntohl(msg.init_ok.MazePort);  
-            MazeWidth = ntohl(msg.init_ok.MazeWidth); 
-            MazeHeight = ntohl(msg.init_ok.MazeHeight); 
-            printf("Port:%d\n", MazePort); 
-            printf("Width:%d\n", MazeWidth); 
-            printf("Height: %d\n", MazeHeight);
-        } 
-    } */
+            printf("not my turn\n"); 
+        }
+
+    } 
+     
+
+    printf("done\n"); 
+    return(1); 
 
 /*    Once started, each Avatar (instance of the client) sends an AM_AVATAR_READY message (via the MazePort, of course) 
     containing its assigned AvatarId to the server.

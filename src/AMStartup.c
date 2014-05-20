@@ -221,7 +221,7 @@ int main(int argc, char* argv[])
 		    exit(EXIT_FAILURE); 	// error, failed to fork()
 		} else if (pid > 0) {
 		    int status;
-		    waitpid(pid, &status, 0);
+		    //waitpid(pid, &status, 0);
 		} else {
 		    // we are the child
 		    char command[MAX_CMD_LEN]; 
@@ -237,11 +237,10 @@ int main(int argc, char* argv[])
 		    char *args[8] = { "./amazing_client", str, argv[1], argv[2], inet_ntoa(ipadd), port, filename, NULL }; 
 			execvp(args[0], args);
 
-		    //execvp("./amazing_client", str, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename);
-			printf("before exiting\n"); 
+		    
 		    _exit(EXIT_FAILURE);   // exec never returns
 		}
-		//printf("got here\n"); 
+		printf("got here\n"); 
 
 //		sleep(10); 
 	}
@@ -250,6 +249,7 @@ int main(int argc, char* argv[])
 
 //	./amazing_client 0 nAvatars Difficulty 129.170.212.235 10829 Amazing_3_2.log
 
+	return(0); 
 }
 
 
