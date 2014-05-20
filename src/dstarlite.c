@@ -4,6 +4,12 @@
 
 
 
+
+int k = 0;
+float C1 = 1;
+XYPos goal;
+
+
 static float minimum(float f1, float f2);
 
 
@@ -12,7 +18,7 @@ int heuristic(XYPos *p1, XYPos *p2)
 {
 	uint32_t dx = p1->x - p2->x;
 	uint32_t dy = p1->y - p2->y;
-	return abs(dx) + abs(dy);
+	return (abs(dx) + abs(dy))*C1;
 }
 
 
@@ -43,6 +49,7 @@ Graph* constructGraph(uint32_t height, uint32_t width)
 
 NodeKey calculateKey(MazeNode *s){
 	NodeKey nk;
+	return nk;
 }
 
 static float minimum(float f1, float f2){
