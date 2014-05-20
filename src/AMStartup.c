@@ -129,7 +129,7 @@ int main(int argc, char* argv[])
 	struct addrinfo hints;
 	struct addrinfo *servinfo;  // will point to the results
 
-	memset(&hints, 0, sizeof hints); // make sure the struct is empty
+	memset(&hints, 0, sizeof(hints)); // make sure the struct is empty
 	hints.ai_family = AF_INET;     // IPv4
 	hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
 
@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
 	struct sockaddr_in *ipv4 = (struct sockaddr_in *)servinfo->ai_addr;
 	char ipAddress[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &(ipv4->sin_addr), ipAddress, INET_ADDRSTRLEN);
-
+	printf("%s",ipAddress);
 	/************************** send AM_INIT message **************************/
 	// create a socket for the client
 	if ((sockinit = socket (AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -149,7 +149,7 @@ int main(int argc, char* argv[])
 	// creation of the socket
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr= inet_addr(ipAddress`);
+	servaddr.sin_addr.s_addr= inet_addr(ipAddress);
 	servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
 
 	// connection of the client to the socket 
