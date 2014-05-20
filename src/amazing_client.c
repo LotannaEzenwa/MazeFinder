@@ -6,7 +6,7 @@
  *
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  *      When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
- * Commandline input: AMStartup [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] [MAZEPORT] [FILENAME] 
+ * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] [MAZEPORT] [FILENAME] 
  *
  * 
  * Example command input
@@ -80,6 +80,7 @@
 
 // ---------------- Macro definitions
 #define MAX_IP_LEN 100
+#define MAX_FILE_NAME 100
 
 // ---------------- Structures/Types
 
@@ -99,15 +100,11 @@ int main(int argc, char* argv[])
 	int nAvatars; 
 	int Difficulty; 
     char ipAddress[MAX_IP_LEN]; 
-//	char *filename; 
+	char filename[MAX_FILE_NAME]; 
 	int sockfd; 
 	struct sockaddr_in servaddr;
 	int MazePort; 
-//	int MazeWidth; 
-//	int MazeHeight; 
 
-    printf("in this function\n"); 
-    printf("arg1: %s\n", argv[0]); 
 
 	/******************************* args check *******************************/
 	if (argc != 7) {
@@ -167,6 +164,16 @@ int main(int argc, char* argv[])
     }
 
     // get filename 
+    if (strlen(argv[6]) >= MAX_FILE_NAME) {
+        perror("Filename too long. Exiting now.\n"); 
+        exit(1); 
+    } else {
+        strcpy(filename,argv[6]); 
+    }
+
+    
+    /*************************** open shared memory ***************************/
+
 
 
 	/************************ tell server avatar ready ************************/
@@ -216,7 +223,7 @@ int main(int argc, char* argv[])
                 printf("make a move\n"); 
                 msg.type = htonl(AM_AVATAR_MOVE); 
                 msg.avatar_move.AvatarId = htonl(avatarId); 
-                
+
                 // algorithm goes here 
                 srand ( time(NULL) );
                 int random_number = rand();
