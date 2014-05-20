@@ -111,10 +111,15 @@ static int TEST3(){
 
 static int TEST4(){
 	int i = 0;
+	int j = 0;
 	Graph *tmp = constructGraph(10,10);
-	tmp->table[2][9].costToGoal = 4;
 	fprintf(stdout,"\nThe Created Node has a value of %.2f.\n",tmp->table[2][9].costToGoal);
-	for (;i<10;i++){
+	for (i=0;i<10;i++){
+		for (j=0;j<10;j++){
+			fprintf(stdout,"%d,%d\n",tmp->table[i][j].position.x,tmp->table[i][j].position.y);
+			fprintf(stdout,"%d,%d\n",tmp->table[i][j].g,tmp->table[i][j].rhs);
+			fprintf(stdout,"%d,%d\n",(int) tmp->table[i][j].east,(int) tmp->table[i][j].south);
+		}
 		free(tmp->table[i]);
 	}
 	free(tmp->table);

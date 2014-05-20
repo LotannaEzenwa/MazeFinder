@@ -11,6 +11,7 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include "utils.h"
 // ---------------- Prerequisites e.g., Requires "math.h"
 
 // ---------------- Constants
