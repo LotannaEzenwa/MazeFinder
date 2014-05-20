@@ -1,7 +1,7 @@
 # Filename: Amazing Project Makefile
 # Description: The make file is to build up the query.
 CC = gcc
-CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -lpthread -lc -Wcpp
+CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp `pkg-config --cflags --libs gtk+-2.0`
 SRCDIR = src/
 UTILDIR = ../util/src/
 UTILFLAG = -ltseutil
@@ -25,23 +25,25 @@ all: AMStartup amazing_client
 #$(UTILLIB): $(SRCS) $(HDRS)
 #	cd $(UTILDIR); make;
 
-AMStartup: $(SRCDIR)AMStartup.o $(SRCDIR)maze.o $(UTILLIB)
-	$(CC) $(CFLAGS) -o AMStartup $(SRCDIR)AMStartup.o $(SRCDIR)maze.o
+AMStartup: $(SRCDIR)AMStartup.o $(UTILLIB)
+	$(CC) $(CFLAGS) -o AMStartup $(SRCDIR)AMStartup.o
 
 AMStartup.o: $(SRCDIR)AMStartup.c $(SRCDIR)AMStartup.h
 	$(CC) $(CFLAGS) -c $(SRCDIR)AMStartup.c 
 
-amazing_client: $(SRCDIR)amazing_client.o $(UTILLIB)
-	$(CC) $(CFLAGS) -o amazing_client $(SRCDIR)amazing_client.o
+amazing_client: $(SRCDIR)amazing_client.o $(SRCDIR)maze.o $(UTILLIB)
+	$(CC) $(CFLAGS) -o amazing_client $(SRCDIR)amazing_client.o $(SRCDIR)maze.o
 
 amazing_client.o: $(SRCDIR)amazing_client.c $(SRCDIR)amazing_client.h 
 	$(CC) $(CFLAGS) -c $(SRCDIR)amazing_client.c 
 
 maze.o: $(SRCDIR)maze.c $(SRCDIR)maze.h
-	$(CC) $(CFLAGS) -c $(SRCDIR)maze.c 
+	$(CC) $(CFLAGS) -c $(SRCDIR)maze.c `pkg-config --cflags --libs gtk+-2.0`
 
 $(UTILLIB): $(UTILC) $(UTILH)
 	cd $(UTILDIR); make
+
+
 
 clean:
 	rm -f *~

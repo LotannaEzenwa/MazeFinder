@@ -65,7 +65,6 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
-#include "maze.h"
 
 // ---------------- Constant definitions
 
@@ -204,8 +203,6 @@ int main(int argc, char* argv[])
 	fprintf(fp, "%d, %d, %s\n", id, MazePort, ctime(&cur)); 
 	fclose(fp); 
 
-	// start graphics
-	maze(MazePort);
 
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 

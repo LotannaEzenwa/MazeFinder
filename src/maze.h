@@ -20,7 +20,7 @@
 // ---------------- Public Variables
 
 // ---------------- Prototypes/Macros
-void maze(uint32_t mazeport);
+void parselog(uint32_t mazeport,uint32_t mazewidth, uint32_t mazeheight);
 
 #endif // MAZE.H
 

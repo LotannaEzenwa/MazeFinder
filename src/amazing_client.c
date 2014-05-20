@@ -6,7 +6,8 @@
  *
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  *      When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
- * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] [MAZEPORT] [FILENAME] 
+ * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] 
+ *          [MAZEPORT] [FILENAME] [MAZEWIDTH] [MAZEHEIGHT] [KEY]
  *
  * 
  * Example command input
@@ -36,6 +37,18 @@
  * [FILENAME] -> Amazing_3_2.log
  * Requirement: 
  * Usage: Filename of the log the Avatar should open for writing in append mode.  
+ * 
+ * [MAZEWIDTH] -> 10
+ * Requirement: Must be a number
+ * Usage: Passed to the function to draw the maze   
+ *
+ * [MAZEHEIGHT] -> 10
+ * Requirement: Must be a number 
+ * Usage: Passed to the function to draw the maze  
+ * 
+ * [KEY] -> 1234
+ * Requirement: 4 digit number 
+ * Usage: Key for accessing shared memory  
  * 
  * Output:  
  * 
@@ -76,7 +89,7 @@
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
 #include "../util/src/shm_com.h"
-
+#include "maze.h"
 
 // ---------------- Constant definitions
 
@@ -103,6 +116,8 @@ int main(int argc, char* argv[])
 	int Difficulty; 
     char ipAddress[MAX_IP_LEN]; 
 	char filename[MAX_FILE_NAME]; 
+    int MazeWidth; 
+    int MazeHeight; 
 // for shared memory 
     int running = 1;
     void *shared_memory = (void *)0;
@@ -182,6 +197,10 @@ int main(int argc, char* argv[])
         strcpy(filename,argv[6]); 
     }
 
+    // check mazewidth 
+    MazeWidth = atoi(argv[7]); 
+    MazeHeight = atoi(argv[8]); 
+
     
     /*************************** open shared memory ***************************/
     shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
@@ -219,6 +238,9 @@ int main(int argc, char* argv[])
         exit(3);
     } 
 
+    // start graphics
+    parselog(MazePort,MazeWidth,MazeHeight);
+    
     // create and send message 
     AM_Message msg;
 
@@ -259,7 +281,7 @@ int main(int argc, char* argv[])
                 fp = fopen(filename, "a"); 
                 ASSERT_FAIL(stderr, fp); 
 
-                fprintf("Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
+                fprintf(fp, "Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
                 fclose(fp); 
 
                 send(sockfd, &msg, sizeof(msg), 0);
@@ -275,8 +297,9 @@ int main(int argc, char* argv[])
                 ASSERT_FAIL(stderr, fp); 
 
                 time (&cur);
+                
 
-                fprintf("Solved the maze at %s!\n", ctime(&cur)); 
+                fprintf(fp, "Solved the maze at %s!\n", ctime(&cur)); 
                 fclose(fp); 
             }
 //            printf("Solved the maze\n"); 
