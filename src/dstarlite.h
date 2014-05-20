@@ -12,7 +12,6 @@ typedef enum {WALL, OPEN, BLOCK} status;
 
 
 typedef struct MazeNode{
-	
 	int key;
 	float costToGoal;
 	XYPos position;
