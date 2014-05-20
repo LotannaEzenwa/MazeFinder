@@ -41,6 +41,7 @@ clean:
 	rm -f *~
 	rm -f *#
 	rm -f ./AMStartup
+	rm -f ./amazing_client
 	rm -f *.o
 	rm -f src/*.o
 #	cd $(UTILDIR); make clean;
