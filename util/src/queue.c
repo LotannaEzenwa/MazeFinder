@@ -16,12 +16,6 @@ Queue * createQueue() {
 	return queue;	
 }
 
-int comparefunc(QueueNode *first, QueueNode *second) {
-	if (first->data < second->data) {
-		return 1;
-	}
-	return 0;
-}
 /*
  * Function to add a node to the proper place in the queue
  */

@@ -51,13 +51,16 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <time.h>
 #include <pthread.h>
 #include <netdb.h>
+#include <unistd.h>
+#include <errno.h> //For errno - the error number
+#include <netdb.h> //hostent
+#include <sys/wait.h>
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
@@ -68,6 +71,7 @@
 
 // ---------------- Macro definitions
 #define MAX_FILE_NAME 100
+#define MAX_CMD_LEN 100 
 
 // ---------------- Structures/Types
 
@@ -125,6 +129,7 @@ int main(int argc, char* argv[])
     }
 
 	// check hostname 
+<<<<<<< HEAD
 	int status;
 	struct addrinfo hints;
 	struct addrinfo *servinfo;  // will point to the results
@@ -139,6 +144,14 @@ int main(int argc, char* argv[])
 	char ipAddress[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &(ipv4->sin_addr), ipAddress, INET_ADDRSTRLEN);
 	printf("%s",ipAddress);
+=======
+	struct hostent *he;
+	struct in_addr ipadd;
+
+	he = gethostbyname(argv[3]); 
+	ipadd = *(struct in_addr *)he->h_addr_list[0]; 
+
+>>>>>>> edef2afbf922aea02aa84bef1fc6e99bf1a9625f
 	/************************** send AM_INIT message **************************/
 	// create a socket for the client
 	if ((sockinit = socket (AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -149,7 +162,11 @@ int main(int argc, char* argv[])
 	// creation of the socket
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
+<<<<<<< HEAD
 	servaddr.sin_addr.s_addr= inet_addr(ipAddress);
+=======
+	servaddr.sin_addr.s_addr= inet_addr(inet_ntoa(ipadd));
+>>>>>>> edef2afbf922aea02aa84bef1fc6e99bf1a9625f
 	servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
 
 	// connection of the client to the socket 
@@ -181,7 +198,6 @@ int main(int argc, char* argv[])
 	// catch errors? 
 	if (IS_AM_ERROR(msg.type))
 	{
-	    // something went wrong
 	    perror("Something went wrong.\n");
 	    exit(5);
 	} else {
@@ -202,13 +218,8 @@ int main(int argc, char* argv[])
 
 	// create log file for avatars 
 	time (&cur);
-//	printf ("Current time is: %s", ctime (&cur));
 	uid_t id = getuid(); 
-
-//	printf("id: %llu\n", (unsigned long long) id); 
-
 	sprintf(filename,"AMAZING_%d_%d_%d.log", id, nAvatars, Difficulty); 
-//	printf("filename: %s\n", filename); 
 
 	// first line of file should contain $USER, the MazePort, and the date & time
 	fp = fopen(filename, "w"); 
@@ -217,11 +228,46 @@ int main(int argc, char* argv[])
 	fclose(fp); 
 
 	/***************************** start Avatars *****************************/
-	
+	// fork processes so that each avatar gets its own id 
+	int i; 
+	pid_t parent = getpid();
+	pid_t pid;
 
-	// each avatar gets its id 
-	
+	for ( i=0; i < nAvatars; i++ ) {
+		printf("in for loop\n"); 
+		pid = fork();
 
+		if (pid == -1) {
+			perror("Failed to fork.\n"); 
+		    exit(EXIT_FAILURE); 	// error, failed to fork()
+		} else if (pid > 0) {
+		    int status;
+		    waitpid(pid, &status, 0);
+		} else {
+		    // we are the child
+		    char command[MAX_CMD_LEN]; 
+			sprintf(command, "./amazing_client %d %d %d %s %d %s", 
+				i, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename); 
+			printf("%s\n", command); 
+			char str[5]; 
+			char port[10]; 
+			sprintf(str, "%d", i); 
+			sprintf(port, "%d", MazePort); 
+
+			//printf("about to execute\n"); 
+
+			char *args[7] = { "amazing_client", str, argv[1], argv[2], inet_ntoa(ipadd), port, filename }; 
+		    execv(".", args);
+		    //execvp("./amazing_client", str, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename);
+
+		    _exit(EXIT_FAILURE);   // exec never returns
+		}
+		//printf("got here\n"); 
+
+//		sleep(10); 
+	}
+	
+	// when server replies, end program 
 
 //	./amazing_client 0 nAvatars Difficulty 129.170.212.235 10829 Amazing_3_2.log
 

@@ -13,6 +13,7 @@ OBJS = src/AMStartup.o
 SRCS = src/AMStartup.c 
 HDRS = ../util/src/amazing.h ../util/src/utils.h
 
+all: AMStartup amazing_client
 
 
 #query:$(SRCS) $(HDRS) $(UTILLIB)
@@ -26,6 +27,12 @@ AMStartup: $(SRCS)
 
 AMStartup.o: $(HDRS)
 	$(CC) $(CFLAGS) -c src/AMStartup.c 
+
+amazing_client: src/amazing_client.c
+	$(CC) $(CFLAGS) -o amazing_client src/amazing_client.c 
+
+amazing_client.o: $(HDRS) 
+	$(CC) $(CFLAGS) -c src/amazing_client.c 
 
 
 

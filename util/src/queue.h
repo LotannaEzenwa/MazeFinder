@@ -12,7 +12,6 @@
 #define QUEUE_H
 
 // ---------------- Prerequisites e.g., Requires "math.h"
-#include "common.h"                          // common functionality
 
 // ---------------- Constants
 
