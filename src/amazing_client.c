@@ -113,6 +113,8 @@ int main(int argc, char* argv[])
 	int sockfd; 
 	struct sockaddr_in servaddr;
 	int MazePort; 
+    time_t cur;
+    FILE *fp; 
 
 
 	/******************************* args check *******************************/
@@ -253,21 +255,35 @@ int main(int argc, char* argv[])
 
                 msg.avatar_move.Direction = htonl(random_number%4); 
 
+                // log the avatar's move  
+                fp = fopen(filename, "a"); 
+                ASSERT_FAIL(stderr, fp); 
+
+                fprintf(fp, "Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
+                fclose(fp); 
+
                 send(sockfd, &msg, sizeof(msg), 0);
             } else {
                 printf("not my turn\n"); 
             }
         } 
         if (ntohl(msg.type) == AM_MAZE_SOLVED) {
-            printf("Solved the maze\n"); 
+            // make sure only one avatar writes to the file 
+            if (avatarId == 0) {
+                // write to file that program finished 
+                fp = fopen(filename, "a"); 
+                ASSERT_FAIL(stderr, fp); 
+
+                time (&cur);
+                
+
+                fprintf(fp, "Solved the maze at %s!\n", ctime(&cur)); 
+                fclose(fp); 
+            }
+//            printf("Solved the maze\n"); 
             exit(EXIT_SUCCESS); 
         }
     } 
-
-    // make sure only one avatar writes to the file 
-    if (avatarId == 0) {
-        // write to file that program finished 
-    }
 
     if (shmdt(shared_memory) == -1) {
         fprintf(stderr, "shmdt failed\n");
