@@ -259,7 +259,7 @@ int main(int argc, char* argv[])
                 fp = fopen(filename, "a"); 
                 ASSERT_FAIL(stderr, fp); 
 
-                fprintf("Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
+                fprintf(fp, "Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
                 fclose(fp); 
 
                 send(sockfd, &msg, sizeof(msg), 0);
@@ -275,8 +275,9 @@ int main(int argc, char* argv[])
                 ASSERT_FAIL(stderr, fp); 
 
                 time (&cur);
+                
 
-                fprintf("Solved the maze at %s!\n", ctime(&cur)); 
+                fprintf(fp, "Solved the maze at %s!\n", ctime(&cur)); 
                 fclose(fp); 
             }
 //            printf("Solved the maze\n"); 

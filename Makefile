@@ -1,7 +1,7 @@
 # Filename: Amazing Project Makefile
 # Description: The make file is to build up the query.
 CC = gcc
-CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -lpthread -lc -Wcpp
+CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp
 SRCDIR = src/
 UTILDIR = ../util/src/
 UTILFLAG = -ltseutil
@@ -42,6 +42,8 @@ maze.o: $(SRCDIR)maze.c $(SRCDIR)maze.h
 
 $(UTILLIB): $(UTILC) $(UTILH)
 	cd $(UTILDIR); make
+
+
 
 clean:
 	rm -f *~
