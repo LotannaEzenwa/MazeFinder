@@ -129,29 +129,12 @@ int main(int argc, char* argv[])
     }
 
 	// check hostname 
-<<<<<<< HEAD
-	int status;
-	struct addrinfo hints;
-	struct addrinfo *servinfo;  // will point to the results
-
-	memset(&hints, 0, sizeof(hints)); // make sure the struct is empty
-	hints.ai_family = AF_INET;     // IPv4
-	hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
-
-	// get ready to connect
-	status = getaddrinfo(argv[3], AM_SERVER_PORT, &hints, &servinfo);
-	struct sockaddr_in *ipv4 = (struct sockaddr_in *)servinfo->ai_addr;
-	char ipAddress[INET_ADDRSTRLEN];
-	inet_ntop(AF_INET, &(ipv4->sin_addr), ipAddress, INET_ADDRSTRLEN);
-	printf("%s",ipAddress);
-=======
 	struct hostent *he;
 	struct in_addr ipadd;
 
 	he = gethostbyname(argv[3]); 
 	ipadd = *(struct in_addr *)he->h_addr_list[0]; 
 
->>>>>>> edef2afbf922aea02aa84bef1fc6e99bf1a9625f
 	/************************** send AM_INIT message **************************/
 	// create a socket for the client
 	if ((sockinit = socket (AF_INET, SOCK_STREAM, 0)) < 0) {
