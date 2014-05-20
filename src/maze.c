@@ -64,41 +64,41 @@ void maze(uint32_t mazeport){
 		if (strcmp(readin,"MazeCell") == 0) {
 			newnode = calloc(1,sizeof(MazeNode));
 			cell += strlen(readin) + 2;
-			sscanf(cell,"%zu",&xcord);
-			newnode.position.x = xcord;
+			sscanf(cell,"%u",&xcord);
+			newnode->position.x = xcord;
 			cell += 4;
-			sscanf(cell,"%zu",&ycord);
-			newnode.position.y = ycord;
-			printf("x:%zu y:%zu ",xcord,ycord);
+			sscanf(cell,"%u",&ycord);
+			newnode->position.y = ycord;
+			printf("x:%u y:%u ",xcord,ycord);
 			cell += 5 + strlen("walls: ");
 			printf("next: %c",cell[0]);
-			if (cell[0] == "W") {
-				newnode.west = WALL;
+			if (cell[0] == 'W') {
+				newnode->west = WALL;
 				printf("WALL");
 			}
 			else {
-				newnode.west = PATH;
+				newnode->west = PATH;
 			}
 			cell += 1;
-			if (cell[0] == "N") {
-				newnode.north = WALL;
+			if (cell[0] == 'N') {
+				newnode->north = WALL;
 			}
 			else {
-				newnode.north = PATH;
+				newnode->north = PATH;
 			}
 			cell += 1;
-			if (cell[0] == "S") {
-				newnode.south = WALL;
+			if (cell[0] == 'S') {
+				newnode->south = WALL;
 			}
 			else {
-				newnode.south = PATH;
+				newnode->south = PATH;
 			}
-			cell += 1:
-			if (cell[0] == "E") {
-				newnode.east = WALL;
+			cell += 1;
+			if (cell[0] == 'E') {
+				newnode->east = WALL;
 			}
 			else {
-				newnode.east = PATH;
+				newnode->east = PATH;
 			}
 			
 		}
