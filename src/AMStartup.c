@@ -145,11 +145,7 @@ int main(int argc, char* argv[])
 	// creation of the socket
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
-<<<<<<< HEAD
-	servaddr.sin_addr.s_addr= inet_addr(ipAddress);
-=======
 	servaddr.sin_addr.s_addr= inet_addr(inet_ntoa(ipadd));
->>>>>>> edef2afbf922aea02aa84bef1fc6e99bf1a9625f
 	servaddr.sin_port =  htons(atoi(AM_SERVER_PORT)); //convert to big-endian order
 
 	// connection of the client to the socket 
@@ -194,7 +190,7 @@ int main(int argc, char* argv[])
 			MazeHeight = ntohl(msg.init_ok.MazeHeight); 
 			printf("Port:%d\n", MazePort); 
 			printf("Width:%d\n", MazeWidth); 
-			printf("Height: %d\n", MazeHeight);
+			printf("Height: %d\n", MazeHeight);	
 		} 
 	}
 
