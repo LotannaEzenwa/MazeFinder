@@ -87,8 +87,8 @@ NodeKey calculateKey(MazeNode *s){
 
 static void initializeMazeNode(MazeNode *mn){
 	if (!mn) return;
-	mn->g = UINT_MAX;
-	mn->rhs = UINT_MAX;
+	mn->g = INT_MAX;
+	mn->rhs = INT_MAX;
 	
 	return;
 }
