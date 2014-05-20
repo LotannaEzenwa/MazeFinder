@@ -48,7 +48,7 @@ NodeKey calculateKey(MazeNode *s){
 static float minimum(float f1, float f2){
 	if (f1 < f2) return f1;
 	else if (f2 < f1) return f2;
-	return NULL;9--===
+	return NULL;
 }
 
 
