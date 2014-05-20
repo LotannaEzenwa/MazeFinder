@@ -237,8 +237,6 @@ int main(int argc, char* argv[])
         exit(3);
     } 
 
-    // start graphics
-    parselog(MazePort,MazeWidth,MazeHeight);
     
     // create and send message 
     AM_Message msg;
