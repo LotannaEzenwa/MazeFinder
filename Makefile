@@ -2,10 +2,13 @@
 # Description: The make file is to build up the query.
 CC = gcc
 CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb
-SRCDIR = /src/
-UTILDIR = ../util/
+SRCDIR = src/
+UTILDIR = ../util/src/
 UTILFLAG = -ltseutil
-UTILLIB = $(UTILDIR)libtseutil.a 
+UTILC=
+UTILH= $(UTILDIR)amazing.h $(UTILDIR)utils.h
+
+#UTILLIB = $(UTILDIR)libtseutil.a 
 
 # my project details
 EXEC = AMStartup
@@ -22,20 +25,23 @@ all: AMStartup amazing_client
 #$(UTILLIB): $(SRCS) $(HDRS)
 #	cd $(UTILDIR); make;
 
-AMStartup: $(SRCS) 
-	$(CC) $(CFLAGS) -o AMStartup $(SRCS)
+AMStartup: $(SRCDIR)AMStartup.o $(SRCDIR)maze.o $(UTILLIB)
+	$(CC) $(CFLAGS) -o AMStartup $(SRCDIR)AMStartup.o $(SRCDIR)maze.o
 
-AMStartup.o: $(HDRS)
-	$(CC) $(CFLAGS) -c src/AMStartup.c 
+AMStartup.o: $(SRCDIR)AMStartup.c $(SRCDIR)AMStartup.h
+	$(CC) $(CFLAGS) -c $(SRCDIR)AMStartup.c 
 
-amazing_client: src/amazing_client.c
-	$(CC) $(CFLAGS) -o amazing_client src/amazing_client.c 
+amazing_client: $(SRCDIR)amazing_client.o $(UTILLIB)
+	$(CC) $(CFLAGS) -o amazing_client $(SRCDIR)amazing_client.o
 
-amazing_client.o: $(HDRS) 
-	$(CC) $(CFLAGS) -c src/amazing_client.c 
+amazing_client.o: $(SRCDIR)amazing_client.c $(SRCDIR)amazing_client.h 
+	$(CC) $(CFLAGS) -c $(SRCDIR)amazing_client.c 
 
+maze.o: $(SRCDIR)maze.c $(SRCDIR)maze.h
+	$(CC) $(CFLAGS) -c $(SRCDIR)maze.c 
 
-
+$(UTILLIB): $(UTILC) $(UTILH)
+	cd $(UTILDIR); make
 
 clean:
 	rm -f *~

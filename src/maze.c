@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 // ---------------- Local includes  e.g., "file.h"
 
 // ---------------- Constant/Macro definitions
@@ -26,19 +27,13 @@
 
 // ---------------- Private prototypes
 
-int main(int argc,char *argv[]) {
+void maze(uint32_t mazeport){
 	FILE *logfile;
-	char *filename = "/var/tmp/%s/log.out";
+	char *filename = "/var/tmp/%zu/log.out";
 	char buffer[24];
 
-	if (argc != 2) {
-		printf("Error, improper number of arguments");
-		exit(1);
-	}
 	
-	char *portnum = argv[1];	
-
-	sprintf(buffer,filename,portnum);
+	sprintf(buffer,filename,mazeport);
 	
 	char *start = "scp $USER@pierce.cs.dartmouth.edu:";
 	char *end = " maze.log";
