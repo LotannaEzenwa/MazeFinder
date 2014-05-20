@@ -105,11 +105,15 @@ int main(int argc, char* argv[])
 	int MazeWidth; 
 	int MazeHeight; 
 
+    printf("in this function\n"); 
+
 	/******************************* args check *******************************/
 	if (argc != 7) {
 		fprintf(stderr, "Incorrect number of arguments. Exiting now.\n"); 
 		exit(1); 
-	}
+	} else {
+        printf("getting called\n"); 
+    }
 
 	// check that the numbering of avatars starts at 0 
     if (IsNotNumeric(argv[1])) {
@@ -150,6 +154,14 @@ int main(int argc, char* argv[])
         exit(1); 
     } else {
         strcpy(ipAddress, argv[4]);  
+    }
+
+    // MazePort 
+    if (IsNotNumeric(argv[5])) {
+        perror("MazePort wrong. Exiting now.\n"); 
+        exit(1); 
+    } else {
+        MazePort = atoi(argv[5]); 
     }
 
 

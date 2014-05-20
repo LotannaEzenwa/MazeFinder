@@ -60,6 +60,7 @@
 #include <unistd.h>
 #include <errno.h> //For errno - the error number
 #include <netdb.h> //hostent
+#include <sys/wait.h>
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
@@ -176,7 +177,6 @@ int main(int argc, char* argv[])
 	// catch errors? 
 	if (IS_AM_ERROR(msg.type))
 	{
-	    // something went wrong
 	    perror("Something went wrong.\n");
 	    exit(5);
 	} else {
@@ -197,13 +197,8 @@ int main(int argc, char* argv[])
 
 	// create log file for avatars 
 	time (&cur);
-//	printf ("Current time is: %s", ctime (&cur));
 	uid_t id = getuid(); 
-
-//	printf("id: %llu\n", (unsigned long long) id); 
-
 	sprintf(filename,"AMAZING_%d_%d_%d.log", id, nAvatars, Difficulty); 
-//	printf("filename: %s\n", filename); 
 
 	// first line of file should contain $USER, the MazePort, and the date & time
 	fp = fopen(filename, "w"); 
@@ -218,6 +213,7 @@ int main(int argc, char* argv[])
 	pid_t pid;
 
 	for ( i=0; i < nAvatars; i++ ) {
+		printf("in for loop\n"); 
 		pid = fork();
 
 		if (pid == -1) {
@@ -225,19 +221,28 @@ int main(int argc, char* argv[])
 		    exit(EXIT_FAILURE); 	// error, failed to fork()
 		} else if (pid > 0) {
 		    int status;
-		    //waitpid(pid, &status, 0);
+		    waitpid(pid, &status, 0);
 		} else {
 		    // we are the child
 		    char command[MAX_CMD_LEN]; 
-			sprintf(command, "./amazing_client %d %d %d %s %d %s", 
-				i, nAvatars, Difficulty, he->h_name, MazePort, filename); 
+			sprintf(command, "./src/amazing_client %d %d %d %s %d %s", 
+				i, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename); 
 			printf("%s\n", command); 
+			char str[5]; 
+			char port[10]; 
+			sprintf(str, "%d", i); 
+			sprintf(port, "%d", MazePort); 
 
-		    //execve(...);
+			printf("about to execute\n"); 
+
+			char *argb[6] = { str, argv[1], argv[2], inet_ntoa(ipadd), port, filename }; 
+		    execvp("./src/amazing_client", argb);
+		    //execvp("./amazing_client", str, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename);
+
 		    _exit(EXIT_FAILURE);   // exec never returns
 		}
 
-
+//		sleep(10); 
 	}
 	
 	// when server replies, end program 
