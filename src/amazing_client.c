@@ -6,7 +6,8 @@
  *
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  *      When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
- * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] [MAZEPORT] [FILENAME] 
+ * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] 
+ *          [MAZEPORT] [FILENAME] [MAZEWIDTH] [MAZEHEIGHT] [KEY]
  *
  * 
  * Example command input
@@ -36,6 +37,18 @@
  * [FILENAME] -> Amazing_3_2.log
  * Requirement: 
  * Usage: Filename of the log the Avatar should open for writing in append mode.  
+ * 
+ * [MAZEWIDTH] -> 10
+ * Requirement: Must be a number
+ * Usage: Passed to the function to draw the maze   
+ *
+ * [MAZEHEIGHT] -> 10
+ * Requirement: Must be a number 
+ * Usage: Passed to the function to draw the maze  
+ * 
+ * [KEY] -> 1234
+ * Requirement: 4 digit number 
+ * Usage: Key for accessing shared memory  
  * 
  * Output:  
  * 
@@ -103,6 +116,8 @@ int main(int argc, char* argv[])
 	int Difficulty; 
     char ipAddress[MAX_IP_LEN]; 
 	char filename[MAX_FILE_NAME]; 
+    int MazeWidth; 
+    int MazeHeight; 
 // for shared memory 
     int running = 1;
     void *shared_memory = (void *)0;
@@ -181,6 +196,10 @@ int main(int argc, char* argv[])
     } else {
         strcpy(filename,argv[6]); 
     }
+
+    // check mazewidth 
+    MazeWidth = atoi(argv[7]); 
+    MazeHeight = atoi(argv[8]); 
 
     
     /*************************** open shared memory ***************************/
