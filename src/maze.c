@@ -19,7 +19,7 @@
 #include <stdint.h>
 
 // ---------------- Local includes  e.g., "file.h"
-//#include "dstarlite.h"
+#include "dstarlite.h"
 
 // ---------------- Constant/Macro definitions
 
@@ -38,8 +38,8 @@ void maze(uint32_t mazeport){
 	char *readin = calloc(strlen("MazeCell") +1, sizeof(char));
 	int linelen = 45;
 	MazeNode *newnode;
-	int xcord;
-	int ycord;
+	uint32_t xcord;
+	uint32_t ycord;
 	
 	sprintf(buffer,filename,mazeport);
 	
@@ -64,12 +64,42 @@ void maze(uint32_t mazeport){
 		if (strcmp(readin,"MazeCell") == 0) {
 			newnode = calloc(1,sizeof(MazeNode));
 			cell += strlen(readin) + 2;
-			sscanf(cell,"%d",&xcord);
+			sscanf(cell,"%u",&xcord);
+			newnode->position.x = xcord;
 			cell += 4;
-			sscanf(cell,"%d",&ycord);
-			printf("x:%d y:%d ",xcord,ycord);
+			sscanf(cell,"%u",&ycord);
+			newnode->position.y = ycord;
+			printf("x:%u y:%u ",xcord,ycord);
 			cell += 5 + strlen("walls: ");
 			printf("next: %c",cell[0]);
+			if (cell[0] == 'W') {
+				newnode->west = WALL;
+				printf("WALL");
+			}
+			else {
+				newnode->west = PATH;
+			}
+			cell += 1;
+			if (cell[0] == 'N') {
+				newnode->north = WALL;
+			}
+			else {
+				newnode->north = PATH;
+			}
+			cell += 1;
+			if (cell[0] == 'S') {
+				newnode->south = WALL;
+			}
+			else {
+				newnode->south = PATH;
+			}
+			cell += 1;
+			if (cell[0] == 'E') {
+				newnode->east = WALL;
+			}
+			else {
+				newnode->east = PATH;
+			}
 			
 		}
 	}
