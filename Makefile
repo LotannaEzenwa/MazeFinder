@@ -1,7 +1,6 @@
 # Filename: Amazing Project Makefile
 # Description: The make file is to build up the query.
 CC = gcc
-<<<<<<< HEAD
 CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp `pkg-config --cflags --libs gtk+-2.0`
 SRCDIR = src/
 UTILDIR = ../util/src/
