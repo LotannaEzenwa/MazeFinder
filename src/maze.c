@@ -53,6 +53,8 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 	strcat(command,buffer);
 	strcat(command,end);
 	
+	
+	printf("presystem ");
 
 	system(command);
 
@@ -60,9 +62,11 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 		printf("Could not open file\n");
 		exit(1);
 	}
+	printf("open logfile ");
 	int counter = 0;
 	block = calloc(linelen+1,sizeof(char));
 	while ((cell = fgets(block,linelen,logfile)) != NULL) {
+		printf("loop ");
 		sscanf(cell,"%s",readin);
 		if (strcmp(readin,"MazeCell") == 0) {
 			newnode = calloc(1,sizeof(MazeNode));
@@ -106,11 +110,3 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 	}	
 }
 
-int main (int argc, char *argv[]) {
-	GtkWidget *window;
-	gtk_init(&argc,&argv);
-	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_widget_show(window);
-	gtk_main();
-	return(0);
-}

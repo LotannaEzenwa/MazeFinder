@@ -204,6 +204,11 @@ int main(int argc, char* argv[])
 	fclose(fp); 
 
 
+	printf("here");
+    	// start graphics
+    	parselog(MazePort,MazeWidth,MazeHeight);
+	printf("finished");
+
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 
 	int i; 
