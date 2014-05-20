@@ -8,12 +8,13 @@
 #include "../util/src/queue.h"
 
 
-typedef enum {WALL, OPEN} status;
+typedef enum {WALL, PATH} status;
 typedef enum {TRAVELED, UNVISITED} pathstatus;
 typedef enum {NEW, OPEN, CLOSED,RAISE, LOWER} mark;
 
 
 typedef struct MazeNode{
+
 	int key;
 	float costToGoal;
 	XYPos position;
@@ -23,8 +24,15 @@ typedef struct MazeNode{
 	status west;
 	pathstatus ps;
 	mark mk;
-		
+	
+
 }MazeNode;
+
+typedef struct Graph{
+
+	MazeNode **table;
+	
+}Graph;
 
 typedef struct PathNode{
 
