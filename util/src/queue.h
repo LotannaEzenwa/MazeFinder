@@ -32,7 +32,7 @@ typedef struct Queue {
 
 // ---------------- Prototypes/Macros
 Queue *createQueue();
-void PriorityAdd(Queue *queue, void *data);
+void PriorityAdd(Queue *queue, void *data, void (*comparefunc)(void*,void*));
 QueueNode *pop(Queue *queue);
 void removeNode(QueueNode *node);
 
