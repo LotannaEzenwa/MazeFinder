@@ -38,6 +38,7 @@ Graph* constructGraph(uint32_t height, uint32_t width){
 		}
 	}
 	return new;
-	
 }
+
+
 

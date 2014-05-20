@@ -17,6 +17,8 @@ typedef struct MazeNode{
 
 	int key;
 	float costToGoal;
+	float val1;
+	float val2;
 	XYPos position;
 	status north;
 	status south;
@@ -52,6 +54,8 @@ typedef struct Path{
 	PathNode *head;
 	PathNode *tail;
 }Path;
+
+typedef struct
 
 int MH(MazeNode n1, MazeNode n2);
 int heuristic(XYPos *p1, XYPos *p2);
