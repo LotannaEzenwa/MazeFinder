@@ -233,12 +233,12 @@ int main(int argc, char* argv[])
 			sprintf(str, "%d", i); 
 			sprintf(port, "%d", MazePort); 
 
-			//printf("about to execute\n"); 
 
-			char *args[7] = { "amazing_client", str, argv[1], argv[2], inet_ntoa(ipadd), port, filename }; 
-		    execv(".", args);
+		    char *args[8] = { "./amazing_client", str, argv[1], argv[2], inet_ntoa(ipadd), port, filename, NULL }; 
+			execvp(args[0], args);
+
 		    //execvp("./amazing_client", str, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename);
-
+			printf("before exiting\n"); 
 		    _exit(EXIT_FAILURE);   // exec never returns
 		}
 		//printf("got here\n"); 
