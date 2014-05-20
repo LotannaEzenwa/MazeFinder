@@ -72,6 +72,8 @@
 // ---------------- Macro definitions
 #define MAX_FILE_NAME 100
 #define MAX_CMD_LEN 100 
+#define MAX_ID_LEN 5
+#define MAX_PORT_LEN 10 
 
 // ---------------- Structures/Types
 
@@ -194,7 +196,6 @@ int main(int argc, char* argv[])
 		} 
 	}
 
-
 	// create log file for avatars 
 	time (&cur);
 	uid_t id = getuid(); 
@@ -226,32 +227,20 @@ int main(int argc, char* argv[])
 		    int status;
 		    //waitpid(pid, &status, 0);
 		} else {
-		    // we are the child
-		    char command[MAX_CMD_LEN]; 
-			sprintf(command, "./amazing_client %d %d %d %s %d %s", 
-				i, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename); 
-			printf("%s\n", command); 
-			char str[5]; 
-			char port[10]; 
-			sprintf(str, "%d", i); 
+		    char avId[MAX_ID_LEN]; 
+			char port[MAX_PORT_LEN]; 
+			sprintf(avId, "%d", i); 
 			sprintf(port, "%d", MazePort); 
 
 
-		    char *args[8] = { "./amazing_client", str, argv[1], argv[2], inet_ntoa(ipadd), port, filename, NULL }; 
+		    char *args[8] = { "./amazing_client", avId, argv[1], argv[2], inet_ntoa(ipadd), port, filename, NULL }; 
 			execvp(args[0], args);
 
-		    
 		    _exit(EXIT_FAILURE);   // exec never returns
 		}
-		printf("got here\n"); 
-
-//		sleep(10); 
 	}
-	
-	// when server replies, end program 
 
-//	./amazing_client 0 nAvatars Difficulty 129.170.212.235 10829 Amazing_3_2.log
-
+	// end this program 
 	return(0); 
 }
 
