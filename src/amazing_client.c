@@ -198,38 +198,34 @@ int main(int argc, char* argv[])
     printf("sent\n"); 
 
     /************************** listen for avatarID **************************/
-    if( recv(sockfd, &msg, sizeof(msg) , 0) < 0)
-    {
-        perror("The server terminated prematurely.\n");
-        exit(4); 
-    } 
+    while ( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) {
+        printf("received\n"); 
 
-    printf("received\n"); 
+        // check if error 
+        if (IS_AM_ERROR(msg.type)) {
+            perror("Something went wrong.\n");
+            exit(4);
+        } 
 
-    // check if error 
-    if (IS_AM_ERROR(msg.type))
-    {
-        perror("Something went wrong.\n");
-        exit(5);
-    } 
-
-    // check error type 
-    if (ntohl(msg.type) != AM_AVATAR_TURN) {
-        perror("Message received was not AM_AVATAR_TURN.\n"); 
-        exit(6); 
-    } else {
-        // if the avatar is the one to move, move 
-        if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
-            printf("make a move\n"); 
-            msg.type = htonl(AM_AVATAR_MOVE); 
-            msg.avatar_move.AvatarId = htonl(avatarId); 
-            msg.avatar_move.Direction = htonl(M_SOUTH); 
+        // check error type 
+        if (ntohl(msg.type) != AM_AVATAR_TURN) {
+            perror("Message received was not AM_AVATAR_TURN.\n"); 
+            exit(4); 
         } else {
-            printf("not my turn\n"); 
-        }
+            // if the avatar is the one to move, move 
+            if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
+                printf("make a move\n"); 
+                msg.type = htonl(AM_AVATAR_MOVE); 
+                msg.avatar_move.AvatarId = htonl(avatarId); 
+                msg.avatar_move.Direction = htonl(M_SOUTH); 
+            } else {
+                printf("not my turn\n"); 
+            }
 
+        } 
     } 
-     
+    
+    
 
     printf("done\n"); 
     return(1); 
