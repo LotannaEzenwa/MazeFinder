@@ -60,6 +60,7 @@
 #include <stdio.h>                           // printf
 #include <sys/types.h> 
 #include <sys/stat.h> 
+#include <sys/shm.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -74,6 +75,7 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
+#include "../util/src/shm_com.h"
 
 
 // ---------------- Constant definitions
@@ -101,6 +103,13 @@ int main(int argc, char* argv[])
 	int Difficulty; 
     char ipAddress[MAX_IP_LEN]; 
 	char filename[MAX_FILE_NAME]; 
+// for shared memory 
+    int running = 1;
+    void *shared_memory = (void *)0;
+    struct shared_use_st *shared_stuff;
+    char buffer[BUFSIZ];
+    int shmid;
+// for sockets 
 	int sockfd; 
 	struct sockaddr_in servaddr;
 	int MazePort; 
@@ -173,8 +182,21 @@ int main(int argc, char* argv[])
 
     
     /*************************** open shared memory ***************************/
+    shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
 
+    if (shmid == -1) {
+        fprintf(stderr, "shmget failed\n");
+        exit(EXIT_FAILURE);
+    }
 
+    // make the shared memory accessible to the program 
+    shared_memory = shmat(shmid, (void *)0, 0);
+    if (shared_memory == (void *)-1) {
+        fprintf(stderr, "shmat failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("Memory attached at %p\n", shared_memory);
 
 	/************************ tell server avatar ready ************************/
     // create a socket for the client
@@ -225,6 +247,7 @@ int main(int argc, char* argv[])
                 msg.avatar_move.AvatarId = htonl(avatarId); 
 
                 // algorithm goes here 
+                // shared memory bit goes here 
                 srand ( time(NULL) );
                 int random_number = rand();
 
@@ -241,19 +264,17 @@ int main(int argc, char* argv[])
         }
     } 
 
+    // make sure only one avatar writes to the file 
+    if (avatarId == 0) {
+        // write to file that program finished 
+    }
 
-    printf("done\n"); 
-    return(1); 
+    if (shmdt(shared_memory) == -1) {
+        fprintf(stderr, "shmdt failed\n");
+        exit(EXIT_FAILURE);
+    }
 
-/*    This process will continue until one of the following occurs:
-an Avatar's socket connection to the server is broken,
-the maximum number of moves (a function of AM_MAX_MOVES and Difficulty) is exceeded,
-the server's AM_WAIT_TIME timer expires, or
-the server determines that all of the Avatars are located at the same (x,y) position, 
-    meaning the maze has been solved. */
-
-
-
+    exit(EXIT_SUCCESS);
 }
 
 
