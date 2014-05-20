@@ -1,7 +1,7 @@
 # Filename: Amazing Project Makefile
 # Description: The make file is to build up the query.
 CC = gcc
-CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -lpthread -lc 
+CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -lpthread -lc -Wcpp
 SRCDIR = src/
 UTILDIR = ../util/src/
 UTILFLAG = -ltseutil
