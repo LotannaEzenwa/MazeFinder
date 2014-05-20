@@ -102,8 +102,8 @@ int main(int argc, char* argv[])
 	int sockfd; 
 	struct sockaddr_in servaddr;
 	int MazePort; 
-	int MazeWidth; 
-	int MazeHeight; 
+//	int MazeWidth; 
+//	int MazeHeight; 
 
     printf("in this function\n"); 
     printf("arg1: %s\n", argv[0]); 
@@ -117,52 +117,52 @@ int main(int argc, char* argv[])
     }
 
 	// check that the avatarid 
-    if (IsNotNumeric(argv[0])) {
+    if (IsNotNumeric(argv[1])) {
 		fprintf(stderr, "Number of avatars must be a number. Exiting now.\n"); 
     	exit(1); 
     } else {
-    	avatarId = atoi(argv[0]); 
+    	avatarId = atoi(argv[1]); 
     	printf("avatarId: %d\n", avatarId); 
     }
 
 	// check the input for number of avatars 
-    if (IsNotNumeric(argv[1])) {
+    if (IsNotNumeric(argv[2])) {
 		fprintf(stderr, "Number of avatars must be a number. Exiting now.\n"); 
     	exit(1); 
-    } else if ((atoi(argv[1]) < 0)) {
+    } else if ((atoi(argv[2]) < 0)) {
     	fprintf(stderr, "Number of avatars must be greater than 0. Exiting now.\n"); 
     	exit(1); 
     } else {
-    	nAvatars = atoi(argv[1]); 
+    	nAvatars = atoi(argv[2]); 
     	printf("Number avatars: %d\n", nAvatars); 
     }
 
     // check input for difficulty of maze 
-    if (IsNotNumeric(argv[2])) {
+    if (IsNotNumeric(argv[3])) {
 		fprintf(stderr, "Difficulty must be a number. Exiting now.\n"); 
     	exit(1); 
-    } else if ((atoi(argv[2]) < 0) || (atoi(argv[3]) > 9)) {
+    } else if ((atoi(argv[3]) < 0) || (atoi(argv[3]) > 9)) {
     	fprintf(stderr, "Difficulty level must be between 0 and 9. Exiting now.\n"); 
     	exit(1); 
     } else {
-    	Difficulty = atoi(argv[2]); 
+    	Difficulty = atoi(argv[3]); 
     	printf("Difficulty %d\n", Difficulty); 
     }
 
     // copy ipAddress  
-    if (strlen(argv[3]) >= MAX_IP_LEN) {
+    if (strlen(argv[4]) >= MAX_IP_LEN) {
         perror("Ip address too long. Exiting now.\n"); 
         exit(1); 
     } else {
-        strcpy(ipAddress, argv[3]);  
+        strcpy(ipAddress, argv[4]);  
     }
 
     // MazePort 
-    if (IsNotNumeric(argv[4])) {
+    if (IsNotNumeric(argv[5])) {
         perror("MazePort wrong. Exiting now.\n"); 
         exit(1); 
     } else {
-        MazePort = atoi(argv[4]); 
+        MazePort = atoi(argv[5]); 
     }
 
     // get filename 
@@ -198,11 +198,37 @@ int main(int argc, char* argv[])
     printf("sent\n"); 
 
     /************************** listen for avatarID **************************/
-    if( recv(sockfd, &msg, sizeof(msg) , 0) < 0)
-    {
-        perror("The server terminated prematurely.\n");
-        exit(4); 
-    }
+    while ( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) {
+        printf("received\n"); 
+
+        // check if error 
+        if (IS_AM_ERROR(msg.type)) {
+            perror("Something went wrong.\n");
+            exit(4);
+        } 
+
+        // check error type 
+        if (ntohl(msg.type) != AM_AVATAR_TURN) {
+            perror("Message received was not AM_AVATAR_TURN.\n"); 
+            exit(4); 
+        } else {
+            // if the avatar is the one to move, move 
+            if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
+                printf("make a move\n"); 
+                msg.type = htonl(AM_AVATAR_MOVE); 
+                msg.avatar_move.AvatarId = htonl(avatarId); 
+                msg.avatar_move.Direction = htonl(M_SOUTH); 
+            } else {
+                printf("not my turn\n"); 
+            }
+
+        } 
+    } 
+    
+    
+
+    printf("done\n"); 
+    return(1); 
 
 /*    Once started, each Avatar (instance of the client) sends an AM_AVATAR_READY message (via the MazePort, of course) 
     containing its assigned AvatarId to the server.

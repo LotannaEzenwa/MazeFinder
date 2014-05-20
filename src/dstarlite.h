@@ -8,11 +8,11 @@
 #include "../util/src/queue.h"
 
 
-typedef enum {WALL, OPEN, BLOCK} status;
+typedef enum {WALL, OPEN} status;
+typedef enum {TRAVELED, UNVISITED} pathstatus;
 
 
 typedef struct MazeNode{
-	
 	int key;
 	float costToGoal;
 	XYPos position;
@@ -20,6 +20,7 @@ typedef struct MazeNode{
 	status south;
 	status east;
 	status west;
+	pathstatus ps;
 		
 }MazeNode;
 
@@ -43,6 +44,9 @@ typedef struct Path{
 }Path;
 
 int MH(MazeNode n1, MazeNode n2);
+int heuristic(XYPos *p1, XYPos *p2);
+int compareCosts(MazeNode *p1, MazeNode *p2);
+
 
 
 

@@ -19,7 +19,7 @@ Queue * createQueue() {
 /*
  * Function to add a node to the proper place in the queue
  */
-void PriorityAdd(Queue *queue, void *data) {
+void PriorityAdd(Queue *queue, void *data, void (*comparefunc)(void*,void*)) {
 	// if there's nothing in the queue, create the first node
 	if (NULL == queue->tail) {
 		QueueNode *firstNode = calloc(1,sizeof(QueueNode));
