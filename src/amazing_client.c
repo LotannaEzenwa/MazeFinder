@@ -81,7 +81,7 @@
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
 #include "../util/src/shm_com.h"
-
+#include "maze.h"
 
 // ---------------- Constant definitions
 
@@ -229,6 +229,7 @@ int main(int argc, char* argv[])
         exit(3);
     } 
 
+    
     // create and send message 
     AM_Message msg;
 

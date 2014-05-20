@@ -9,7 +9,7 @@ int k = 0;
 float C1 = 1;
 XYPos goal;
 
-
+static void initializeMazeNode(MazeNode *mn);
 static float minimum(float f1, float f2);
 
 
@@ -58,6 +58,12 @@ static float minimum(float f1, float f2){
 	return NULL;
 }
 
+static void initializeMazeNode(MazeNode *mn){
+	if (!mn) return;
+	mn->g = UINT_MAX;
+	mn->rhs = UINT_MAX;
+	return;
+}
 
 
 
