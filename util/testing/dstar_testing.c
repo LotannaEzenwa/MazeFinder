@@ -6,6 +6,7 @@
 static int TEST1(); //Manhattan Heuristic Test
 static int TEST2(); //Compare Function Test
 static int TEST3(); //Priority Queue Test
+static int TEST4(); //Graph Testing
 
 int main(int argc, char *argv[]){
 	
@@ -14,7 +15,7 @@ int main(int argc, char *argv[]){
 	if(TEST1()){fprintf(stderr, "ERROR DURING TEST 1"); return 1;}
 	if(TEST2()){fprintf(stderr, "ERROR DURING TEST 2"); return 2;}
 	if(TEST3()){fprintf(stderr, "ERROR DURING TEST 3"); return 3;}
-	
+	if(TEST4()){fprintf(stderr, "ERROR DURING TEST 4"); return 4;}
 	
 	
 	return 0;
@@ -54,8 +55,8 @@ static int TEST3(){
 	float tmp = -21;
 	int j = 0;
 	srand(time(NULL));
-	static MazeNode mn1;
-	static MazeNode mn2;
+	MazeNode mn1;
+	MazeNode mn2;
 	MazeNode mn3;
 	MazeNode mn4;
 	MazeNode mn5;
@@ -79,26 +80,44 @@ static int TEST3(){
 	PriorityAdd(Open, &mn6,compareCosts);
 	PriorityAdd(Open, &mn7,compareCosts);
 	MazeNode *mn0;
+	QueueNode *qn0;
 	
 	for(;j<7;j++){
-	
-		mn0 = pop(Open)->data;
+		
+		qn0 = pop(Open);
+		mn0	= qn0->data;
 		
 		if(mn0){
-
+			
 			if (tmp <= mn0->costToGoal){
 				tmp = mn0->costToGoal;
+				
 			}
 			else{
 				return 1;
 			}
-		}
 		
+		}
+		free(qn0);
 		
 		
 	}
+	free(Open);
 	fprintf(stdout, "\nThe Priority Queue is in correct order.\n");
 	return 0;
 	
 
+}
+
+static int TEST4(){
+	int i = 0;
+	Graph *tmp = constructGraph(10,10);
+	tmp->table[2][9].costToGoal = 4;
+	fprintf(stdout,"\nThe Created Node has a value of %.2f.\n",tmp->table[2][9].costToGoal);
+	for (;i<10;i++){
+		free(tmp->table[i]);
+	}
+	free(tmp->table);
+	free(tmp);
+	return 0;
 }
