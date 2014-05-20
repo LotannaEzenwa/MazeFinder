@@ -225,7 +225,7 @@ int main(int argc, char* argv[])
 		} else {
 		    // we are the child
 		    char command[MAX_CMD_LEN]; 
-			sprintf(command, "./src/amazing_client %d %d %d %s %d %s", 
+			sprintf(command, "./amazing_client %d %d %d %s %d %s", 
 				i, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename); 
 			printf("%s\n", command); 
 			char str[5]; 
@@ -233,14 +233,15 @@ int main(int argc, char* argv[])
 			sprintf(str, "%d", i); 
 			sprintf(port, "%d", MazePort); 
 
-			printf("about to execute\n"); 
+			//printf("about to execute\n"); 
 
-			char *argb[6] = { str, argv[1], argv[2], inet_ntoa(ipadd), port, filename }; 
-		    execvp("./src/amazing_client", argb);
+			char *argb[7] = { str, argv[1], argv[2], inet_ntoa(ipadd), port, filename }; 
+		    execvp("./amazing_client", argb);
 		    //execvp("./amazing_client", str, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename);
 
 		    _exit(EXIT_FAILURE);   // exec never returns
 		}
+		//printf("got here\n"); 
 
 //		sleep(10); 
 	}

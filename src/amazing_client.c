@@ -106,10 +106,11 @@ int main(int argc, char* argv[])
 	int MazeHeight; 
 
     printf("in this function\n"); 
+    printf("arg1: %s\n", argv[1]); 
 
 	/******************************* args check *******************************/
 	if (argc != 7) {
-		fprintf(stderr, "Incorrect number of arguments. Exiting now.\n"); 
+		perror("AC: Incorrect number of arguments. Exiting now.\n"); 
 		exit(1); 
 	} else {
         printf("getting called\n"); 
