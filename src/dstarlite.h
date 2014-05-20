@@ -18,12 +18,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-<<<<<<< HEAD
 #include <limits.h>
 =======
 
 // ---------------- Local includes  e.g., "file.h"
->>>>>>> 58ce47587498ed68efee0c9f0fb234199ebc9d76
 #include "../util/src/amazing.h"
 #include "../util/src/queue.h"
 
