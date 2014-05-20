@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
 	int MazeHeight; 
 
     printf("in this function\n"); 
-    printf("arg1: %s\n", argv[1]); 
+    printf("arg1: %s\n", argv[0]); 
 
 	/******************************* args check *******************************/
 	if (argc != 7) {
@@ -116,54 +116,56 @@ int main(int argc, char* argv[])
         printf("getting called\n"); 
     }
 
-	// check that the numbering of avatars starts at 0 
-    if (IsNotNumeric(argv[1])) {
+	// check that the avatarid 
+    if (IsNotNumeric(argv[0])) {
 		fprintf(stderr, "Number of avatars must be a number. Exiting now.\n"); 
     	exit(1); 
     } else {
-    	avatarId = atoi(argv[1]); 
+    	avatarId = atoi(argv[0]); 
     	printf("avatarId: %d\n", avatarId); 
     }
 
 	// check the input for number of avatars 
-    if (IsNotNumeric(argv[2])) {
+    if (IsNotNumeric(argv[1])) {
 		fprintf(stderr, "Number of avatars must be a number. Exiting now.\n"); 
     	exit(1); 
-    } else if ((atoi(argv[2]) < 0)) {
+    } else if ((atoi(argv[1]) < 0)) {
     	fprintf(stderr, "Number of avatars must be greater than 0. Exiting now.\n"); 
     	exit(1); 
     } else {
-    	nAvatars = atoi(argv[2]); 
+    	nAvatars = atoi(argv[1]); 
     	printf("Number avatars: %d\n", nAvatars); 
     }
 
     // check input for difficulty of maze 
-    if (IsNotNumeric(argv[3])) {
+    if (IsNotNumeric(argv[2])) {
 		fprintf(stderr, "Difficulty must be a number. Exiting now.\n"); 
     	exit(1); 
-    } else if ((atoi(argv[3]) < 0) || (atoi(argv[3]) > 9)) {
+    } else if ((atoi(argv[2]) < 0) || (atoi(argv[3]) > 9)) {
     	fprintf(stderr, "Difficulty level must be between 0 and 9. Exiting now.\n"); 
     	exit(1); 
     } else {
-    	Difficulty = atoi(argv[3]); 
+    	Difficulty = atoi(argv[2]); 
     	printf("Difficulty %d\n", Difficulty); 
     }
 
     // copy ipAddress  
-    if (strlen(argv[4]) >= MAX_IP_LEN) {
+    if (strlen(argv[3]) >= MAX_IP_LEN) {
         perror("Ip address too long. Exiting now.\n"); 
         exit(1); 
     } else {
-        strcpy(ipAddress, argv[4]);  
+        strcpy(ipAddress, argv[3]);  
     }
 
     // MazePort 
-    if (IsNotNumeric(argv[5])) {
+    if (IsNotNumeric(argv[4])) {
         perror("MazePort wrong. Exiting now.\n"); 
         exit(1); 
     } else {
-        MazePort = atoi(argv[5]); 
+        MazePort = atoi(argv[4]); 
     }
+
+    // get filename 
 
 
 	/************************ tell server avatar ready ************************/

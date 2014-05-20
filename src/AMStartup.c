@@ -235,8 +235,8 @@ int main(int argc, char* argv[])
 
 			//printf("about to execute\n"); 
 
-			char *argb[7] = { str, argv[1], argv[2], inet_ntoa(ipadd), port, filename }; 
-		    execvp("./amazing_client", argb);
+			char *args[7] = { "amazing_client", str, argv[1], argv[2], inet_ntoa(ipadd), port, filename }; 
+		    execv(".", args);
 		    //execvp("./amazing_client", str, nAvatars, Difficulty, inet_ntoa(ipadd), MazePort, filename);
 
 		    _exit(EXIT_FAILURE);   // exec never returns
