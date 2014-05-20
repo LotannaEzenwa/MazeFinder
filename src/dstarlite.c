@@ -16,7 +16,7 @@ int heuristic(XYPos *p1, XYPos *p2){
 }
 
 
-int compareCosts(MazeNode *p1, MazeNode *p2){
-	return (p1->costToGoal < p2->costToGoal);
+int compareCosts(void *p1, void *p2){
+	return (((MazeNode*) p1)->costToGoal > ((MazeNode*) p2)->costToGoal);
 }
 

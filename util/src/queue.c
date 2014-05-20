@@ -4,7 +4,6 @@
 #include <unistd.h>
 
 #include "queue.h"
-#include "common.h"
 #include "utils.h"
 
 /*
@@ -19,13 +18,13 @@ Queue * createQueue() {
 /*
  * Function to add a node to the proper place in the queue
  */
-void PriorityAdd(Queue *queue, void *data, void (*comparefunc)(void*,void*)) {
+void PriorityAdd(Queue *queue, void *data, int (*comparefunc)(void*,void*)) {
 	// if there's nothing in the queue, create the first node
-	if (NULL == queue->tail) {
+	if (NULL == queue->head) {
 		QueueNode *firstNode = calloc(1,sizeof(QueueNode));
 		firstNode->data = data;
 		firstNode->next=NULL;
-		firstNode->prev=firstNode;
+		firstNode->prev=NULL;
 
 		// initialize the head and tail to the only item in the queue
 		queue->head = firstNode;
@@ -42,9 +41,10 @@ void PriorityAdd(Queue *queue, void *data, void (*comparefunc)(void*,void*)) {
 
 		// iterate through the queue looking to see where the new node should go
 		// queue is in order from greatest to least freq of word
-		while (comparefunc(new,pointer)) {
-			if (pointer->next != NULL) {
+		while ((*comparefunc)(new->data,pointer->data)) {
+			if (pointer != NULL) {
 				pointer=pointer->next;
+				if (pointer == NULL) break;
 			}
 			else {
 				break;
@@ -53,11 +53,10 @@ void PriorityAdd(Queue *queue, void *data, void (*comparefunc)(void*,void*)) {
 
 		// fix up links
 		// if the node is supposed to be inserted at the head (highest priority):
-		if (pointer->prev == pointer) {
+		if (pointer == queue->head) {
 			queue->head = new;
-			new->prev = new;
 			new->next = pointer;
-			pointer->prev = new;	
+			pointer->prev = new;
 		}
 		
 		// if the node is supposed to be inserted in the middle of the queue:
@@ -70,9 +69,9 @@ void PriorityAdd(Queue *queue, void *data, void (*comparefunc)(void*,void*)) {
 
 		// if the node is supposed to be inserted at the end (lowest priority):
 		else {
-			new->prev = pointer;
-			new->next = NULL;
-			pointer->next = new;
+			new->prev = queue->tail;
+			queue->tail->next = new;
+			queue->tail = new;
 		}
 	}
 }

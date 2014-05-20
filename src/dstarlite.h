@@ -10,6 +10,7 @@
 
 typedef enum {WALL, OPEN} status;
 typedef enum {TRAVELED, UNVISITED} pathstatus;
+typedef enum {NEW, OPEN, CLOSED,RAISE, LOWER} mark;
 
 
 typedef struct MazeNode{
@@ -21,6 +22,7 @@ typedef struct MazeNode{
 	status east;
 	status west;
 	pathstatus ps;
+	mark mk;
 		
 }MazeNode;
 
@@ -45,7 +47,7 @@ typedef struct Path{
 
 int MH(MazeNode n1, MazeNode n2);
 int heuristic(XYPos *p1, XYPos *p2);
-int compareCosts(MazeNode *p1, MazeNode *p2);
+int compareCosts(void *p1,void *p2);
 
 
 

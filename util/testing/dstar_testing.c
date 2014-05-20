@@ -1,8 +1,11 @@
+#include <time.h>
+#include "../src/queue.h"
 #include "../../src/dstarlite.c"
+
 
 static int TEST1(); //Manhattan Heuristic Test
 static int TEST2(); //Compare Function Test
-//static int TEST3(); //Priority Queue Test
+static int TEST3(); //Priority Queue Test
 
 int main(int argc, char *argv[]){
 	
@@ -10,6 +13,7 @@ int main(int argc, char *argv[]){
 	 
 	if(TEST1()){fprintf(stderr, "ERROR DURING TEST 1"); return 1;}
 	if(TEST2()){fprintf(stderr, "ERROR DURING TEST 2"); return 2;}
+	if(TEST3()){fprintf(stderr, "ERROR DURING TEST 3"); return 3;}
 	
 	
 	
@@ -17,7 +21,6 @@ int main(int argc, char *argv[]){
 }
 
 static int TEST1(){
-
 	int h;
 	XYPos pos1;
 	XYPos pos2;
@@ -33,7 +36,7 @@ static int TEST1(){
 }
 
 static int TEST2(){
-
+	
 	int b;
 	int c;
 	MazeNode mn1;
@@ -45,4 +48,57 @@ static int TEST2(){
 	printf("\nThe Compare Function Returned %d and %d.\n",b,c);
 	
 	return 0;
+}
+
+static int TEST3(){
+	float tmp = -21;
+	int j = 0;
+	srand(time(NULL));
+	static MazeNode mn1;
+	static MazeNode mn2;
+	MazeNode mn3;
+	MazeNode mn4;
+	MazeNode mn5;
+	MazeNode mn6;
+	MazeNode mn7;
+	Queue *Open = createQueue();
+	
+	mn1.costToGoal = rand()%41 - 20;
+	mn2.costToGoal = rand()%41 - 20;
+	mn3.costToGoal = rand()%41 - 20;
+	mn4.costToGoal = rand()%41 - 20;
+	mn5.costToGoal = rand()%41 - 20;
+	mn6.costToGoal = rand()%41 - 20;
+	mn7.costToGoal = rand()%41 - 20;
+
+	PriorityAdd(Open, &mn1,compareCosts);
+	PriorityAdd(Open, &mn2,compareCosts);
+	PriorityAdd(Open, &mn3,compareCosts);
+	PriorityAdd(Open, &mn4,compareCosts);
+	PriorityAdd(Open, &mn5,compareCosts);
+	PriorityAdd(Open, &mn6,compareCosts);
+	PriorityAdd(Open, &mn7,compareCosts);
+	MazeNode *mn0;
+	
+	for(;j<7;j++){
+	
+		mn0 = pop(Open)->data;
+		
+		if(mn0){
+
+			if (tmp <= mn0->costToGoal){
+				tmp = mn0->costToGoal;
+			}
+			else{
+				return 1;
+			}
+		}
+		
+		
+		
+	}
+	fprintf(stdout, "\nThe Priority Queue is in correct order.\n");
+	return 0;
+	
+
 }
