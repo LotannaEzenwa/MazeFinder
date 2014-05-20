@@ -20,6 +20,8 @@
 
 // ---------------- Local includes  e.g., "file.h"
 #include "dstarlite.h"
+#include "../util/src/amazing.h"
+#include "../util/src/utils.h"
 
 // ---------------- Constant/Macro definitions
 
@@ -29,7 +31,7 @@
 
 // ---------------- Private prototypes
 
-void maze(uint32_t mazeport){
+void maze(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 	FILE *logfile;
 	char *filename = "/var/tmp/%zu/log.out";
 	char buffer[24];
@@ -38,6 +40,7 @@ void maze(uint32_t mazeport){
 	char *readin = calloc(strlen("MazeCell") +1, sizeof(char));
 	int linelen = 45;
 	MazeNode *newnode;
+	MazeNode *mazearray[mazewidth * mazeheight + 1];
 	uint32_t xcord;
 	uint32_t ycord;
 	
@@ -57,7 +60,7 @@ void maze(uint32_t mazeport){
 		printf("Could not open file\n");
 		exit(1);
 	}
-
+	int counter = 0;
 	block = calloc(linelen+1,sizeof(char));
 	while ((cell = fgets(block,linelen,logfile)) != NULL) {
 		sscanf(cell,"%s",readin);
@@ -69,12 +72,9 @@ void maze(uint32_t mazeport){
 			cell += 4;
 			sscanf(cell,"%u",&ycord);
 			newnode->position.y = ycord;
-			printf("x:%u y:%u ",xcord,ycord);
 			cell += 5 + strlen("walls: ");
-			printf("next: %c",cell[0]);
 			if (cell[0] == 'W') {
 				newnode->west = WALL;
-				printf("WALL");
 			}
 			else {
 				newnode->west = PATH;
@@ -100,7 +100,8 @@ void maze(uint32_t mazeport){
 			else {
 				newnode->east = PATH;
 			}
-			
+			mazearray[counter] = newnode;
+			counter += 1;
 		}
 	}
 	
