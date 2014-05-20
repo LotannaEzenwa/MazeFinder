@@ -196,16 +196,36 @@ int main(int argc, char* argv[])
     send(sockfd, &msg, sizeof(msg), 0);
 
     printf("sent\n"); 
+    return(1); 
 
     /************************** listen for avatarID **************************/
     if( recv(sockfd, &msg, sizeof(msg) , 0) < 0)
     {
         perror("The server terminated prematurely.\n");
         exit(4); 
-    } else {
-        printf("got here\n"); 
-    }
+    } 
+
     printf("done\n"); 
+    return(1); 
+
+/*    if (IS_AM_ERROR(msg.type))
+    {
+        perror("Something went wrong.\n");
+        exit(5);
+    } else {
+        if (ntohl(msg.type) != AM_INIT_OK) {
+            perror("Message received was not AM_INIT_OK.\n"); 
+            exit(6); 
+        } else {
+            // set the variables based on the reply 
+            MazePort = ntohl(msg.init_ok.MazePort);  
+            MazeWidth = ntohl(msg.init_ok.MazeWidth); 
+            MazeHeight = ntohl(msg.init_ok.MazeHeight); 
+            printf("Port:%d\n", MazePort); 
+            printf("Width:%d\n", MazeWidth); 
+            printf("Height: %d\n", MazeHeight);
+        } 
+    } */
 
 /*    Once started, each Avatar (instance of the client) sends an AM_AVATAR_READY message (via the MazePort, of course) 
     containing its assigned AvatarId to the server.
