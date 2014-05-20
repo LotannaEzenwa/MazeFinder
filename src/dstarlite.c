@@ -4,7 +4,7 @@
 
 
 
-
+static float minimum(float f1, float f2);
 
 
 
@@ -40,7 +40,15 @@ Graph* constructGraph(uint32_t height, uint32_t width){
 	return new;
 }
 
+NodeKey calculateKey(MazeNode *s){
+	NodeKey nk;
+}
 
+static float minimum(float f1, float f2){
+	if (f1 < f2) return f1;
+	else if (f2 < f1) return f2;
+	return NULL;9--===
+}
 
 
 
