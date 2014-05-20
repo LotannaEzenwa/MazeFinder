@@ -24,7 +24,7 @@
 #include "../util/src/queue.h"
 
 // ---------------- Structures/Types
-typedef enum {WALL, PATH} status;
+typedef enum {PATH, WALL} status;
 typedef enum {TRAVELED, UNVISITED} pathstatus;
 typedef enum {NEW, OPEN, CLOSED,RAISE, LOWER} mark;
 
