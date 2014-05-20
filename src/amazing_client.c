@@ -80,6 +80,7 @@
 
 // ---------------- Macro definitions
 #define MAX_IP_LEN 100
+#define MAX_FILE_NAME 100
 
 // ---------------- Structures/Types
 
@@ -99,7 +100,7 @@ int main(int argc, char* argv[])
 	int nAvatars; 
 	int Difficulty; 
     char ipAddress[MAX_IP_LEN]; 
-//	char filename[MAX_FILE_NAME]; 
+	char filename[MAX_FILE_NAME]; 
 	int sockfd; 
 	struct sockaddr_in servaddr;
 	int MazePort; 
@@ -163,6 +164,16 @@ int main(int argc, char* argv[])
     }
 
     // get filename 
+    if (strlen(argv[6]) >= MAX_FILE_NAME) {
+        perror("Filename too long. Exiting now.\n"); 
+        exit(1); 
+    } else {
+        strcpy(filename,argv[6]); 
+    }
+
+    
+    /*************************** open shared memory ***************************/
+
 
 
 	/************************ tell server avatar ready ************************/
