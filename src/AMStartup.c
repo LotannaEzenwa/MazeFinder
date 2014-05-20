@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
 			MazeHeight = ntohl(msg.init_ok.MazeHeight); 
 			printf("Port:%d\n", MazePort); 
 			printf("Width:%d\n", MazeWidth); 
-			printf("Height: %d\n", MazeHeight);
+			printf("Height: %d\n", MazeHeight);	
 		} 
 	}
 
