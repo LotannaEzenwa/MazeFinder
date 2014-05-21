@@ -10,7 +10,7 @@ float C1 = 1;
 XYPos goal;
 
 static void initializeMazeNode(MazeNode *mn);
-static float minimum(float f1, float f2);
+//static float minimum(float f1, float f2);
 
 
 
@@ -31,6 +31,7 @@ int compareCosts(void *p1, void *p2)
 Graph* constructGraph(uint32_t height, uint32_t width)
 {
 	int i;
+	int j;
 	Graph *new = calloc(1,sizeof(Graph));
 	new->table = calloc(height,sizeof(int*));
 
@@ -44,26 +45,57 @@ Graph* constructGraph(uint32_t height, uint32_t width)
 		new->table[i] = calloc(width, sizeof(MazeNode));
 		MALLOC_CHECK(stderr, new->table[i]); 
 	}
+	
+	for (i = 0; i< height; i++){
+		for(j = 0; j < width; j++){
+			
+			XYPos *xy = calloc(1,sizeof(XYPos));
+			MazeNode *b = &(new->table[i][j]);
+			xy->x = i;
+			xy->y = j;
+			b->position = *xy;
+			free(xy);
+			initializeMazeNode(b);
+			if (i == 0){
+				b->north = WALL;
+			}
+			else if (i==height-1){
+				b->south = WALL;
+			}
+			
+			if (j == 0){
+				b->west = WALL;
+			}
+			else if (j == width-1){
+				b->east = WALL;
+			}
+		}
+	}
 	return new;
 }
 
-NodeKey calculateKey(MazeNode *s){
-	NodeKey nk;
+NodeKey* calculateKey(MazeNode *s){
+	NodeKey *nk = &(s->key);
+	 
 	return nk;
 }
 
-static float minimum(float f1, float f2){
+/*static float minimum(float f1, float f2){
 	if (f1 < f2) return f1;
 	else if (f2 < f1) return f2;
-	return NULL;
-}
+	return 0.0;
+}*/
 
 static void initializeMazeNode(MazeNode *mn){
 	if (!mn) return;
-	mn->g = UINT_MAX;
-	mn->rhs = UINT_MAX;
+	mn->g = INT_MAX;
+	mn->rhs = INT_MAX;
 	return;
 }
 
-
+MazeNode* getGoalNode(XYPos *xy,Graph *grid){
+	if (!xy || !grid) return NULL;
+	MazeNode *new = &(grid->table[xy->x][xy->y]);
+	return new;
+}
 

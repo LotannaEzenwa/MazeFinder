@@ -24,7 +24,7 @@
 #include "../util/src/queue.h"
 
 // ---------------- Structures/Types
-typedef enum {WALL, PATH} status;
+typedef enum {PATH, WALL} status;
 typedef enum {TRAVELED, UNVISITED} pathstatus;
 typedef enum {NEW, OPEN, CLOSED,RAISE, LOWER} mark;
 
@@ -86,6 +86,7 @@ int heuristic(XYPos *p1, XYPos *p2);
 int compareCosts(void *p1,void *p2);
 
 Graph* constructGraph(uint32_t height, uint32_t width);
+MazeNode* getGoalNode(XYPos *xy,Graph *grid);
 
 
 

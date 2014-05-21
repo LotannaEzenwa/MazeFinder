@@ -7,7 +7,7 @@
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  *      When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
  * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] 
- *          [MAZEPORT] [FILENAME] [MAZEWIDTH] [MAZEHEIGHT] [KEY]
+ *          [MAZEPORT] [FILENAME] [KEY]
  *
  * 
  * Example command input
@@ -37,14 +37,6 @@
  * [FILENAME] -> Amazing_3_2.log
  * Requirement: 
  * Usage: Filename of the log the Avatar should open for writing in append mode.  
- * 
- * [MAZEWIDTH] -> 10
- * Requirement: Must be a number
- * Usage: Passed to the function to draw the maze   
- *
- * [MAZEHEIGHT] -> 10
- * Requirement: Must be a number 
- * Usage: Passed to the function to draw the maze  
  * 
  * [KEY] -> 1234
  * Requirement: 4 digit number 
@@ -116,20 +108,23 @@ int main(int argc, char* argv[])
 	int Difficulty; 
     char ipAddress[MAX_IP_LEN]; 
 	char filename[MAX_FILE_NAME]; 
-    int MazeWidth; 
-    int MazeHeight; 
-// for shared memory 
-    int running = 1;
+    float xAvg; 
+    float yAvg; 
+//    int MazeWidth; 
+//    int MazeHeight; 
+    // for shared memory 
+//    int running = 1;
     void *shared_memory = (void *)0;
     struct shared_use_st *shared_stuff;
     char buffer[BUFSIZ];
     int shmid;
-// for sockets 
+    // for sockets 
 	int sockfd; 
 	struct sockaddr_in servaddr;
 	int MazePort; 
     time_t cur;
     FILE *fp; 
+    int first = 1; 
 
 
 	/******************************* args check *******************************/
@@ -197,9 +192,9 @@ int main(int argc, char* argv[])
         strcpy(filename,argv[6]); 
     }
 
-    // check mazewidth 
-    MazeWidth = atoi(argv[7]); 
-    MazeHeight = atoi(argv[8]); 
+    // check key passed in  
+
+
     
     /*************************** open shared memory ***************************/
     shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
@@ -260,6 +255,21 @@ int main(int argc, char* argv[])
 
         // check message type 
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
+            // the first time it receives a message, find central point 
+            if (first) {
+                int i; 
+                for ( i = 0; i < nAvatars; i++ ) {
+                    xAvg += ntohl(msg.avatar_turn.Pos[i].x);  
+                    yAvg += ntohl(msg.avatar_turn.Pos[i].y);  
+                }
+
+                xAvg = xAvg / nAvatars; 
+                yAvg = yAvg / nAvatars; 
+//                printf("xAvg: %f\n", xAvg); 
+//                printf("yAvg: %f\n", yAvg); 
+
+                first = 0; 
+            }
 
             // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
