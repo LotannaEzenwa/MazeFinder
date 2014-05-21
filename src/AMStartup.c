@@ -41,6 +41,7 @@
  */
 
 /* ========================================================================== */
+#define _GNU_SOURCE
 // ---------------- Open Issues
 
 // ---------------- System includes e.g., <stdio.h>
@@ -48,6 +49,7 @@
 #include <sys/types.h> 
 #include <sys/stat.h> 
 #include <sys/shm.h>		// for shared memory
+#include <sys/sem.h>		// for semaphores 
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -103,6 +105,7 @@ int main(int argc, char* argv[])
 	time_t cur;
 	FILE *fp; 
 	int shmid;
+	int semid; 
 	char key[MAX_KEY_LEN]; 
 
 
@@ -220,6 +223,15 @@ int main(int argc, char* argv[])
     	sprintf(key, "%d", shmid); 
     }
 
+	/*************************** set up semaphore ***************************/
+    semid = semget((key_t)1234, 1, 0666 | IPC_CREAT);
+
+    if (semid == -1) {
+        fprintf(stderr, "shmget failed\n");
+        exit(EXIT_FAILURE);
+    } else {
+    	sprintf(key, "%d", semid); 
+    }
 
 	printf("here");
     	// start graphics
