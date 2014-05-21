@@ -47,6 +47,7 @@
 #include <stdio.h>                           // printf
 #include <sys/types.h> 
 #include <sys/stat.h> 
+#include <sys/shm.h>		// for shared memory
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -65,6 +66,7 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
+#include "../util/src/shm_com.h"
 #include "maze.h"
 
 // ---------------- Constant definitions
@@ -74,6 +76,7 @@
 #define MAX_CMD_LEN 100 
 #define MAX_ID_LEN 5
 #define MAX_PORT_LEN 10 
+#define MAX_KEY_LEN 10
 
 // ---------------- Structures/Types
 
@@ -99,6 +102,9 @@ int main(int argc, char* argv[])
 	uint32_t MazeHeight; 
 	time_t cur;
 	FILE *fp; 
+	int shmid;
+	char key[MAX_KEY_LEN]; 
+
 
 	/******************************* args check *******************************/
 	if (argc < 4) {
@@ -165,7 +171,7 @@ int main(int argc, char* argv[])
 
 	send(sockinit, &msg, sizeof(msg), 0);
 
-	printf("sent\n"); 
+	printf("sent msg\n"); 
 
 	/*********************** receive AM_INIT_OK message ***********************/
 	// receive a reply   
@@ -204,10 +210,20 @@ int main(int argc, char* argv[])
 	fprintf(fp, "%d, %d, %s\n", id, MazePort, ctime(&cur)); 
 	fclose(fp); 
 
+	/************************** open shared memory **************************/
+    shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
+
+    if (shmid == -1) {
+        fprintf(stderr, "shmget failed\n");
+        exit(EXIT_FAILURE);
+    } else {
+    	sprintf(key, "%d", shmid); 
+    }
+
 
 	printf("here");
     	// start graphics
-   	parselog(MazePort,MazeWidth,MazeHeight);
+   	//parselog(MazePort,MazeWidth,MazeHeight);
 	printf("finished");
 
 	/***************************** start Avatars *****************************/
@@ -232,8 +248,9 @@ int main(int argc, char* argv[])
 			sprintf(avId, "%d", i); 
 			sprintf(port, "%d", MazePort); 
 
-
-		    char *args[8] = { "./amazing_client", avId, argv[1], argv[2], inet_ntoa(ipadd), port, filename, NULL }; 
+			// execute the amazing clients
+		    char *args[9] = { "./amazing_client", avId, argv[1], argv[2], inet_ntoa(ipadd), 
+		    		port, filename, key, NULL }; 
 			execvp(args[0], args);
 
 		    _exit(EXIT_FAILURE);   // exec never returns

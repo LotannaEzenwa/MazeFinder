@@ -7,7 +7,7 @@
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  *      When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
  * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] 
- *          [MAZEPORT] [FILENAME] [KEY]
+ *          [MAZEPORT] [FILENAME] [SHMID]
  *
  * 
  * Example command input
@@ -38,7 +38,7 @@
  * Requirement: 
  * Usage: Filename of the log the Avatar should open for writing in append mode.  
  * 
- * [KEY] -> 1234
+ * [SHMID] -> 1234
  * Requirement: 4 digit number 
  * Usage: Key for accessing shared memory  
  * 
@@ -114,9 +114,10 @@ int main(int argc, char* argv[])
 //    int MazeHeight; 
     // for shared memory 
 //    int running = 1;
-    void *shared_memory = (void *)0;
-    struct shared_use_st *shared_stuff;
-    char buffer[BUFSIZ];
+//    void *shared_memory = (void *)0;
+    char *shared_string; 
+//    struct shared_use_st *shared_stuff;
+//    char buffer[BUFSIZ];
     int shmid;
     // for sockets 
 	int sockfd; 
@@ -128,7 +129,7 @@ int main(int argc, char* argv[])
 
 
 	/******************************* args check *******************************/
-	if (argc != 7) {
+	if (argc != 8) {
 		perror("AC: Incorrect number of arguments. Exiting now.\n"); 
 		exit(1); 
 	} else {
@@ -193,25 +194,23 @@ int main(int argc, char* argv[])
     }
 
     // check key passed in  
-
-
+    if (IsNotNumeric(argv[7])) {
+        perror("Key for shared memory wrong. Exiting now.\n"); 
+        exit(1); 
+    } else {
+        shmid = atoi(argv[7]); 
+    }    
     
-    /*************************** open shared memory ***************************/
-    shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
-
-    if (shmid == -1) {
-        fprintf(stderr, "shmget failed\n");
-        exit(EXIT_FAILURE);
-    }
+    /************************ attach to shared memory ************************/
 
     // make the shared memory accessible to the program 
-    shared_memory = shmat(shmid, (void *)0, 0);
-    if (shared_memory == (void *)-1) {
+    shared_string = shmat(shmid, (void *)0, 0);
+    if (shared_string == (void *)-1) {
         fprintf(stderr, "shmat failed\n");
         exit(EXIT_FAILURE);
     }
 
-    printf("Memory attached at %p\n", shared_memory);
+    printf("Memory attached at %p\n", shared_string);
 
 	/************************ tell server avatar ready ************************/
     // create a socket for the client
@@ -242,14 +241,27 @@ int main(int argc, char* argv[])
     send(sockfd, &msg, sizeof(msg), 0);
 
     printf("sent\n"); 
-
+    int z = 0; 
     /************************** listen for avatarID **************************/
-    while ( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) {
+    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<11) {
         printf("received\n"); 
 
         // check if error 
         if (IS_AM_ERROR(ntohl(msg.type))) {
             perror("Something went wrong.\n");
+            // detach the memory 
+            if (shmdt(shared_string) == -1) {
+                perror("shmdt failed\n");
+                exit(EXIT_FAILURE);
+            }
+
+            // one avatar should delete the memory 
+            if (avatarId == 0) {
+                if (shmctl(shmid, IPC_RMID, 0) == -1) {
+                    perror("shmctl(IPC_RMID) failed\n");
+                    exit(EXIT_FAILURE);
+                }
+            }
             exit(4);
         } 
 
@@ -284,12 +296,16 @@ int main(int argc, char* argv[])
 
                 msg.avatar_move.Direction = htonl(random_number%4); 
 
-                // log the avatar's move  
+                // log the avatar's move to a file 
                 fp = fopen(filename, "a"); 
                 ASSERT_FAIL(stderr, fp); 
 
                 fprintf(fp, "Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
                 fclose(fp); 
+
+                // log the avatar's move to shared memory 
+                sprintf(shared_string, "in memory id: %d, move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
+                printf("shared contents: %s\n", shared_string);
 
                 send(sockfd, &msg, sizeof(msg), 0);
             } else {
@@ -312,12 +328,24 @@ int main(int argc, char* argv[])
 //            printf("Solved the maze\n"); 
             exit(EXIT_SUCCESS); 
         }
+        z++; 
     } 
 
-    if (shmdt(shared_memory) == -1) {
-        fprintf(stderr, "shmdt failed\n");
+    // detach the memory 
+    if (shmdt(shared_string) == -1) {
+        perror("shmdt failed\n");
         exit(EXIT_FAILURE);
     }
+
+    // one avatar should delete the memory 
+    if (avatarId == 0) {
+        if (shmctl(shmid, IPC_RMID, 0) == -1) {
+            perror("shmctl(IPC_RMID) failed\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    printf("ended\n"); 
 
     exit(EXIT_SUCCESS);
 }
