@@ -17,7 +17,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <gtk/gtk.h>
 // ---------------- Local includes  e.g., "file.h"
 #include "dstarlite.h"
 #include "../util/src/amazing.h"
