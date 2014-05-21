@@ -37,7 +37,7 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 	char *block;
 	char *cell;
 	char *readin = calloc(strlen("MazeCell") +1, sizeof(char));
-	int linelen = 45;
+	int linelen = 55;
 	MazeNode *newnode;
 	MazeNode *mazearray[mazewidth * mazeheight + 1];
 	uint32_t xcord;
@@ -105,6 +105,7 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 			}
 			mazearray[counter] = newnode;
 			counter += 1;
+			cell += strlen("borders: WNSE");
 		}
 	}	
 }

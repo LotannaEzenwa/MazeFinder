@@ -207,7 +207,7 @@ int main(int argc, char* argv[])
 
 	printf("here");
     	// start graphics
-    //	parselog(MazePort,MazeWidth,MazeHeight);
+   	parselog(MazePort,MazeWidth,MazeHeight);
 	printf("finished");
 
 	/***************************** start Avatars *****************************/
