@@ -5,13 +5,38 @@
 
 
 
-int k = 0;
-float C1 = 1;
-XYPos goal;
+static int k = 0;
+static float C1 = 1;
+static XYPos goal = {5,5};
+static XYPos start = {3,3};
 
 static void initializeMazeNode(MazeNode *mn);
-//static float minimum(float f1, float f2);
+static int minimum(int f1, int f2);
 
+
+int calculateRHS(MazeNode *mn,Graph *gr){
+	
+	int tmp;
+	tmp = INT_MAX;
+	if (!mn || !gr) return INT_MAX;
+	XYPos *xy = &(mn->position);
+	int x = xy->x;
+	int y = xy->y;
+	
+	if (!((int) mn->south)){
+		tmp = minimum(gr->table[x][y+1].g + 1,tmp);
+	}
+	if (!((int) mn->west)){
+		tmp = minimum(gr->table[x-1][y].g + 1,tmp);
+	}
+	if (!((int) mn->east)){
+		tmp = minimum(gr->table[x+1][y].g + 1,tmp);
+	}
+	if (!((int) mn->north)){
+		tmp = minimum(gr->table[x][y-1].g + 1,tmp);
+	}
+	return tmp;
+}
 
 
 int heuristic(XYPos *p1, XYPos *p2)
@@ -32,6 +57,8 @@ Graph* constructGraph(uint32_t height, uint32_t width)
 {
 	int i;
 	int j;
+	MazeNode *b;
+	XYPos xy;
 	Graph *new = calloc(1,sizeof(Graph));
 	new->table = calloc(height,sizeof(int*));
 
@@ -49,12 +76,11 @@ Graph* constructGraph(uint32_t height, uint32_t width)
 	for (i = 0; i< height; i++){
 		for(j = 0; j < width; j++){
 			
-			XYPos *xy = calloc(1,sizeof(XYPos));
-			MazeNode *b = &(new->table[i][j]);
-			xy->x = i;
-			xy->y = j;
-			b->position = *xy;
-			free(xy);
+			
+			b = &(new->table[i][j]);
+			xy.x = j;
+			xy.y = i;
+			b->position = xy;
 			initializeMazeNode(b);
 			if (i == 0){
 				b->north = WALL;
@@ -74,17 +100,18 @@ Graph* constructGraph(uint32_t height, uint32_t width)
 	return new;
 }
 
-NodeKey* calculateKey(MazeNode *s){
+NodeKey* calculateKey(MazeNode *s, Graph *gr)
+{
 	NodeKey *nk = &(s->key);
-	 
+	nk->val1 = minimum(heuristic(&(s->position), &goal),calculateRHS(s,gr)) + heuristic(&(s->position),&start) + k;
+	nk->val2 = minimum(heuristic(&(s->position), &goal),calculateRHS(s,gr));
 	return nk;
 }
 
-/*static float minimum(float f1, float f2){
-	if (f1 < f2) return f1;
-	else if (f2 < f1) return f2;
-	return 0.0;
-}*/
+static int minimum(int f1, int f2){
+	if (f1 <= f2) return f1;
+	else return f2;
+}
 
 static void initializeMazeNode(MazeNode *mn){
 	if (!mn) return;
@@ -98,4 +125,6 @@ MazeNode* getGoalNode(XYPos *xy,Graph *grid){
 	MazeNode *new = &(grid->table[xy->x][xy->y]);
 	return new;
 }
+
+
 

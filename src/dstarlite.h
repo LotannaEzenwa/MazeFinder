@@ -42,7 +42,7 @@ typedef struct MazeNode
 	NodeKey key;
 	uint32_t g;
 	uint32_t rhs;
-	float costToGoal;
+	int costToGoal;
 	XYPos position;
 	status north;
 	status south;
@@ -82,6 +82,7 @@ typedef struct Path
 
 // ---------------- Private prototypes
 int MH(MazeNode n1, MazeNode n2);
+int calculateRHS(MazeNode *mn, Graph *gr);
 int heuristic(XYPos *p1, XYPos *p2);
 int compareCosts(void *p1,void *p2);
 

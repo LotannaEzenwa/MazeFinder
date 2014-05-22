@@ -7,6 +7,7 @@ static int TEST1(); //Manhattan Heuristic Test
 static int TEST2(); //Compare Function Test
 static int TEST3(); //Priority Queue Test
 static int TEST4(); //Graph Testing
+static int TEST5(); //RHS/G Testing
 
 int main(int argc, char *argv[]){
 	
@@ -16,7 +17,7 @@ int main(int argc, char *argv[]){
 	if(TEST2()){fprintf(stderr, "ERROR DURING TEST 2"); return 2;}
 	if(TEST3()){fprintf(stderr, "ERROR DURING TEST 3"); return 3;}
 	if(TEST4()){fprintf(stderr, "ERROR DURING TEST 4"); return 4;}
-	
+	if(TEST5()){fprintf(stderr, "ERROR DURING TEST 5"); return 5;}
 	
 	return 0;
 }
@@ -113,14 +114,34 @@ static int TEST4(){
 	int i = 0;
 	int j = 0;
 	Graph *tmp = constructGraph(10,10);
-	fprintf(stdout,"\nThe Created Node has a value of %.2f.\n",tmp->table[2][9].costToGoal);
+	tmp->table[2][9].costToGoal = 2;
+	fprintf(stdout,"\nThe Created Node has a value of %.2i.\n",tmp->table[2][9].costToGoal);
 	for (i=0;i<10;i++){
 		for (j=0;j<10;j++){
-			fprintf(stdout,"%d,%d\n",tmp->table[i][j].position.x,tmp->table[i][j].position.y);
-			fprintf(stdout,"%d,%d\n",tmp->table[i][j].g,tmp->table[i][j].rhs);
-			fprintf(stdout,"%d,%d\n",(int) tmp->table[i][j].east,(int) tmp->table[i][j].south);
+			//fprintf(stdout,"%d,%d\n",tmp->table[i][j].position.x,tmp->table[i][j].position.y);
+			//fprintf(stdout,"%d,%d\n",tmp->table[i][j].g,tmp->table[i][j].rhs);
+			//fprintf(stdout,"%d,%d,%d,%d\n",(int) tmp->table[i][j].west,(int) tmp->table[i][j].north,(int) tmp->table[i][j].south,(int) tmp->table[i][j].east);
+			
 		}
+		
 		free(tmp->table[i]);
+	}
+	free(tmp->table);
+	free(tmp);
+	return 0;
+}
+
+static int TEST5(){
+	int i = 0;
+	int j = 0;
+	Graph *tmp = constructGraph(10,10);
+	for (i=0;i<10;i++){
+		for (j=0;j<10;j++){
+			tmp->table[i][j].rhs = calculateRHS(&(tmp->table[i][j]),tmp);
+			fprintf(stdout,"%u",tmp->table[i][j].rhs);
+		}
+		fprintf(stdout,"\n");
+		//free(tmp->table[i]);
 	}
 	free(tmp->table);
 	free(tmp);
