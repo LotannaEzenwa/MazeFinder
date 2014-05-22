@@ -58,7 +58,7 @@ typedef struct Graph
 {
 	int h;
 	int w;
-	MazeNode **table;	
+	MazeNode **table;
 } Graph;
 
 typedef struct PathNode

@@ -31,9 +31,7 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 			fprintf(stderr,"\nNO ROUTE TO GOAL\n");
 			return;
 		}
-		
-		//CALCULATE VN,VW,VE,VW
-		//HERE
+
 		c = ((int) s_start->south)*INT_MAX + !((int)s_start->south)*1;
 		vs = gr->table[s_start->position.x][s_start->position.y+1].g + c;
 			
