@@ -11,18 +11,19 @@ static XYPos goal = {5,5};
 static XYPos start = {3,3};
 
 static void initializeMazeNode(MazeNode *mn);
-static int minimum(int f1, int f2);
+static long int minimum(long int f1,long int f2);
 
 
 
 void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
-	int vn=0,vw=0,ve=0,vs=0,v1=0,v2=0,v3 =0 ; //Values corresponding to c + g
+	long int vn=0,vw=0,ve=0,vs=0,v1=0,v2=0,v3 = 0; //Values corresponding to c + g
+	long int c;
 	MazeNode *s_last = begin;
 	MazeNode *s_start = begin;
 	MazeNode *s_goal = end;
 	MazeNode *s_temp;
-	Queue *heap = calloc(1,sizeof(Queue));
-	//dStarInit(s_start,gr,heap);
+	Queue *heap = createQueue();
+	dStarInit(s_start,s_goal,gr,heap);
 	computeSP(s_start,heap,gr);
 	while (s_start != s_goal){
 		
@@ -33,6 +34,18 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 		
 		//CALCULATE VN,VW,VE,VW
 		//HERE
+		c = ((int) s_start->south)*INT_MAX + !((int)s_start->south)*1;
+		vs = gr->table[s_start->position.x][s_start->position.y+1].g + c;
+			
+		
+		c = ((int) s_start->west)*INT_MAX + !((int)s_start->west)*1;
+		vw = gr->table[s_start->position.x-1][s_start->position.y].g + c;
+		
+		c = ((int) s_start->east)*INT_MAX + !((int)s_start->east)*1;
+		ve = gr->table[s_start->position.x+1][s_start->position.y].g + c;
+
+		c = ((int) s_start->north)*INT_MAX + !((int)s_start->north)*1;
+		vn = gr->table[s_start->position.x][s_start->position.y-1].g + c;
 		
 		if (vs == minimum(vn,vs)) v1 = vs;
 		else v1 = vn;
@@ -44,7 +57,7 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 		if (v3 == vn) {
 			s_start = &(gr->table[s_start->position.x][s_start->position.y-1]);
 			//Move North
-			}
+		}
 		else if (v3 == vs){
 			s_start = &(gr->table[s_start->position.x][s_start->position.y+1]);
 			//Move South
@@ -86,7 +99,7 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 			}
 			
 			if(s_last->rhs == 1 + s_start->g){
-				if (s_last != s_goal) s_last->rhs = calculateRHS(s_last,gr);
+				if (s_last != s_goal) s_last->rhs = minimum(s_last->rhs,1 + s_start->g);
 				
 			}
 			if (s_start->rhs == 1 + s_last->g){
@@ -113,8 +126,15 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 	
 }
 
-void dstarInit()
+void dStarInit(MazeNode *s_start, MazeNode *s_goal, Graph *gr, Queue *heap)
 {
+	NodeKey nk;
+	nk.val1 = heuristic(&(s_start->position),&(s_goal->position));
+	nk.val2 = 0;
+	s_goal->rhs = 0;
+	s_goal->key = nk;
+	
+	PriorityAdd(heap,s_goal,compareKey);
 }
 
 void updateVertex(MazeNode *u, Queue *heap, Graph *gr)
@@ -141,7 +161,7 @@ void updateVertex(MazeNode *u, Queue *heap, Graph *gr)
 
 int calculateRHS(MazeNode *mn,Graph *gr){
 	
-	int tmp;
+	long int tmp;
 	tmp = INT_MAX;
 	if (!mn || !gr) return INT_MAX;
 	XYPos *xy = &(mn->position);
@@ -230,12 +250,12 @@ Graph* constructGraph(uint32_t height, uint32_t width)
 NodeKey calculateKey(MazeNode *s, Graph *gr)
 {
 	NodeKey nk = s->key;
-	nk.val1 = minimum(heuristic(&(s->position), &goal),calculateRHS(s,gr)) + heuristic(&(s->position),&start) + k;
-	nk.val2 = minimum(heuristic(&(s->position), &goal),calculateRHS(s,gr));
+	nk.val1 = minimum(heuristic(&(s->position), &goal),s->rhs) + heuristic(&(s->position),&start) + k;
+	nk.val2 = minimum(heuristic(&(s->position), &goal),s->rhs);
 	return nk;
 }
 
-static int minimum(int f1, int f2){
+static long int minimum(long int f1, long int f2){
 	if (f1 <= f2) return f1;
 	else return f2;
 }
