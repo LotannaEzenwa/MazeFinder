@@ -7,7 +7,7 @@
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  *      When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
  * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] 
- *          [MAZEPORT] [FILENAME] [KEY]
+ *          [MAZEPORT] [FILENAME] [SHMID]
  *
  * 
  * Example command input
@@ -38,7 +38,7 @@
  * Requirement: 
  * Usage: Filename of the log the Avatar should open for writing in append mode.  
  * 
- * [KEY] -> 1234
+ * [SHMID] -> 1234
  * Requirement: 4 digit number 
  * Usage: Key for accessing shared memory  
  * 
@@ -59,6 +59,7 @@
  */
 
 /* ========================================================================== */
+#define _GNU_SOURCE
 // ---------------- Open Issues
 
 // ---------------- System includes e.g., <stdio.h>
@@ -66,6 +67,7 @@
 #include <sys/types.h> 
 #include <sys/stat.h> 
 #include <sys/shm.h>
+#include <sys/sem.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -96,6 +98,13 @@
 // ---------------- Private prototypes
 int IsNotNumeric(char *input);
 
+static int set_semvalue(void);
+static void del_semvalue(void);
+static int semaphore_p(void);
+static int semaphore_v(void);
+
+static int sem_id;
+
 
 /* =========================================================================== */
 /*                                   main                                      */
@@ -114,9 +123,10 @@ int main(int argc, char* argv[])
 //    int MazeHeight; 
     // for shared memory 
 //    int running = 1;
-    void *shared_memory = (void *)0;
-    struct shared_use_st *shared_stuff;
-    char buffer[BUFSIZ];
+//    void *shared_memory = (void *)0;
+    char *shared_string; 
+//    struct shared_use_st *shared_stuff;
+//    char buffer[BUFSIZ];
     int shmid;
     // for sockets 
 	int sockfd; 
@@ -128,7 +138,7 @@ int main(int argc, char* argv[])
 
 
 	/******************************* args check *******************************/
-	if (argc != 7) {
+	if (argc != 8) {
 		perror("AC: Incorrect number of arguments. Exiting now.\n"); 
 		exit(1); 
 	} else {
@@ -193,25 +203,29 @@ int main(int argc, char* argv[])
     }
 
     // check key passed in  
-
-
+    if (IsNotNumeric(argv[7])) {
+        perror("Key for shared memory wrong. Exiting now.\n"); 
+        exit(1); 
+    } else {
+        shmid = sem_id = atoi(argv[7]); 
+    }    
     
-    /*************************** open shared memory ***************************/
-    shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
-
-    if (shmid == -1) {
-        fprintf(stderr, "shmget failed\n");
-        exit(EXIT_FAILURE);
-    }
+    /************************ attach to shared memory ************************/
 
     // make the shared memory accessible to the program 
-    shared_memory = shmat(shmid, (void *)0, 0);
-    if (shared_memory == (void *)-1) {
+    shared_string = shmat(shmid, (void *)0, 0);
+    if (shared_string == (void *)-1) {
         fprintf(stderr, "shmat failed\n");
         exit(EXIT_FAILURE);
     }
 
-    printf("Memory attached at %p\n", shared_memory);
+    printf("Memory attached at %p\n", shared_string);
+
+    // initialize semaphore 
+    if (!set_semvalue()) {
+        fprintf(stderr, "Failed to initialize semaphore\n");
+        exit(EXIT_FAILURE);
+    }
 
 	/************************ tell server avatar ready ************************/
     // create a socket for the client
@@ -242,14 +256,27 @@ int main(int argc, char* argv[])
     send(sockfd, &msg, sizeof(msg), 0);
 
     printf("sent\n"); 
-
+    int z = 0; 
     /************************** listen for avatarID **************************/
-    while ( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) {
+    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<11) {
         printf("received\n"); 
 
         // check if error 
         if (IS_AM_ERROR(ntohl(msg.type))) {
             perror("Something went wrong.\n");
+            // detach the memory 
+            if (shmdt(shared_string) == -1) {
+                perror("shmdt failed\n");
+                exit(EXIT_FAILURE);
+            }
+
+            // one avatar should delete the memory 
+            if (avatarId == 0) {
+                if (shmctl(shmid, IPC_RMID, 0) == -1) {
+                    perror("shmctl(IPC_RMID) failed\n");
+                    exit(EXIT_FAILURE);
+                }
+            }
             exit(4);
         } 
 
@@ -267,12 +294,19 @@ int main(int argc, char* argv[])
                 yAvg = yAvg / nAvatars; 
 //                printf("xAvg: %f\n", xAvg); 
 //                printf("yAvg: %f\n", yAvg); 
+                xAvg = (int) xAvg; 
+                yAvg = (int) yAvg; 
 
                 first = 0; 
             }
 
             // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
+
+                // grab the key 
+                if (!semaphore_p()) exit(EXIT_FAILURE);
+
+                // make a move 
                 printf("make a move\n"); 
                 msg.type = htonl(AM_AVATAR_MOVE); 
                 msg.avatar_move.AvatarId = htonl(avatarId); 
@@ -284,15 +318,25 @@ int main(int argc, char* argv[])
 
                 msg.avatar_move.Direction = htonl(random_number%4); 
 
-                // log the avatar's move  
+                // log the avatar's move to a file 
                 fp = fopen(filename, "a"); 
                 ASSERT_FAIL(stderr, fp); 
 
                 fprintf(fp, "Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
                 fclose(fp); 
 
+                // log the avatar's move to shared memory 
+                sprintf(shared_string, "in memory id: %d, move: %d\n", avatarId, 
+                    ntohl(msg.avatar_move.Direction)); 
+                printf("shared contents: %s\n", shared_string);
+
                 send(sockfd, &msg, sizeof(msg), 0);
+
+                // release the key 
+                if (!semaphore_v()) exit(EXIT_FAILURE);
+
             } else {
+                continue; 
                 printf("not my turn\n"); 
             }
         } 
@@ -312,12 +356,24 @@ int main(int argc, char* argv[])
 //            printf("Solved the maze\n"); 
             exit(EXIT_SUCCESS); 
         }
+        z++; 
     } 
 
-    if (shmdt(shared_memory) == -1) {
-        fprintf(stderr, "shmdt failed\n");
+    // detach the memory 
+    if (shmdt(shared_string) == -1) {
+        perror("shmdt failed\n");
         exit(EXIT_FAILURE);
     }
+
+    // one avatar should delete the memory 
+    if (avatarId == 0) {
+        if (shmctl(shmid, IPC_RMID, 0) == -1) {
+            perror("shmctl(IPC_RMID) failed\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    printf("ended\n"); 
 
     exit(EXIT_SUCCESS);
 }
@@ -345,4 +401,61 @@ int IsNotNumeric(char *input)
         }
     }
     return(0); // success
+}
+
+
+/* The function set_semvalue initializes the semaphore using the SETVAL command in a
+ semctl call. We need to do this before we can use the semaphore. */
+
+static int set_semvalue(void)
+{
+    union semun sem_union;
+
+    sem_union.val = 1;
+    if (semctl(sem_id, 0, SETVAL, sem_union) == -1) return(0);
+    return(1);
+}
+
+/* The del_semvalue function has almost the same form, except the call to semctl uses
+ the command IPC_RMID to remove the semaphore's ID. */
+
+static void del_semvalue(void)
+{
+    union semun sem_union;
+    
+    if (semctl(sem_id, 0, IPC_RMID, sem_union) == -1)
+        fprintf(stderr, "Failed to delete semaphore\n");
+}
+
+/* semaphore_p changes the semaphore by -1 (waiting). */
+
+static int semaphore_p(void)
+{
+    struct sembuf sem_b;
+    
+    sem_b.sem_num = 0;
+    sem_b.sem_op = -1; /* P() */
+    sem_b.sem_flg = SEM_UNDO;
+    if (semop(sem_id, &sem_b, 1) == -1) {
+        fprintf(stderr, "semaphore_p failed\n");
+        return(0);
+    }
+    return(1);
+}
+
+/* semaphore_v is similar except for setting the sem_op part of the sembuf structure to 1,
+ so that the semaphore becomes available. */
+
+static int semaphore_v(void)
+{
+    struct sembuf sem_b;
+    
+    sem_b.sem_num = 0;
+    sem_b.sem_op = 1; /* V() */
+    sem_b.sem_flg = SEM_UNDO;
+    if (semop(sem_id, &sem_b, 1) == -1) {
+        fprintf(stderr, "semaphore_v failed\n");
+        return(0);
+    }
+    return(1);
 }
