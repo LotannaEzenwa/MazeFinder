@@ -308,7 +308,9 @@ int IsNotNumeric(char *input)
     return(0); // success
 }
 
-
+/* =========================================================================== */
+/*            Semaphore Functions, taken from Dartmouth CS Resources           */
+/* =========================================================================== */
 /* The function set_semvalue initializes the semaphore using the SETVAL command in a
  semctl call. We need to do this before we can use the semaphore. */
 

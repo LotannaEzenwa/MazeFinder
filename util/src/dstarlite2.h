@@ -56,7 +56,6 @@ typedef struct MazeNode
 
 typedef struct MazeMemory
 {
-	sem_t *mutex; 
 	MazeNode * maze[MAX_WIDTH][MAX_HEIGHT]; 
 } MazeMemory; 
 

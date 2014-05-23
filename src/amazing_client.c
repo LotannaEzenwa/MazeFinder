@@ -255,12 +255,15 @@ int main(int argc, char* argv[])
     send(sockfd, &msg, sizeof(msg), 0);
 
     printf("sent\n"); 
+
+    /******* this z variable is so you can limit the number of steps for testing *******/ 
+    /******* used in the while loop below ********/ 
     int z = 0; 
 
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
-    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<10) {
+    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<1000) {
         printf("received: %d\n", avatarId); 
 
         // check if error 
@@ -311,19 +314,21 @@ int main(int argc, char* argv[])
                 xpos = ntohl(msg.avatar_turn.Pos[avatarId].x); 
                 ypos = ntohl(msg.avatar_turn.Pos[avatarId].y); 
 
-
                 // make a move 
                 printf("make a move\n"); 
                 msg.type = htonl(AM_AVATAR_MOVE); 
                 msg.avatar_move.AvatarId = htonl(avatarId); 
 
-                // algorithm goes here 
-                // shared memory bit goes here 
-/*                srand ( time(NULL) );
+            
+                /* This is a random algorithm for the sake of testing. */ 
+
+                /******** comment out when you want to test dstarlite ********/ 
+                srand ( time(NULL) );
                 int random_number = rand();
 
-                msg.avatar_move.Direction = htonl(random_number%4);  */
-                switch (dir) {
+                msg.avatar_move.Direction = htonl(random_number%4);  
+
+/*                switch (dir) {
                     case 0: 
                         msg.avatar_move.Direction = htonl(0);                
                         break; 
@@ -340,8 +345,20 @@ int main(int argc, char* argv[])
                     default: 
                         break; 
                 }
-                 
+*/
                 
+                /********* The algorithm should go here. **********/  
+                /* shared_mem is a pointer that points to the shared memory, 
+                        which contains a MazeMemory (see util/src/dstarlite2.h) */
+                
+                /* dstarlite */ 
+
+
+
+
+
+
+
 
                 // log the avatar's move to a file 
                 fp = fopen(filename, "a"); 
@@ -350,28 +367,34 @@ int main(int argc, char* argv[])
                 fprintf(fp, "Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
 //                fclose(fp); 
 
-                // log the avatar's move to shared memory 
-//                sprintf(shared_string, "in memory id: %d, move: %d\n", avatarId, 
-//                    ntohl(msg.avatar_move.Direction)); 
-//                printf("shared contents: %s\n", shared_string);
 
                 send(sockfd, &msg, sizeof(msg), 0);
 
                 // listen for reply 
                 if (recv(sockfd, &msg, sizeof(msg) , 0) >= 0) {
-                    fprintf(fp,"prevx: %d\n", xpos); 
+/*                    fprintf(fp,"prevx: %d\n", xpos); 
                     fprintf(fp,"prevy: %d\n", ypos); 
                     
                     fprintf(fp,"movex: %d\n", (ntohl(msg.avatar_turn.Pos[avatarId].x))); 
                     fprintf(fp,"movey: %d\n", (ntohl(msg.avatar_turn.Pos[avatarId].y))); 
-                    
+*/ 
+
                     // if current position is same as last
                     if ( (ntohl(msg.avatar_turn.Pos[avatarId].x) == xpos) 
                         && (ntohl(msg.avatar_turn.Pos[avatarId].y) == ypos) ) {
-                            // hit a wall 
-                            printf("hit a wall\n"); 
-                            fprintf(fp, "Hit a wall\n"); 
-                            dir++;      // change direction 
+
+                        // hit a wall 
+                        printf("hit a wall\n"); 
+                        fprintf(fp, "Hit a wall\n"); 
+
+                        /******* update the shared memory to reflect the wall *******/
+
+
+
+
+
+
+                        //dir++;      // change direction (for a random algorithm, just ignore)
                     }
                     printf("received message\n"); 
                 }
@@ -447,6 +470,10 @@ int IsNotNumeric(char *input)
     return(0); // success
 }
 
+
+/* =========================================================================== */
+/*            Semaphore Functions, taken from Dartmouth CS Resources           */
+/* =========================================================================== */
 /* The del_semvalue function has almost the same form, except the call to semctl uses
  the command IPC_RMID to remove the semaphore's ID. */
 
