@@ -121,7 +121,12 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 				printf("OOOO");
 			}
 			else {
-				printf("    ");
+				if (node->west == WALL) {
+					printf("O    ");
+				}
+				else {
+					printf("    ");
+				}
 			}
 		}
 		printf("\n");
