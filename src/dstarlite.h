@@ -56,7 +56,9 @@ typedef struct MazeNode
 
 typedef struct Graph
 {
-	MazeNode **table;	
+	int h;
+	int w;
+	MazeNode **table;
 } Graph;
 
 typedef struct PathNode
@@ -85,9 +87,15 @@ int MH(MazeNode n1, MazeNode n2);
 int calculateRHS(MazeNode *mn, Graph *gr);
 int heuristic(XYPos *p1, XYPos *p2);
 int compareCosts(void *p1,void *p2);
+int compareKey(void *p1, void *p2);
 
 Graph* constructGraph(uint32_t height, uint32_t width);
+void dStarInit(MazeNode *s_start,MazeNode *s_goal,Graph *gr, Queue *heap);
 MazeNode* getGoalNode(XYPos *xy,Graph *grid);
+void dstarmain(MazeNode *begin, MazeNode *end, Graph *gr);
+NodeKey calculateKey(MazeNode *s, Graph *gr);
+void computeSP(MazeNode *s_start,Queue *heap, Graph *gr);
+void updateVertex(MazeNode *u, Queue *heap, Graph *gr);
 
 
 
