@@ -64,11 +64,13 @@
 #include <errno.h> //For errno - the error number
 #include <netdb.h> //hostent
 #include <sys/wait.h>
+#include <semaphore.h>
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
 #include "../util/src/shm_com.h"
+#include "../util/src/dstarlite2.h"
 #include "maze.h"
 
 // ---------------- Constant definitions
@@ -86,6 +88,10 @@
 
 // ---------------- Private prototypes
 int IsNotNumeric(char *input);
+
+static int set_semvalue(void);
+
+static int sem_id;
 
 
 /* =========================================================================== */
@@ -105,8 +111,9 @@ int main(int argc, char* argv[])
 	time_t cur;
 	FILE *fp; 
 	int shmid;
-	int semid; 
+
 	char key[MAX_KEY_LEN]; 
+	MazeMemory *shared_mem; 
 
 
 	/******************************* args check *******************************/
@@ -214,23 +221,29 @@ int main(int argc, char* argv[])
 	fclose(fp); 
 
 	/************************** open shared memory **************************/
-    shmid = shmget((key_t)1234, sizeof(struct shared_use_st), 0666 | IPC_CREAT);
+    shmid = shmget((key_t)1234, sizeof(MazeMemory), 0666 | IPC_CREAT);
 
     if (shmid == -1) {
         fprintf(stderr, "shmget failed\n");
         exit(EXIT_FAILURE);
     } else {
     	sprintf(key, "%d", shmid); 
+    	// initialize the memory 
+    	shared_mem = shmat(shmid, (void *)0, 0);
     }
 
 	/*************************** set up semaphore ***************************/
-    semid = semget((key_t)1234, 1, 0666 | IPC_CREAT);
+    sem_id = semget((key_t)2345, 1, 0666 | IPC_CREAT);
 
-    if (semid == -1) {
-        fprintf(stderr, "shmget failed\n");
+    if (sem_id == -1) {
+        fprintf(stderr, "semget failed\n");
         exit(EXIT_FAILURE);
-    } else {
-    	sprintf(key, "%d", semid); 
+    } 
+
+    // initialize the semaphore 
+	if (!set_semvalue()) {
+        fprintf(stderr, "Failed to initialize semaphore\n");
+        exit(EXIT_FAILURE);
     }
 
 	printf("here");
@@ -261,8 +274,8 @@ int main(int argc, char* argv[])
 			sprintf(port, "%d", MazePort); 
 
 			// execute the amazing clients
-		    char *args[9] = { "./amazing_client", avId, argv[1], argv[2], inet_ntoa(ipadd), 
-		    		port, filename, key, NULL }; 
+		    char *args[9] = { "./amazing_client", avId, argv[1], argv[2], 
+		    		inet_ntoa(ipadd), port, filename, key, NULL }; 
 			execvp(args[0], args);
 
 		    _exit(EXIT_FAILURE);   // exec never returns
@@ -272,8 +285,6 @@ int main(int argc, char* argv[])
 	// end this program 
 	return(0); 
 }
-
-
 
 
 /* =========================================================================== */
@@ -295,4 +306,17 @@ int IsNotNumeric(char *input)
         }
     }
     return(0); // success
+}
+
+
+/* The function set_semvalue initializes the semaphore using the SETVAL command in a
+ semctl call. We need to do this before we can use the semaphore. */
+
+static int set_semvalue(void)
+{
+    union semun sem_union;
+
+    sem_union.val = 1;
+    if (semctl(sem_id, 0, SETVAL, sem_union) == -1) return(0);
+    return(1);
 }

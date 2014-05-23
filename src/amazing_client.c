@@ -77,12 +77,14 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <time.h> 
+#include <semaphore.h>
 
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
 #include "../util/src/shm_com.h"
+#include "../util/src/dstarlite2.h"
 #include "maze.h"
 
 // ---------------- Constant definitions
@@ -98,10 +100,11 @@
 // ---------------- Private prototypes
 int IsNotNumeric(char *input);
 
-static int set_semvalue(void);
+
 static void del_semvalue(void);
 static int semaphore_p(void);
 static int semaphore_v(void);
+
 
 static int sem_id;
 
@@ -119,15 +122,14 @@ int main(int argc, char* argv[])
 	char filename[MAX_FILE_NAME]; 
     float xAvg; 
     float yAvg; 
+    int xpos; 
+    int ypos; 
 //    int MazeWidth; 
 //    int MazeHeight; 
     // for shared memory 
-//    int running = 1;
-//    void *shared_memory = (void *)0;
-    char *shared_string; 
-//    struct shared_use_st *shared_stuff;
-//    char buffer[BUFSIZ];
+    MazeMemory *shared_mem; 
     int shmid;
+    
     // for sockets 
 	int sockfd; 
 	struct sockaddr_in servaddr;
@@ -207,25 +209,22 @@ int main(int argc, char* argv[])
         perror("Key for shared memory wrong. Exiting now.\n"); 
         exit(1); 
     } else {
-        shmid = sem_id = atoi(argv[7]); 
+        shmid = atoi(argv[7]); 
     }    
     
     /************************ attach to shared memory ************************/
 
     // make the shared memory accessible to the program 
-    shared_string = shmat(shmid, (void *)0, 0);
-    if (shared_string == (void *)-1) {
+    shared_mem = shmat(shmid, (void *)0, 0);
+    if (shared_mem == (void *)-1) {
         fprintf(stderr, "shmat failed\n");
         exit(EXIT_FAILURE);
     }
 
-    printf("Memory attached at %p\n", shared_string);
+    printf("Memory attached at %p\n", (void *)shared_mem);
 
     // initialize semaphore 
-    if (!set_semvalue()) {
-        fprintf(stderr, "Failed to initialize semaphore\n");
-        exit(EXIT_FAILURE);
-    }
+    sem_id = semget((key_t)2345, 1, 0666); 
 
 	/************************ tell server avatar ready ************************/
     // create a socket for the client
@@ -257,15 +256,18 @@ int main(int argc, char* argv[])
 
     printf("sent\n"); 
     int z = 0; 
+
+
+    int dir = 0; 
     /************************** listen for avatarID **************************/
-    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<11) {
-        printf("received\n"); 
+    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<10) {
+        printf("received: %d\n", avatarId); 
 
         // check if error 
         if (IS_AM_ERROR(ntohl(msg.type))) {
             perror("Something went wrong.\n");
             // detach the memory 
-            if (shmdt(shared_string) == -1) {
+            if (shmdt(shared_mem) == -1) {
                 perror("shmdt failed\n");
                 exit(EXIT_FAILURE);
             }
@@ -292,8 +294,7 @@ int main(int argc, char* argv[])
 
                 xAvg = xAvg / nAvatars; 
                 yAvg = yAvg / nAvatars; 
-//                printf("xAvg: %f\n", xAvg); 
-//                printf("yAvg: %f\n", yAvg); 
+
                 xAvg = (int) xAvg; 
                 yAvg = (int) yAvg; 
 
@@ -306,6 +307,11 @@ int main(int argc, char* argv[])
                 // grab the key 
                 if (!semaphore_p()) exit(EXIT_FAILURE);
 
+                // get the avatar's current location
+                xpos = ntohl(msg.avatar_turn.Pos[avatarId].x); 
+                ypos = ntohl(msg.avatar_turn.Pos[avatarId].y); 
+
+
                 // make a move 
                 printf("make a move\n"); 
                 msg.type = htonl(AM_AVATAR_MOVE); 
@@ -313,24 +319,63 @@ int main(int argc, char* argv[])
 
                 // algorithm goes here 
                 // shared memory bit goes here 
-                srand ( time(NULL) );
+/*                srand ( time(NULL) );
                 int random_number = rand();
 
-                msg.avatar_move.Direction = htonl(random_number%4); 
+                msg.avatar_move.Direction = htonl(random_number%4);  */
+                switch (dir) {
+                    case 0: 
+                        msg.avatar_move.Direction = htonl(0);                
+                        break; 
+                    case 1: 
+                        msg.avatar_move.Direction = htonl(1);                
+                        break; 
+                    case 2: 
+                        msg.avatar_move.Direction = htonl(3);                
+                        break; 
+                    case 3: 
+                        msg.avatar_move.Direction = htonl(2);   
+                        dir = 0;              
+                        break; 
+                    default: 
+                        break; 
+                }
+                 
+                
 
                 // log the avatar's move to a file 
                 fp = fopen(filename, "a"); 
                 ASSERT_FAIL(stderr, fp); 
 
                 fprintf(fp, "Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
-                fclose(fp); 
+//                fclose(fp); 
 
                 // log the avatar's move to shared memory 
-                sprintf(shared_string, "in memory id: %d, move: %d\n", avatarId, 
-                    ntohl(msg.avatar_move.Direction)); 
-                printf("shared contents: %s\n", shared_string);
+//                sprintf(shared_string, "in memory id: %d, move: %d\n", avatarId, 
+//                    ntohl(msg.avatar_move.Direction)); 
+//                printf("shared contents: %s\n", shared_string);
 
                 send(sockfd, &msg, sizeof(msg), 0);
+
+                // listen for reply 
+                if (recv(sockfd, &msg, sizeof(msg) , 0) >= 0) {
+                    fprintf(fp,"prevx: %d\n", xpos); 
+                    fprintf(fp,"prevy: %d\n", ypos); 
+                    
+                    fprintf(fp,"movex: %d\n", (ntohl(msg.avatar_turn.Pos[avatarId].x))); 
+                    fprintf(fp,"movey: %d\n", (ntohl(msg.avatar_turn.Pos[avatarId].y))); 
+                    
+                    // if current position is same as last
+                    if ( (ntohl(msg.avatar_turn.Pos[avatarId].x) == xpos) 
+                        && (ntohl(msg.avatar_turn.Pos[avatarId].y) == ypos) ) {
+                            // hit a wall 
+                            printf("hit a wall\n"); 
+                            fprintf(fp, "Hit a wall\n"); 
+                            dir++;      // change direction 
+                    }
+                    printf("received message\n"); 
+                }
+                fclose(fp);  
 
                 // release the key 
                 if (!semaphore_v()) exit(EXIT_FAILURE);
@@ -360,10 +405,12 @@ int main(int argc, char* argv[])
     } 
 
     // detach the memory 
-    if (shmdt(shared_string) == -1) {
+    if (shmdt(shared_mem) == -1) {
         perror("shmdt failed\n");
         exit(EXIT_FAILURE);
     }
+
+    sleep(2); 
 
     // one avatar should delete the memory 
     if (avatarId == 0) {
@@ -371,6 +418,7 @@ int main(int argc, char* argv[])
             perror("shmctl(IPC_RMID) failed\n");
             exit(EXIT_FAILURE);
         }
+        del_semvalue();
     }
 
     printf("ended\n"); 
@@ -378,12 +426,8 @@ int main(int argc, char* argv[])
     exit(EXIT_SUCCESS);
 }
 
-
-
-
-
 /* =========================================================================== */
-/*                              IsNotNumeric	                               */
+/*                              IsNotNumeric                                   */
 /* =========================================================================== */
 /*  Checks that the input is a number
  *  
@@ -401,19 +445,6 @@ int IsNotNumeric(char *input)
         }
     }
     return(0); // success
-}
-
-
-/* The function set_semvalue initializes the semaphore using the SETVAL command in a
- semctl call. We need to do this before we can use the semaphore. */
-
-static int set_semvalue(void)
-{
-    union semun sem_union;
-
-    sem_union.val = 1;
-    if (semctl(sem_id, 0, SETVAL, sem_union) == -1) return(0);
-    return(1);
 }
 
 /* The del_semvalue function has almost the same form, except the call to semctl uses
