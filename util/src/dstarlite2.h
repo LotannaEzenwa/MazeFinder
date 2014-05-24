@@ -20,8 +20,11 @@
 #include <math.h>
 #include <limits.h>
 // ---------------- Local includes  e.g., "file.h"
-#include "../util/src/amazing.h"
-#include "../util/src/queue.h"
+#include "amazing.h"
+#include "queue.h"
+
+#define MAX_WIDTH 101
+#define MAX_HEIGHT 101 
 
 // ---------------- Structures/Types
 typedef enum {PATH, WALL} status;
@@ -35,10 +38,8 @@ typedef struct NodeKey
 } NodeKey;
 
 
-
 typedef struct MazeNode
 {
-
 	NodeKey key;
 	uint32_t g;
 	uint32_t rhs;
@@ -50,13 +51,26 @@ typedef struct MazeNode
 	status west;
 	pathstatus ps;
 	mark mk;
-	int maze_boolean;
 	
 } MazeNode;
 
+typedef struct MazeMemory
+{
+	MazeNode * maze[MAX_WIDTH][MAX_HEIGHT]; 
+} MazeMemory; 
 
+/* according to X/OPEN we have to define it ourselves */
+union semun {
+    int val;                    /* value for SETVAL */
+    struct semid_ds *buf;       /* buffer for IPC_STAT, IPC_SET */
+    unsigned short int *array;  /* array for GETALL, SETALL */
+    struct seminfo *__buf;      /* buffer for IPC_INFO */
+};
+    
 typedef struct Graph
 {
+	int h;
+	int w;
 	MazeNode **table;
 } Graph;
 

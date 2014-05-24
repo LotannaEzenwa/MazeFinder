@@ -41,12 +41,15 @@
  */
 
 /* ========================================================================== */
+#define _GNU_SOURCE
 // ---------------- Open Issues
 
 // ---------------- System includes e.g., <stdio.h>
 #include <stdio.h>                           // printf
 #include <sys/types.h> 
 #include <sys/stat.h> 
+#include <sys/shm.h>		// for shared memory
+#include <sys/sem.h>		// for semaphores 
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -61,10 +64,13 @@
 #include <errno.h> //For errno - the error number
 #include <netdb.h> //hostent
 #include <sys/wait.h>
+#include <semaphore.h>
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
+#include "../util/src/shm_com.h"
+#include "../util/src/dstarlite2.h"
 #include "maze.h"
 #include "dstarlite.h"
 
@@ -75,6 +81,7 @@
 #define MAX_CMD_LEN 100 
 #define MAX_ID_LEN 5
 #define MAX_PORT_LEN 10 
+#define MAX_KEY_LEN 10
 
 // ---------------- Structures/Types
 
@@ -82,6 +89,10 @@
 
 // ---------------- Private prototypes
 int IsNotNumeric(char *input);
+
+static int set_semvalue(void);
+
+static int sem_id;
 
 
 /* =========================================================================== */
@@ -100,6 +111,11 @@ int main(int argc, char* argv[])
 	uint32_t MazeHeight; 
 	time_t cur;
 	FILE *fp; 
+	int shmid;
+
+	char key[MAX_KEY_LEN]; 
+	MazeMemory *shared_mem; 
+
 
 	/******************************* args check *******************************/
 	if (argc < 4) {
@@ -166,7 +182,7 @@ int main(int argc, char* argv[])
 
 	send(sockinit, &msg, sizeof(msg), 0);
 
-	printf("sent\n"); 
+	printf("sent msg\n"); 
 
 	/*********************** receive AM_INIT_OK message ***********************/
 	// receive a reply   
@@ -205,10 +221,34 @@ int main(int argc, char* argv[])
 	fprintf(fp, "%d, %d, %s\n", id, MazePort, ctime(&cur)); 
 	fclose(fp); 
 
+	/************************** open shared memory **************************/
+    shmid = shmget((key_t)1234, sizeof(MazeMemory), 0666 | IPC_CREAT);
+
+    if (shmid == -1) {
+        fprintf(stderr, "shmget failed\n");
+        exit(EXIT_FAILURE);
+    } else {
+    	sprintf(key, "%d", shmid); 
+    	// initialize the memory 
+    	shared_mem = shmat(shmid, (void *)0, 0);
+    }
+
+	/*************************** set up semaphore ***************************/
+    sem_id = semget((key_t)2345, 1, 0666 | IPC_CREAT);
+
+    if (sem_id == -1) {
+        fprintf(stderr, "semget failed\n");
+        exit(EXIT_FAILURE);
+    } 
+
+    // initialize the semaphore 
+	if (!set_semvalue()) {
+        fprintf(stderr, "Failed to initialize semaphore\n");
+        exit(EXIT_FAILURE);
+    }
 
 	printf("here");
     	// start graphics
-//   	MazeNode *array[MazeWidth + 1][MazeHeight + 1];
 	MazeNode ***array;
 	array = parselog(MazePort,MazeWidth,MazeHeight);
 	update(array,MazeWidth,MazeHeight);
@@ -236,8 +276,9 @@ int main(int argc, char* argv[])
 			sprintf(avId, "%d", i); 
 			sprintf(port, "%d", MazePort); 
 
-
-		    char *args[8] = { "./amazing_client", avId, argv[1], argv[2], inet_ntoa(ipadd), port, filename, NULL }; 
+			// execute the amazing clients
+		    char *args[9] = { "./amazing_client", avId, argv[1], argv[2], 
+		    		inet_ntoa(ipadd), port, filename, key, NULL }; 
 			execvp(args[0], args);
 
 		    _exit(EXIT_FAILURE);   // exec never returns
@@ -247,8 +288,6 @@ int main(int argc, char* argv[])
 	// end this program 
 	return(0); 
 }
-
-
 
 
 /* =========================================================================== */
@@ -270,4 +309,19 @@ int IsNotNumeric(char *input)
         }
     }
     return(0); // success
+}
+
+/* =========================================================================== */
+/*            Semaphore Functions, taken from Dartmouth CS Resources           */
+/* =========================================================================== */
+/* The function set_semvalue initializes the semaphore using the SETVAL command in a
+ semctl call. We need to do this before we can use the semaphore. */
+
+static int set_semvalue(void)
+{
+    union semun sem_union;
+
+    sem_union.val = 1;
+    if (semctl(sem_id, 0, SETVAL, sem_union) == -1) return(0);
+    return(1);
 }

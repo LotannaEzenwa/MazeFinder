@@ -86,6 +86,7 @@ void removeNode(QueueNode *node) {
 		node->prev->next = node->next;
 		node->next->prev = node->prev;
 	}
+	free(node);
 }
 
 /* 
@@ -109,4 +110,32 @@ QueueNode * pop(Queue *queue) {
 
 	}
 }	
+
+
+/*
+* Function to return the QueueNode containing the corresponding Data
+*/
+
+
+QueueNode* getNode(void* dat, Queue *queue){
+	if (queue->head == NULL){
+		return NULL;
+	}
+	
+	QueueNode *tmp = queue->head;
+	while (tmp->data != dat && tmp != NULL){
+		tmp = tmp->next;
+	}
+	return tmp;
+	
+	
+}
+
+QueueNode* top(Queue *queue){
+	if (queue){
+		return queue->head;
+	}
+	else return NULL;
+}
+
 
