@@ -248,10 +248,6 @@ int main(int argc, char* argv[])
     }
 
 	printf("here");
-    	// start graphics
-	MazeNode ***array;
-	array = parselog(MazePort,MazeWidth,MazeHeight);
-	update(array,MazeWidth,MazeHeight);
 	printf("finished");
 
 	/***************************** start Avatars *****************************/
@@ -277,8 +273,8 @@ int main(int argc, char* argv[])
 			sprintf(port, "%d", MazePort); 
 
 			// execute the amazing clients
-		    char *args[9] = { "./amazing_client", avId, argv[1], argv[2], 
-		    		inet_ntoa(ipadd), port, filename, key, NULL }; 
+		    char *args[11] = { "./amazing_client", avId, argv[1], argv[2], 
+		inet_ntoa(ipadd), port, filename, key, NULL, MazeWidth,MazeHeight}; 
 			execvp(args[0], args);
 
 		    _exit(EXIT_FAILURE);   // exec never returns

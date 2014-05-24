@@ -122,8 +122,8 @@ int main(int argc, char* argv[])
 	char filename[MAX_FILE_NAME]; 
     float xAvg; 
     float yAvg; 
-    int MazeWidth; 
-    int MazeHeight; 
+    int MazeWidth = atoi(argv[8]); 
+    int MazeHeight = atoi(argv[9]); 
     int xpos; 
     int ypos; 
     // for shared memory 
@@ -253,6 +253,11 @@ int main(int argc, char* argv[])
     msg.avatar_ready.AvatarId = htonl(avatarId); 
     
     send(sockfd, &msg, sizeof(msg), 0);
+    	
+	// start graphics
+	MazeNode ***array;
+	array = parselog(MazePort,MazeWidth,MazeHeight);
+	update(array,MazeWidth,MazeHeight,msg,nAvatars);
 
     printf("sent\n"); 
 
@@ -288,7 +293,7 @@ int main(int argc, char* argv[])
         // check message type 
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
 	    // update the maze
-	    update(array,MazeWidth,MazeHeight,msg.avatar_turn,nAvatars);
+	    update(array,MazeWidth,MazeHeight,msg,nAvatars);
 
             // the first time it receives a message, find central point 
             if (first) {
