@@ -6,7 +6,7 @@ SRCDIR = src/
 UTILDIR = ../util/src/
 UTILFLAG = -ltseutil
 UTILC=
-UTILH= $(UTILDIR)amazing.h $(UTILDIR)utils.h $(UTILDIR)shm_com.h
+UTILH= $(UTILDIR)amazing.h $(UTILDIR)utils.h $(UTILDIR)shm_com.h $(SRCDIR)dstarlite.h
 
 #UTILLIB = $(UTILDIR)libtseutil.a 
 

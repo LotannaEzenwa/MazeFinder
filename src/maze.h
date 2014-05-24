@@ -12,7 +12,7 @@
 #define MAZE_H
 
 // ---------------- Prerequisites e.g., Requires "math.h"
-
+#include "dstarlite.h"
 // ---------------- Constants
 
 // ---------------- Structures/Types
@@ -20,7 +20,8 @@
 // ---------------- Public Variables
 
 // ---------------- Prototypes/Macros
-void parselog(uint32_t mazeport,uint32_t mazewidth, uint32_t mazeheight);
+MazeNode *** parselog(uint32_t mazeport,uint32_t mazewidth, uint32_t mazeheight);
+void update(MazeNode ***array,uint32_t mazewidth, uint32_t mazeheight, AM_Message msg, int nAvatars);
 
 #endif // MAZE.H
 

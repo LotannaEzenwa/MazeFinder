@@ -66,6 +66,7 @@
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
 #include "maze.h"
+#include "dstarlite.h"
 
 // ---------------- Constant definitions
 
@@ -207,7 +208,10 @@ int main(int argc, char* argv[])
 
 	printf("here");
     	// start graphics
-   	parselog(MazePort,MazeWidth,MazeHeight);
+//   	MazeNode *array[MazeWidth + 1][MazeHeight + 1];
+	MazeNode ***array;
+	array = parselog(MazePort,MazeWidth,MazeHeight);
+	update(array,MazeWidth,MazeHeight);
 	printf("finished");
 
 	/***************************** start Avatars *****************************/

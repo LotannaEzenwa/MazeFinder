@@ -50,13 +50,14 @@ typedef struct MazeNode
 	status west;
 	pathstatus ps;
 	mark mk;
+	int maze_boolean;
 	
 } MazeNode;
 
 
 typedef struct Graph
 {
-	MazeNode **table;	
+	MazeNode **table;
 } Graph;
 
 typedef struct PathNode

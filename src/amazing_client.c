@@ -110,8 +110,8 @@ int main(int argc, char* argv[])
 	char filename[MAX_FILE_NAME]; 
     float xAvg; 
     float yAvg; 
-//    int MazeWidth; 
-//    int MazeHeight; 
+    int MazeWidth; 
+    int MazeHeight; 
     // for shared memory 
 //    int running = 1;
     void *shared_memory = (void *)0;
@@ -255,6 +255,9 @@ int main(int argc, char* argv[])
 
         // check message type 
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
+	    // update the maze
+	    update(array,MazeWidth,MazeHeight,msg.avatar_turn,nAvatars);
+
             // the first time it receives a message, find central point 
             if (first) {
                 int i; 
