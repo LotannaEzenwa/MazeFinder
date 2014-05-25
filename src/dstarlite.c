@@ -11,13 +11,13 @@ static XYPos goal = {5,5};
 static XYPos start = {3,3};
 
 static void initializeMazeNode(MazeNode *mn);
-static long int minimum(long int f1,long int f2);
+static long unsigned long int minimum(unsigned long int f1,unsigned long int f2);
 
 
 
 void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
-	long int vn=0,vw=0,ve=0,vs=0,v1=0,v2=0,v3 = 0; //Values corresponding to c + g
-	long int c;
+	unsigned long int vn=0,vw=0,ve=0,vs=0,v1=0,v2=0,v3 = 0; //Values corresponding to c + g
+	unsigned long int c;
 	MazeNode *s_last = begin;
 	MazeNode *s_start = begin;
 	MazeNode *s_goal = end;
@@ -32,17 +32,17 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 			return;
 		}
 
-		c = ((int) s_start->south)*INT_MAX + !((int)s_start->south)*1;
+		c = ((unsigned long int) s_start->south)*INT_MAX + !((unsigned long int)s_start->south)*1;
 		vs = gr->table[s_start->position.x][s_start->position.y+1].g + c;
 			
 		
-		c = ((int) s_start->west)*INT_MAX + !((int)s_start->west)*1;
+		c = ((unsigned long int) s_start->west)*INT_MAX + !((unsigned long int)s_start->west)*1;
 		vw = gr->table[s_start->position.x-1][s_start->position.y].g + c;
 		
-		c = ((int) s_start->east)*INT_MAX + !((int)s_start->east)*1;
+		c = ((unsigned long int) s_start->east)*INT_MAX + !((unsigned long int)s_start->east)*1;
 		ve = gr->table[s_start->position.x+1][s_start->position.y].g + c;
 
-		c = ((int) s_start->north)*INT_MAX + !((int)s_start->north)*1;
+		c = ((unsigned long int) s_start->north)*INT_MAX + !((unsigned long int)s_start->north)*1;
 		vn = gr->table[s_start->position.x][s_start->position.y-1].g + c;
 		
 		if (vs == minimum(vn,vs)) v1 = vs;
@@ -157,9 +157,9 @@ void updateVertex(MazeNode *u, Queue *heap, Graph *gr)
 }
 
 
-int calculateRHS(MazeNode *mn,Graph *gr){
+unsigned long int calculateRHS(MazeNode *mn,Graph *gr){
 	
-	long int tmp;
+	unsigned long int tmp;
 	tmp = INT_MAX;
 	if (!mn || !gr) return INT_MAX;
 	XYPos *xy = &(mn->position);
@@ -240,6 +240,7 @@ Graph* constructGraph(uint32_t height, uint32_t width)
 			else if (j == width-1){
 				b->east = WALL;
 			}
+			
 		}
 	}
 	return new;
@@ -253,7 +254,7 @@ NodeKey calculateKey(MazeNode *s, Graph *gr)
 	return nk;
 }
 
-static long int minimum(long int f1, long int f2){
+static unsigned long int minimum(unsigned long int f1, unsigned long int f2){
 	if (f1 <= f2) return f1;
 	else return f2;
 }
@@ -280,7 +281,7 @@ int compareKey(void *p1, void *p2){
 
 void computeSP(MazeNode *s_start,Queue *heap, Graph *gr){
 	MazeNode mn2;
-	int g_old = 0;
+	unsigned long int g_old = 0;
 	g_old = g_old;
 	XYPos ft;
 	NodeKey k_old;
@@ -305,8 +306,8 @@ void computeSP(MazeNode *s_start,Queue *heap, Graph *gr){
 			if (ft.y > 0){
 				mn2 = gr->table[ft.x][ft.y-1];
 				if(mn2.position.x != ft.x || mn2.position.y != ft.y){
-					int c;
-					c = ((int) mn2.north)*INT_MAX + !((int)mn2.north)*1;
+					unsigned long int c;
+					c = ((unsigned long int) mn2.north)*INT_MAX + !((unsigned long int)mn2.north)*1;
 					mn2.rhs = minimum(mn2.rhs,c + mn2.g);
 					gr->table[ft.x][ft.y-1] = mn2;
 					updateVertex(&mn2,heap,gr);
@@ -317,8 +318,8 @@ void computeSP(MazeNode *s_start,Queue *heap, Graph *gr){
 			if (ft.y < gr->h - 1){
 				mn2 = gr->table[ft.x][ft.y+1];
 				if(mn2.position.x != ft.x || mn2.position.y != ft.y){
-					int c;
-					c = ((int) mn2.south)*INT_MAX + !((int)mn2.south)*1;
+					unsigned long int c;
+					c = ((unsigned long int) mn2.south)*INT_MAX + !((unsigned long int)mn2.south)*1;
 					mn2.rhs = minimum(mn2.rhs,c + mn2.g);
 					gr->table[ft.x][ft.y+1] = mn2;
 					updateVertex(&mn2,heap,gr);
@@ -329,8 +330,8 @@ void computeSP(MazeNode *s_start,Queue *heap, Graph *gr){
 			if (ft.x > 0){
 				mn2 = gr->table[ft.x - 1][ft.y];
 				if(mn2.position.x != ft.x || mn2.position.y != ft.y){
-					int c;
-					c = ((int) mn2.west)*INT_MAX + !((int)mn2.west)*1;
+					unsigned long int c;
+					c = ((unsigned long int) mn2.west)*INT_MAX + !((unsigned long int)mn2.west)*1;
 					mn2.rhs = minimum(mn2.rhs,c + mn2.g);
 					gr->table[ft.x-1][ft.y] = mn2;
 					updateVertex(&mn2,heap,gr);
@@ -341,8 +342,8 @@ void computeSP(MazeNode *s_start,Queue *heap, Graph *gr){
 			if (ft.x < gr->w -1){
 				mn2 = gr->table[ft.x+1][ft.y];
 				if(mn2.position.x != ft.x || mn2.position.y != ft.y){
-					int c;
-					c = ((int) mn2.east)*INT_MAX + !((int)mn2.east)*1;
+					unsigned long int c;
+					c = ((unsigned long int) mn2.east)*INT_MAX + !((unsigned long int)mn2.east)*1;
 					mn2.rhs = minimum(mn2.rhs,c + mn2.g);
 					gr->table[ft.x+1][ft.y] = mn2;
 					updateVertex(&mn2,heap,gr);
