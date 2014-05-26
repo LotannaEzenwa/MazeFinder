@@ -107,8 +107,8 @@ int main(int argc, char* argv[])
 	int sockinit; 
 	struct sockaddr_in servaddr;
 	uint32_t MazePort; 
-	uint32_t MazeWidth; 
-	uint32_t MazeHeight; 
+	int MazeWidth; 
+	int MazeHeight; 
 	time_t cur;
 	FILE *fp; 
 	int shmid;
@@ -272,9 +272,13 @@ int main(int argc, char* argv[])
 			sprintf(avId, "%d", i); 
 			sprintf(port, "%d", MazePort); 
 
+		char width[10];
+		char height[10];
+		sprintf(width,"%d",MazeWidth);
+		sprintf(height,"%d",MazeHeight);
 			// execute the amazing clients
 		    char *args[11] = { "./amazing_client", avId, argv[1], argv[2], 
-		inet_ntoa(ipadd), port, filename, key, NULL, MazeWidth,MazeHeight}; 
+		inet_ntoa(ipadd), port, filename, key, NULL, width,height}; 
 			execvp(args[0], args);
 
 		    _exit(EXIT_FAILURE);   // exec never returns

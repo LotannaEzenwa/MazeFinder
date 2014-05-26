@@ -26,7 +26,7 @@ all: AMStartup amazing_client
 #	cd $(UTILDIR); make;
 
 AMStartup: $(SRCDIR)AMStartup.o  $(UTILLIB)
-	$(CC) $(CFLAGS) -o AMStartup $(SRCDIR)AMStartup.o $(SRCDIR)maze.o
+	$(CC) $(CFLAGS) -o AMStartup $(SRCDIR)AMStartup.o
 
 AMStartup.o: $(SRCDIR)AMStartup.c $(SRCDIR)AMStartup.h
 	$(CC) $(CFLAGS) -c $(SRCDIR)AMStartup.c 
