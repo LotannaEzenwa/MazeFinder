@@ -8,6 +8,7 @@ static int TEST2(); //Compare Function Test
 static int TEST3(); //Priority Queue Test
 static int TEST4(); //Graph Testing
 static int TEST5(); //RHS/G Testing
+static int TEST6(); //Whole thing test :(
 
 
 int main(int argc, char *argv[]){
