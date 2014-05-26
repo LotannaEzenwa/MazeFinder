@@ -117,10 +117,9 @@ Graph* constructGraph(uint32_t height, uint32_t width);
 void dStarInit(MazeNode *s_start,MazeNode *s_goal,Graph *gr, Queue *heap);
 MazeNode* getGoalNode(XYPos *xy,Graph *grid);
 void dstarmain(mz_dat *init_data);
-NodeKey calculateKey(MazeNode *s, Graph *gr);
-void computeSP(MazeNode *s_start,Queue *heap, Graph *gr);
-void updateVertex(MazeNode *u, Queue *heap, Graph *gr);
-
+NodeKey calculateKey(MazeNode *s,MazeNode *start, Graph *gr);
+void computeSP(MazeNode *s_start, MazeNode *s_goal,Queue *heap, Graph *gr);
+void updateVertex(MazeNode *u, MazeNode *start, Queue *heap, Graph *gr);
 
 
 
