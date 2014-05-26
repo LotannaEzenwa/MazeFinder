@@ -1,5 +1,5 @@
 
-#include "dstarlite.h"
+#include "../util/src/dstarlite2.h"
 #include <stdlib.h>
 
 
@@ -11,16 +11,18 @@ static XYPos goal = {5,5};
 static XYPos start = {3,3};
 
 static void initializeMazeNode(MazeNode *mn);
-static long unsigned long int minimum(unsigned long int f1,unsigned long int f2);
+static unsigned long int minimum(unsigned long int f1, unsigned long int f2);
 
 
 
-void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
+void dstarmain(mz_dat *init_data){
 	unsigned long int vn=0,vw=0,ve=0,vs=0,v1=0,v2=0,v3 = 0; //Values corresponding to c + g
 	unsigned long int c;
-	MazeNode *s_last = begin;
-	MazeNode *s_start = begin;
-	MazeNode *s_goal = end;
+	MazeNode *s_last = init_data->begin;
+	MazeNode *s_start = init_data->begin;
+	MazeNode *s_goal = init_data->end;
+	Graph *gr = init_data->gr;
+	int *dir = init_data->dir;
 	MazeNode *s_temp;
 	Queue *heap = createQueue();
 	dStarInit(s_start,s_goal,gr,heap);
@@ -70,11 +72,13 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 			}
 		
 		
+		while(*dir >= 0);
 		//Wait for response
-		//If Message = No
+		if (*dir == -2){
 			//Change update the wall position
 			//Update the costs
 			k += heuristic(&(s_last->position),&(s_start->position));
+			//Because we know the position didn't change, test between expected position
 			if (s_last->position.x != s_start->position.x){
 				if (s_last->position.x < s_start->position.x){
 					s_last->east = WALL;
@@ -101,8 +105,10 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 				
 			}
 			if (s_start->rhs == 1 + s_last->g){
-				if (s_start != s_goal) s_start->rhs = calculateRHS(s_last,gr);
-				
+				if (s_start != s_goal)
+				{
+					s_start->rhs = minimum(s_last->rhs,;
+				}
 			}
 			updateVertex(s_last, heap, gr);
 			updateVertex(s_start, heap, gr);
@@ -116,7 +122,7 @@ void dstarmain(MazeNode *begin, MazeNode *end,Graph *gr){
 			
 		
 		
-		
+		}
 		
 		
 	}
@@ -154,31 +160,6 @@ void updateVertex(MazeNode *u, Queue *heap, Graph *gr)
 		removeNode(tmp);
 	}
 	
-}
-
-
-unsigned long int calculateRHS(MazeNode *mn,Graph *gr){
-	
-	unsigned long int tmp;
-	tmp = INT_MAX;
-	if (!mn || !gr) return INT_MAX;
-	XYPos *xy = &(mn->position);
-	int x = xy->x;
-	int y = xy->y;
-	
-	if (!((int) mn->south)){
-		tmp = minimum(gr->table[x][y+1].g + 1,tmp);
-	}
-	if (!((int) mn->west)){
-		tmp = minimum(gr->table[x-1][y].g + 1,tmp);
-	}
-	if (!((int) mn->east)){
-		tmp = minimum(gr->table[x+1][y].g + 1,tmp);
-	}
-	if (!((int) mn->north)){
-		tmp = minimum(gr->table[x][y-1].g + 1,tmp);
-	}
-	return tmp;
 }
 
 

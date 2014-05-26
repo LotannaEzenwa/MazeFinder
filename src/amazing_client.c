@@ -68,6 +68,7 @@
 #include <sys/stat.h> 
 #include <sys/shm.h>
 #include <sys/sem.h>
+#include <pthread.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -94,6 +95,7 @@
 #define MAX_FILE_NAME 100
 
 // ---------------- Structures/Types
+
 
 // ---------------- Private variables
 
@@ -129,6 +131,13 @@ int main(int argc, char* argv[])
     // for shared memory 
     MazeMemory *shared_mem; 
     int shmid;
+    pthread_t thread1;
+    mz_dat data1;
+    
+    //for direction control;
+    int *dir = calloc(1,sizeof(int));
+    *dir = -2;
+    
     
     // for sockets 
 	int sockfd; 
@@ -136,7 +145,9 @@ int main(int argc, char* argv[])
 	int MazePort; 
     time_t cur;
     FILE *fp; 
-    int first = 1; 
+    int first = 1;
+    int dir = -2;
+     
 
 
 	/******************************* args check *******************************/
@@ -261,7 +272,6 @@ int main(int argc, char* argv[])
     int z = 0; 
 
 
-    int dir = 0; 
     /************************** listen for avatarID **************************/
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<1000) {
         printf("received: %d\n", avatarId); 
@@ -326,12 +336,14 @@ int main(int argc, char* argv[])
                 /* This is a random algorithm for the sake of testing. */ 
 
                 /******** comment out when you want to test dstarlite ********/ 
-                srand ( time(NULL) );
+/*                srand ( time(NULL) );
                 int random_number = rand();
 
                 msg.avatar_move.Direction = htonl(random_number%4);  
-
-/*                switch (dir) {
+               
+*/
+				while(*dir < 0){};
+                switch (*dir) {
                     case 0: 
                         msg.avatar_move.Direction = htonl(0);                
                         break; 
@@ -348,7 +360,8 @@ int main(int argc, char* argv[])
                     default: 
                         break; 
                 }
-*/
+				
+				
                 
                 /********* The algorithm should go here. **********/  
                 /* shared_mem is a pointer that points to the shared memory, 
@@ -389,7 +402,7 @@ int main(int argc, char* argv[])
                         // hit a wall 
                         printf("hit a wall\n"); 
                         fprintf(fp, "Hit a wall\n"); 
-
+						*dir = -2;
                         /******* update the shared memory to reflect the wall *******/
 
 
@@ -399,6 +412,7 @@ int main(int argc, char* argv[])
 
                         //dir++;      // change direction (for a random algorithm, just ignore)
                     }
+                    else *dir = -1;
                     printf("received message\n"); 
                 }
                 fclose(fp);  
