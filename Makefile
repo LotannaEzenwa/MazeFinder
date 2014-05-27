@@ -6,7 +6,7 @@ SRCDIR = src/
 UTILDIR = ../util/src/
 UTILFLAG = -ltseutil
 UTILC=
-UTILH= $(UTILDIR)amazing.h $(UTILDIR)utils.h $(UTILDIR)shm_com.h $(UTILDIR)dstarlite2.h 
+UTILH= $(UTILDIR)amazing.h $(UTILDIR)utils.h $(UTILDIR)shm_com.h 
 
 #UTILLIB = $(UTILDIR)libtseutil.a 
 
@@ -31,8 +31,8 @@ AMStartup: $(SRCDIR)AMStartup.o  $(SRCDIR)maze.o $(UTILLIB)
 AMStartup.o: $(SRCDIR)AMStartup.c $(SRCDIR)AMStartup.h
 	$(CC) $(CFLAGS) -c $(SRCDIR)AMStartup.c 
 
-amazing_client: $(SRCDIR)amazing_client.o $(SRCDIR)maze.o $(UTILLIB)
-	$(CC) $(CFLAGS) -o amazing_client $(SRCDIR)amazing_client.o $(SRCDIR)maze.o
+amazing_client: $(SRCDIR)amazing_client.o $(UTILLIB)
+	$(CC) $(CFLAGS) -o amazing_client $(SRCDIR)amazing_client.o
 
 amazing_client.o: $(SRCDIR)amazing_client.c $(SRCDIR)amazing_client.h 
 	$(CC) $(CFLAGS) -c $(SRCDIR)amazing_client.c 
