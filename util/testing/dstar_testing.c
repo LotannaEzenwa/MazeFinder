@@ -8,6 +8,7 @@ static int TEST2(); //Compare Function Test
 static int TEST3(); //Priority Queue Test
 static int TEST4(); //Graph Testing
 static int TEST5(); //RHS/G Testing
+static int TEST6(); //Whole thing test :(
 
 
 int main(int argc, char *argv[]){
@@ -135,15 +136,15 @@ static int TEST4(){
 static int TEST5(){
 	int i = 0;
 	int j = 0;
+	int *dir = malloc(sizeof(int));
+	mz_dat data;
 	Graph *tmp = constructGraph(10,10);
-	for (i=0;i<10;i++){
-		for (j=0;j<10;j++){
-			tmp->table[i][j].rhs = calculateRHS(&(tmp->table[i][j]),tmp);
-			fprintf(stdout,"%u",tmp->table[i][j].rhs);
-		}
-		fprintf(stdout,"\n");
-		//free(tmp->table[i]);
-	}
+	data.begin = &tmp->table[5][5];
+	data.end = &tmp->table[3][3];
+	data.height = 10;
+	data.width = 10;
+	data.gr = tmp;
+	dstarmain(&data);
 	free(tmp->table);
 	free(tmp);
 	return 0;

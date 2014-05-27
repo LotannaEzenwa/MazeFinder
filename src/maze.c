@@ -1,7 +1,5 @@
 /* ========================================================================== */
-/* File: maze.c - Final Project 
- *
- * Author: Emily Greene
+ /* Author: Emily Greene
  * Date: 05/19/2014
  *
  * Description: Graphically depicts the maze and the avatar's motion through the maze
@@ -17,6 +15,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 // ---------------- Local includes  e.g., "file.h"
 #include "dstarlite.h"
 #include "../util/src/amazing.h"
@@ -29,7 +31,7 @@
 // ---------------- Private variables
 
 // ---------------- Private prototypes
-void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
+MazeNode *** parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 	uint32_t port = mazeport;
 	uint32_t width = mazewidth;
 	uint32_t height = mazeheight;
@@ -40,11 +42,14 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 	char *cell;
 	char *readin = calloc(strlen("MazeCell") +1, sizeof(char));
 	int linelen = 55;
-	MazeNode *newnode;
-	MazeNode *array[width+1][height + 1];
 	uint32_t xcord;
 	uint32_t ycord;
-	
+	MazeNode *newnode;
+	MazeNode ***array = calloc(width,sizeof(MazeNode));
+	int a;
+	for (a=0;a<width;a++) {
+		array[a] = calloc(height,sizeof(MazeNode));
+	}
 	sprintf(buffer,filename,port);
 	
 	char *start = "scp $USER@pierce.cs.dartmouth.edu:";
@@ -55,7 +60,6 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 	strcat(command,end);
 	
 	
-	printf("presystem ");
 
 	system(command);
 
@@ -63,11 +67,9 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 		printf("Could not open file\n");
 		exit(1);
 	}
-	printf("open logfile ");
 	int counter = 0;
 	block = calloc(linelen+1,sizeof(char));
 	while ((cell = fgets(block,linelen,logfile)) != NULL) {
-		printf("loop ");
 		sscanf(cell,"%s",readin);
 		if (strcmp(readin,"MazeCell") == 0) {
 			newnode = calloc(1,sizeof(MazeNode));
@@ -110,173 +112,120 @@ void parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
 			cell += strlen("borders: WNSE");
 		}
 	}
+	return array;
+}
+void update(MazeNode ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message msg, int nAvatars) {
 	printf("\n");
+	uint32_t width = MazeWidth;
+	uint32_t height = MazeHeight;
 	MazeNode *node = calloc(1,sizeof(MazeNode));
+	if (ntohl(msg.type) == AM_AVATAR_TURN) {
+		int a;
+		for (a=0;a<nAvatars;a++) {
+			uint32_t x = ntohl(msg.avatar_turn.Pos[a].x);
+			uint32_t y = ntohl(msg.avatar_turn.Pos[a].y);
+			node = array[x][y];
+			node->maze_boolean = 1;
+		}
+	}
+	
 	int i;
 	int j;
 	for (j=0;j<height;j++) {
 		for (i=0;i<width;i++) {
 			node = array[i][j];
 			if (node->north == WALL) {
-				printf("OOOO");
+				printf("OOOOO");
 			}
 			else {
-				if (node->west == WALL) {
+				if (node->west == WALL && node->east == WALL) {
+					printf("O   O");
+				}
+				else if (node->west == WALL) {
 					printf("O    ");
 				}
+				else if (node->east == WALL) {
+					printf("    O");
+				}
 				else {
-					printf("    ");
+					printf("     ");
 				}
 			}
 		}
 		printf("\n");
-		int k;
-		for (k=0; k<2; k++) {
 		int n;
 		for (n=0;n<width;n++) {
 			node = array[n][j];
-			if (node->west == WALL && node->east == WALL) {
-				printf("O  O");
-			}
-			else if (node->west == WALL) {
-				printf("O   ");
-			}
-			else if (node->east == WALL) {
-				printf("   O");
+			if (node->maze_boolean == 1) {
+
+				if (node->west == WALL && node->east == WALL) {
+					printf("O X O");
+				}
+				else if (node->west == WALL) {
+					printf("O X  ");
+				}
+				else if (node->east == WALL) {
+					printf("  X O");
+				}
+				else {
+					printf("  X  ");
+				}
 			}
 			else {
-				printf("    ");
+				if (node->west == WALL && node->east == WALL) {
+					printf("O   O");
+				}
+				else if (node->west == WALL) {
+					printf("O    ");
+				}
+				else if (node->east == WALL) {
+					printf("    O");
+				}
+				else {
+					printf("     ");
+				}
 			}
 		}
 		printf("\n");
+		int o;
+		for (o=0;o<width;o++) {
+			node = array[o][j];
+			if (node->west == WALL && node->east == WALL) {
+				printf("O   O");
+			}
+			else if (node->west == WALL) {
+				printf("O    ");
+			}
+			else if (node->east == WALL) {
+				printf("    O");
+			}
+			else {
+				printf("     ");
+			}
 		}
+		printf("\n");
 		int m;
 		for (m=0;m<width;m++) {
 			node = array[m][j];
 			if (node->south == WALL) {
-				printf("OOOO");
+				printf("OOOOO");
 			}
 			else {
-				printf("    ");
+				if (node->west == WALL && node->east == WALL) {
+					printf("O   O");
+				}
+				else if (node->west == WALL) {
+					printf("O    ");
+				}
+				else if (node->east == WALL) {
+					printf("    O");
+				}
+				else {
+					printf("     ");
+				}
 			}
 		}
 		printf("\n");
 	}
 }
 
-
-
-
-
-
-	/*	if (node->north == WALL && node->south == WALL) {
-			printf("****");
-			if (node->west == WALL) {
-				if (node->east == WALL) {
-					printf("*  *");
-					printf("*  *");
-				}
-				else {
-					printf("*   ");
-					printf("*   ");
-				}
-			}
-			else {
-				if (node->east == WALL) {
-					printf("   *");
-					printf("   *");
-				}
-				else {
-					printf("    ");
-					printf("    ");
-				}
-			}
-			printf("****");
-		}
-		else if (node->north == WALL) {
-			printf("****");
-			if (node->west == WALL) {
-				if (node->east == WALL) {
-					printf("*  *");
-					printf("*  *");
-					printf("*  *");
-				}
-				else {
-					printf("*   ");
-					printf("*   ");
-					printf("*   ");
-				}
-			}
-			else {
-				if (node->east == WALL) {
-					printf("   *");
-					printf("   *");
-					printf("   *");
-				}
-				else {
-					printf("    ");
-					printf("    ");
-					printf("    ");
-				}
-			}
-		
-		}	
-		else if (node ->south == WALL) {
-			if (node->west == WALL) {
-				if (node->east == WALL) {
-					printf("*  *");
-					printf("*  *");
-					printf("*  *");
-				}
-				else {
-					printf("*   ");
-					printf("*   ");
-					printf("*   ");
-				}
-			}
-			else {
-				if (node->east == WALL) {
-					printf("   *");
-					printf("   *");
-					printf("   *");
-				}
-				else {
-					printf("    ");
-					printf("    ");
-					printf("    ");
-				}
-			}
-			printf("****");
-		}
-		else {
-			if (node->west == WALL) {
-				if (node->east == WALL) {
-					printf("*  *");
-					printf("*  *");
-					printf("*  *");
-					printf("*  *");
-				}
-				else {
-					printf("*   ");
-					printf("*   ");
-					printf("*   ");
-					printf("*   ");
-				}
-			}
-			else {
-				if (node->east == WALL) {
-					printf("   *");
-					printf("   *");
-					printf("   *");
-					printf("   *");
-				}
-				else {
-					printf("    ");
-					printf("    ");
-					printf("    ");
-					printf("    ");
-				}
-			}
-		}
-	}
-}*/

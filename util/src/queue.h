@@ -35,7 +35,7 @@ typedef struct Queue {
 Queue *createQueue();
 void PriorityAdd(Queue *queue, void *data, int (*comparefunc)(void*,void*));
 QueueNode *pop(Queue *queue);
-void removeNode(QueueNode *node);
+void removeNode(QueueNode *node, Queue *queue);
 QueueNode* getNode(void* dat, Queue *queue);
 QueueNode* top(Queue *queue);
 

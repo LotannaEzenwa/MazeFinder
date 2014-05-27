@@ -79,12 +79,13 @@ void PriorityAdd(Queue *queue, void *data, int (*comparefunc)(void*,void*)) {
 /* 
  * Function to remove specific nodes from the queue (without returning anything)
  */
-void removeNode(QueueNode *node) {
+void removeNode(QueueNode *node, Queue *queue) {
 	
 	// if there's something in the node, just splice it out of the queue 
 	if (node != NULL) {
-		node->prev->next = node->next;
-		node->next->prev = node->prev;
+		if (node == queue->head) queue->head = node->next;
+		if (node->prev) node->prev->next = node->next;
+		if (node->next) node->next->prev = node->prev;
 	}
 	free(node);
 }
