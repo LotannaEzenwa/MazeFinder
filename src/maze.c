@@ -122,6 +122,14 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 	uint32_t width = MazeWidth;
 	uint32_t height = MazeHeight;
 	MazeCell *node = calloc(1,sizeof(MazeCell));
+	int e;
+	int f;
+	for (e=0;e<height;e++) {
+		for (f=0;f<width;f++) {
+			node->maze_boolean = 0;
+		}
+	}
+	
 	if (ntohl(msg.type) == AM_AVATAR_TURN) {
 		int a;
 		for (a=0;a<nAvatars;a++) {
