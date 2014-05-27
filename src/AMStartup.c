@@ -220,6 +220,9 @@ int main(int argc, char* argv[])
 	uid_t id = getuid(); 
 	sprintf(filename,"AMAZING_%d_%d_%d.log", id, nAvatars, Difficulty); 
 
+	// get log for graphics
+	getlog(MazePort);
+
 	// first line of file should contain $USER, the MazePort, and the date & time
 	fp = fopen(filename, "w"); 
 	printf("%d, %d, %s\n", id, MazePort, ctime(&cur)); 
@@ -258,10 +261,6 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-	printf("here");
-    	// start graphics
-   	//parselog(MazePort,MazeWidth,MazeHeight);
-	printf("finished");
 
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 

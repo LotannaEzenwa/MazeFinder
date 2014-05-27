@@ -20,9 +20,9 @@
 #include <arpa/inet.h>
 
 // ---------------- Local includes  e.g., "file.h"
-#include "dstarlite.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
+#include "maze.h"
 
 // ---------------- Constant/Macro definitions
 
@@ -31,27 +31,11 @@
 // ---------------- Private variables
 
 // ---------------- Private prototypes
-MazeNode *** parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight){
+void getlog(uint32_t mazeport) {
 	uint32_t port = mazeport;
-	uint32_t width = mazewidth;
-	uint32_t height = mazeheight;
-	FILE *logfile;
 	char *filename = "/var/tmp/%zu/log.out";
 	char buffer[24];
-	char *block;
-	char *cell;
-	char *readin = calloc(strlen("MazeCell") +1, sizeof(char));
-	int linelen = 55;
-	uint32_t xcord;
-	uint32_t ycord;
-	MazeNode *newnode;
-	MazeNode ***array = calloc(width,sizeof(MazeNode));
-	int a;
-	for (a=0;a<width;a++) {
-		array[a] = calloc(height,sizeof(MazeNode));
-	}
 	sprintf(buffer,filename,port);
-	
 	char *start = "scp $USER@pierce.cs.dartmouth.edu:";
 	char *end = " maze.log";
 	char *command = calloc((strlen(start) + strlen(buffer) + strlen(end) + 1),sizeof(char));
@@ -62,6 +46,25 @@ MazeNode *** parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight
 	
 
 	system(command);
+}
+
+MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
+	uint32_t width = mazewidth;
+	uint32_t height = mazeheight;
+	FILE *logfile;
+	char *block;
+	char *cell;
+	char *readin = calloc(strlen("MazeCell") +1, sizeof(char));
+	int linelen = 55;
+	uint32_t xcord;
+	uint32_t ycord;
+	MazeCell *newnode;
+	MazeCell ***array = calloc(width,sizeof(MazeCell));
+	int a;
+	for (a=0;a<width;a++) {
+		array[a] = calloc(height,sizeof(MazeCell));
+	}
+	
 
 	if ((logfile = fopen("maze.log", "r")) == NULL) {
 		printf("Could not open file\n");
@@ -72,7 +75,7 @@ MazeNode *** parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight
 	while ((cell = fgets(block,linelen,logfile)) != NULL) {
 		sscanf(cell,"%s",readin);
 		if (strcmp(readin,"MazeCell") == 0) {
-			newnode = calloc(1,sizeof(MazeNode));
+			newnode = calloc(1,sizeof(MazeCell));
 			cell += strlen(readin) + 2;
 			sscanf(cell,"%u",&ycord);
 			newnode->position.y = ycord;
@@ -81,31 +84,31 @@ MazeNode *** parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight
 			newnode->position.x = xcord;
 			cell += 5 + strlen("walls: ");
 			if (cell[0] == 'W') {
-				newnode->west = WALL;
+				newnode->west = W;
 			}
 			else {
-				newnode->west = PATH;
+				newnode->west = P;
 			}
 			cell += 1;
 			if (cell[0] == 'N') {
-				newnode->north = WALL;
+				newnode->north = W;
 			}
 			else {
-				newnode->north = PATH;
+				newnode->north = P;
 			}
 			cell += 1;
 			if (cell[0] == 'S') {
-				newnode->south = WALL;
+				newnode->south = W;
 			}
 			else {
-				newnode->south = PATH;
+				newnode->south = P;
 			}
 			cell += 1;
 			if (cell[0] == 'E') {
-				newnode->east = WALL;
+				newnode->east = W;
 			}
 			else {
-				newnode->east = PATH;
+				newnode->east = P;
 			}
 			array[xcord][ycord] = newnode;
 			counter += 1;
@@ -114,11 +117,19 @@ MazeNode *** parselog(uint32_t mazeport, uint32_t mazewidth, uint32_t mazeheight
 	}
 	return array;
 }
-void update(MazeNode ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message msg, int nAvatars) {
+void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message msg, int nAvatars) {
 	printf("\n");
 	uint32_t width = MazeWidth;
 	uint32_t height = MazeHeight;
-	MazeNode *node = calloc(1,sizeof(MazeNode));
+	MazeCell *node = calloc(1,sizeof(MazeCell));
+	int e;
+	int f;
+	for (e=0;e<height;e++) {
+		for (f=0;f<width;f++) {
+			node->maze_boolean = 0;
+		}
+	}
+	
 	if (ntohl(msg.type) == AM_AVATAR_TURN) {
 		int a;
 		for (a=0;a<nAvatars;a++) {
@@ -134,17 +145,17 @@ void update(MazeNode ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 	for (j=0;j<height;j++) {
 		for (i=0;i<width;i++) {
 			node = array[i][j];
-			if (node->north == WALL) {
+			if (node->north == W) {
 				printf("OOOOO");
 			}
 			else {
-				if (node->west == WALL && node->east == WALL) {
+				if (node->west == W && node->east == W) {
 					printf("O   O");
 				}
-				else if (node->west == WALL) {
+				else if (node->west == W) {
 					printf("O    ");
 				}
-				else if (node->east == WALL) {
+				else if (node->east == W) {
 					printf("    O");
 				}
 				else {
@@ -158,13 +169,13 @@ void update(MazeNode ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			node = array[n][j];
 			if (node->maze_boolean == 1) {
 
-				if (node->west == WALL && node->east == WALL) {
+				if (node->west == W && node->east == W) {
 					printf("O X O");
 				}
-				else if (node->west == WALL) {
+				else if (node->west == W) {
 					printf("O X  ");
 				}
-				else if (node->east == WALL) {
+				else if (node->east == W) {
 					printf("  X O");
 				}
 				else {
@@ -172,13 +183,13 @@ void update(MazeNode ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 				}
 			}
 			else {
-				if (node->west == WALL && node->east == WALL) {
+				if (node->west == W && node->east == W) {
 					printf("O   O");
 				}
-				else if (node->west == WALL) {
+				else if (node->west == W) {
 					printf("O    ");
 				}
-				else if (node->east == WALL) {
+				else if (node->east == W) {
 					printf("    O");
 				}
 				else {
@@ -190,13 +201,13 @@ void update(MazeNode ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 		int o;
 		for (o=0;o<width;o++) {
 			node = array[o][j];
-			if (node->west == WALL && node->east == WALL) {
+			if (node->west == W && node->east == W) {
 				printf("O   O");
 			}
-			else if (node->west == WALL) {
+			else if (node->west == W) {
 				printf("O    ");
 			}
-			else if (node->east == WALL) {
+			else if (node->east == W) {
 				printf("    O");
 			}
 			else {
@@ -207,17 +218,17 @@ void update(MazeNode ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 		int m;
 		for (m=0;m<width;m++) {
 			node = array[m][j];
-			if (node->south == WALL) {
+			if (node->south == W) {
 				printf("OOOOO");
 			}
 			else {
-				if (node->west == WALL && node->east == WALL) {
+				if (node->west == W && node->east == W) {
 					printf("O   O");
 				}
-				else if (node->west == WALL) {
+				else if (node->west == W) {
 					printf("O    ");
 				}
-				else if (node->east == WALL) {
+				else if (node->east == W) {
 					printf("    O");
 				}
 				else {

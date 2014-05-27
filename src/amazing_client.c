@@ -282,6 +282,9 @@ int main(int argc, char* argv[])
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
+   MazeCell ***maze;
+    maze = parselog(MazeWidth,MazeHeight);
+	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<30) {
 //        printf("received: %d\n", avatarId); 
 
@@ -308,7 +311,8 @@ int main(int argc, char* argv[])
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
             // the first time it receives a message, find central point 
             if (first) {
-                // get the central point
+  
+              // get the central point
                 int i; 
                 for ( i = 0; i < nAvatars; i++ ) {
                     xAvg += ntohl(msg.avatar_turn.Pos[i].x);  
@@ -331,7 +335,10 @@ int main(int argc, char* argv[])
                 ylast = -1;  
             }
 
-            // if the avatar is the one to move, move 
+	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
+    	    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+            }
+	    // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
                 // grab the key 
@@ -348,7 +355,6 @@ int main(int argc, char* argv[])
 
                     if(!arrived) {
                         // hit a wall 
-                        printf("hit a wall\n"); 
                         fprintf(fp, "avatar %d hit a wall\n", avatarId); 
                         index = (ylast * MazeWidth) + xlast; 
                         
@@ -423,7 +429,7 @@ int main(int argc, char* argv[])
 
                     // reset the direction priority
                     dir = 0;
-                    printf("direction\n"); 
+  //                  printf("direction\n"); 
 
                 }
 
