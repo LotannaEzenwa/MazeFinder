@@ -81,6 +81,8 @@
 #define MAX_ID_LEN 5
 #define MAX_PORT_LEN 10 
 #define MAX_KEY_LEN 10
+#define MAX_WIDTH 102
+#define MAX_HEIGHT 102 
 
 // ---------------- Structures/Types
 
@@ -93,6 +95,7 @@ static int set_semvalue(void);
 
 static int sem_id;
 
+void initializeMaze(int MazeHeight, int MazeWidth, int * maze); 
 
 /* =========================================================================== */
 /*                                   main                                      */
@@ -113,7 +116,10 @@ int main(int argc, char* argv[])
 	int shmid;
 
 	char key[MAX_KEY_LEN]; 
-	MazeMemory *shared_mem; 
+	char width[MAX_KEY_LEN]; 
+	char height[MAX_KEY_LEN]; 
+	int *shared_mem; 
+	int maze[MAX_HEIGHT *  MAX_WIDTH]; 
 
 
 	/******************************* args check *******************************/
@@ -221,7 +227,7 @@ int main(int argc, char* argv[])
 	fclose(fp); 
 
 	/************************** open shared memory **************************/
-    shmid = shmget((key_t)1234, sizeof(MazeMemory), 0666 | IPC_CREAT);
+    shmid = shmget((key_t)1234, sizeof(maze), 0666 | IPC_CREAT);
 
     if (shmid == -1) {
         fprintf(stderr, "shmget failed\n");
@@ -230,6 +236,12 @@ int main(int argc, char* argv[])
     	sprintf(key, "%d", shmid); 
     	// initialize the memory 
     	shared_mem = shmat(shmid, (void *)0, 0);
+
+    	printf("before initializing\n");
+    	// initialize the maze in shared memory 
+    	initializeMaze(MazeHeight, MazeWidth, shared_mem); 
+    	printf("after initializing\n"); 
+//    	exit(EXIT_SUCCESS); 
     }
 
 	/*************************** set up semaphore ***************************/
@@ -272,10 +284,12 @@ int main(int argc, char* argv[])
 			char port[MAX_PORT_LEN]; 
 			sprintf(avId, "%d", i); 
 			sprintf(port, "%d", MazePort); 
+			sprintf(width, "%d", MazeWidth); 
+			sprintf(height, "%d", MazeHeight); 
 
 			// execute the amazing clients
-		    char *args[9] = { "./amazing_client", avId, argv[1], argv[2], 
-		    		inet_ntoa(ipadd), port, filename, key, NULL }; 
+		    char *args[11] = { "./amazing_client", avId, argv[1], argv[2], 
+		    		inet_ntoa(ipadd), port, filename, key, width, height, NULL }; 
 			execvp(args[0], args);
 
 		    _exit(EXIT_FAILURE);   // exec never returns
@@ -321,4 +335,14 @@ static int set_semvalue(void)
     sem_union.val = 1;
     if (semctl(sem_id, 0, SETVAL, sem_union) == -1) return(0);
     return(1);
+}
+
+
+
+void initializeMaze(int MazeHeight, int MazeWidth, int * maze) 
+{
+	int i; 
+	for (i=0; i<(MazeHeight * MazeWidth); i++) {
+			maze[i] = 0; 
+	} 
 }

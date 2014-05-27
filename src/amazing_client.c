@@ -92,6 +92,10 @@
 // ---------------- Macro definitions
 #define MAX_IP_LEN 100
 #define MAX_FILE_NAME 100
+#define W_WALL 1
+#define N_WALL 2
+#define S_WALL 4
+#define E_WALL 8
 
 // ---------------- Structures/Types
 
@@ -122,12 +126,12 @@ int main(int argc, char* argv[])
 	char filename[MAX_FILE_NAME]; 
     float xAvg; 
     float yAvg; 
-    int xpos; 
-    int ypos; 
-//    int MazeWidth; 
-//    int MazeHeight; 
+    int xlast; 
+    int ylast; 
+    int MazeWidth; 
+    int MazeHeight; 
     // for shared memory 
-    MazeMemory *shared_mem; 
+    int *shared_mem; 
     int shmid;
     
     // for sockets 
@@ -137,10 +141,14 @@ int main(int argc, char* argv[])
     time_t cur;
     FILE *fp; 
     int first = 1; 
+    int arrived = 0;
+    int index; 
+
+    int direction[4]; 
 
 
 	/******************************* args check *******************************/
-	if (argc != 8) {
+	if (argc != 10) {
 		perror("AC: Incorrect number of arguments. Exiting now.\n"); 
 		exit(1); 
 	} else {
@@ -211,6 +219,9 @@ int main(int argc, char* argv[])
     } else {
         shmid = atoi(argv[7]); 
     }    
+
+    MazeWidth = atoi(argv[8]); 
+    MazeHeight = atoi(argv[9]); 
     
     /************************ attach to shared memory ************************/
 
@@ -263,8 +274,8 @@ int main(int argc, char* argv[])
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
-    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<1000) {
-        printf("received: %d\n", avatarId); 
+    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<2000) {
+//        printf("received: %d\n", avatarId); 
 
         // check if error 
         if (IS_AM_ERROR(ntohl(msg.type))) {
@@ -289,6 +300,7 @@ int main(int argc, char* argv[])
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
             // the first time it receives a message, find central point 
             if (first) {
+                // get the central point
                 int i; 
                 for ( i = 0; i < nAvatars; i++ ) {
                     xAvg += ntohl(msg.avatar_turn.Pos[i].x);  
@@ -302,106 +314,135 @@ int main(int argc, char* argv[])
                 yAvg = (int) yAvg; 
 
                 first = 0; 
+
+                // set the array direction to go right 
+                direction[0] = M_NORTH;
+
+                xlast = -1; 
+                ylast = -1;  
             }
 
             // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
                 // grab the key 
-                if (!semaphore_p()) exit(EXIT_FAILURE);
+//                if (!semaphore_p()) exit(EXIT_FAILURE);
 
+                // if current position is same as last
+                if ( (ntohl(msg.avatar_turn.Pos[avatarId].x) == xlast) 
+                    && (ntohl(msg.avatar_turn.Pos[avatarId].y) == ylast) ) {
+
+                    if(!arrived) {
+                        // hit a wall 
+                        printf("hit a wall\n"); 
+                        fprintf(fp, "Hit a wall\n"); 
+                        index = (ylast * MazeWidth) + xlast; 
+                        
+                        /******* update the shared memory to reflect the wall *******/
+                        switch(direction[dir]){
+                            case M_NORTH: 
+                                shared_mem[index] += N_WALL; 
+                                printf("northern wall\n"); 
+                                break;
+                            case M_EAST: 
+                                shared_mem[index] += E_WALL; 
+                                printf("eastern wall\n"); 
+                                break;
+                            case M_SOUTH: 
+                                shared_mem[index] += S_WALL; 
+                                printf("southern wall\n"); 
+                                break;
+                            case M_WEST: 
+                                shared_mem[index] += W_WALL; 
+                                printf("western wall\n"); 
+                                break;
+                        }
+
+                        dir++;
+                    }
+
+
+                } else {
+                    // figure out which way avatar moved 
+                    switch(direction[dir]){
+                        case M_NORTH:
+                            direction[0] = M_EAST;
+                            direction[1] = M_NORTH;
+                            direction[2] = M_WEST;
+                            direction[3] = M_SOUTH;
+                            break;
+                        case M_EAST:
+                            direction[0] = M_SOUTH;
+                            direction[1] = M_EAST;
+                            direction[2] = M_NORTH;
+                            direction[3] = M_WEST;
+                            break;
+                        case M_SOUTH:
+                            direction[0] = M_WEST;
+                            direction[1] = M_SOUTH;
+                            direction[2] = M_EAST;
+                            direction[3] = M_NORTH;
+                            break;
+                        case M_WEST:
+                            direction[0] = M_NORTH;
+                            direction[1] = M_WEST;
+                            direction[2] = M_SOUTH;
+                            direction[3] = M_EAST;
+                            break;
+                    }
+
+                    // reset the direction priority
+                    dir = 0;
+                    printf("direction\n"); 
+
+                }
+
+ 
                 // get the avatar's current location
-                xpos = ntohl(msg.avatar_turn.Pos[avatarId].x); 
-                ypos = ntohl(msg.avatar_turn.Pos[avatarId].y); 
+                xlast = ntohl(msg.avatar_turn.Pos[avatarId].x); 
+                ylast = ntohl(msg.avatar_turn.Pos[avatarId].y); 
 
-                // make a move 
+                if (avatarId == 1) {
+                    printf("xlast: %d, ylast: %d\n", xlast, ylast); 
+                }
+
+                if ((xlast == xAvg) && (ylast == yAvg)) {
+                    arrived = 1;
+                    // don't move
+                    msg.type = htonl(AM_AVATAR_MOVE); 
+                    msg.avatar_move.AvatarId = htonl(avatarId); 
+                    printf("dir:%d\n", dir); 
+                    msg.avatar_move.Direction = htonl(M_NULL_MOVE);
+
+                    send(sockfd, &msg, sizeof(msg), 0);
+                    continue;
+                }
+
+                
+                // move in next direction dictated by direction array
+                if (avatarId == 0) {
+                    printf("avatar 0\n\n"); 
+                }
                 printf("make a move\n"); 
                 msg.type = htonl(AM_AVATAR_MOVE); 
                 msg.avatar_move.AvatarId = htonl(avatarId); 
-
-            
-                /* This is a random algorithm for the sake of testing. */ 
-
-                /******** comment out when you want to test dstarlite ********/ 
-                srand ( time(NULL) );
-                int random_number = rand();
-
-                msg.avatar_move.Direction = htonl(random_number%4);  
-
-/*                switch (dir) {
-                    case 0: 
-                        msg.avatar_move.Direction = htonl(0);                
-                        break; 
-                    case 1: 
-                        msg.avatar_move.Direction = htonl(1);                
-                        break; 
-                    case 2: 
-                        msg.avatar_move.Direction = htonl(3);                
-                        break; 
-                    case 3: 
-                        msg.avatar_move.Direction = htonl(2);   
-                        dir = 0;              
-                        break; 
-                    default: 
-                        break; 
-                }
-*/
-                
-                /********* The algorithm should go here. **********/  
-                /* shared_mem is a pointer that points to the shared memory, 
-                        which contains a MazeMemory (see util/src/dstarlite2.h) */
-                
-                /* dstarlite */ 
+                printf("id: %d dir:%d\n", avatarId, direction[dir]); 
+                msg.avatar_move.Direction = htonl(direction[dir]);
 
 
-
-
-
-
-
+                send(sockfd, &msg, sizeof(msg), 0);
 
                 // log the avatar's move to a file 
                 fp = fopen(filename, "a"); 
                 ASSERT_FAIL(stderr, fp); 
 
-                fprintf(fp, "Id: %d, Move: %d\n", avatarId, ntohl(msg.avatar_move.Direction)); 
+                fprintf(fp, "Id: %d, Move: %d\n", avatarId, direction[dir]); 
 //                fclose(fp); 
 
-
-                send(sockfd, &msg, sizeof(msg), 0);
-
-                // listen for reply 
-                if (recv(sockfd, &msg, sizeof(msg) , 0) >= 0) {
-/*                    fprintf(fp,"prevx: %d\n", xpos); 
-                    fprintf(fp,"prevy: %d\n", ypos); 
-                    
-                    fprintf(fp,"movex: %d\n", (ntohl(msg.avatar_turn.Pos[avatarId].x))); 
-                    fprintf(fp,"movey: %d\n", (ntohl(msg.avatar_turn.Pos[avatarId].y))); 
-*/ 
-
-                    // if current position is same as last
-                    if ( (ntohl(msg.avatar_turn.Pos[avatarId].x) == xpos) 
-                        && (ntohl(msg.avatar_turn.Pos[avatarId].y) == ypos) ) {
-
-                        // hit a wall 
-                        printf("hit a wall\n"); 
-                        fprintf(fp, "Hit a wall\n"); 
-
-                        /******* update the shared memory to reflect the wall *******/
-
-
-
-
-
-
-                        //dir++;      // change direction (for a random algorithm, just ignore)
-                    }
-                    printf("received message\n"); 
-                }
                 fclose(fp);  
 
                 // release the key 
-                if (!semaphore_v()) exit(EXIT_FAILURE);
+//                if (!semaphore_v()) exit(EXIT_FAILURE);
 
             } else {
                 continue; 
@@ -422,7 +463,7 @@ int main(int argc, char* argv[])
                 fclose(fp); 
             }
 //            printf("Solved the maze\n"); 
-            exit(EXIT_SUCCESS); 
+//            exit(EXIT_SUCCESS); 
         }
         z++; 
     } 
@@ -433,6 +474,7 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
+    printf("almost end\n");
     sleep(2); 
 
     // one avatar should delete the memory 

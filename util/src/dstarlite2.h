@@ -23,8 +23,8 @@
 #include "amazing.h"
 #include "queue.h"
 
-#define MAX_WIDTH 101
-#define MAX_HEIGHT 101 
+#define MAX_WIDTH 102
+#define MAX_HEIGHT 102 
 
 // ---------------- Structures/Types
 typedef enum {PATH, WALL} status;
