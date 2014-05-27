@@ -522,10 +522,8 @@ int main(int argc, char* argv[])
 
                 time (&cur);
                 
-
                 fprintf(fp, "Solved the maze at %s!\n", ctime(&cur)); 
                 fclose(fp); 
-
 
                 // one avatar should delete the memory 
                 if (shmctl(shmid, IPC_RMID, 0) == -1) {
