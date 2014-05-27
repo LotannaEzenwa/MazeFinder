@@ -125,11 +125,11 @@ static int *shared_mem;
 
 int main(int argc, char* argv[])
 {
-	int avatarId; 
-	int nAvatars; 
-	int Difficulty; 
+    int avatarId; 
+    int nAvatars; 
+    int Difficulty; 
     char ipAddress[MAX_IP_LEN]; 
-	char filename[MAX_FILE_NAME]; 
+    char filename[MAX_FILE_NAME]; 
     float xAvg; 
     float yAvg; 
     int xlast; 
@@ -143,9 +143,9 @@ int main(int argc, char* argv[])
     int shmid;
     
     // for sockets 
-	int sockfd; 
-	struct sockaddr_in servaddr;
-	int MazePort; 
+    int sockfd; 
+    struct sockaddr_in servaddr;
+    int MazePort; 
     time_t cur;
     FILE *fp; 
     int first = 1; 
@@ -155,45 +155,45 @@ int main(int argc, char* argv[])
     int direction[4]; 
 
 
-	/******************************* args check *******************************/
-	if (argc != 10) {
-		perror("AC: Incorrect number of arguments. Exiting now.\n"); 
-		exit(1); 
-	} else {
+    /******************************* args check *******************************/
+    if (argc != 10) {
+        perror("AC: Incorrect number of arguments. Exiting now.\n"); 
+        exit(1); 
+    } else {
         printf("getting called\n"); 
     }
 
-	// check that the avatarid 
+    // check that the avatarid 
     if (IsNotNumeric(argv[1])) {
-		fprintf(stderr, "Number of avatars must be a number. Exiting now.\n"); 
-    	exit(1); 
+        fprintf(stderr, "Number of avatars must be a number. Exiting now.\n"); 
+        exit(1); 
     } else {
-    	avatarId = atoi(argv[1]); 
-    	printf("avatarId: %d\n", avatarId); 
+        avatarId = atoi(argv[1]); 
+        printf("avatarId: %d\n", avatarId); 
     }
 
-	// check the input for number of avatars 
+    // check the input for number of avatars 
     if (IsNotNumeric(argv[2])) {
-		fprintf(stderr, "Number of avatars must be a number. Exiting now.\n"); 
-    	exit(1); 
+        fprintf(stderr, "Number of avatars must be a number. Exiting now.\n"); 
+        exit(1); 
     } else if ((atoi(argv[2]) < 0)) {
-    	fprintf(stderr, "Number of avatars must be greater than 0. Exiting now.\n"); 
-    	exit(1); 
+        fprintf(stderr, "Number of avatars must be greater than 0. Exiting now.\n"); 
+        exit(1); 
     } else {
-    	nAvatars = atoi(argv[2]); 
-    	printf("Number avatars: %d\n", nAvatars); 
+        nAvatars = atoi(argv[2]); 
+        printf("Number avatars: %d\n", nAvatars); 
     }
 
     // check input for difficulty of maze 
     if (IsNotNumeric(argv[3])) {
-		fprintf(stderr, "Difficulty must be a number. Exiting now.\n"); 
-    	exit(1); 
+        fprintf(stderr, "Difficulty must be a number. Exiting now.\n"); 
+        exit(1); 
     } else if ((atoi(argv[3]) < 0) || (atoi(argv[3]) > 9)) {
-    	fprintf(stderr, "Difficulty level must be between 0 and 9. Exiting now.\n"); 
-    	exit(1); 
+        fprintf(stderr, "Difficulty level must be between 0 and 9. Exiting now.\n"); 
+        exit(1); 
     } else {
-    	Difficulty = atoi(argv[3]); 
-    	printf("Difficulty %d\n", Difficulty); 
+        Difficulty = atoi(argv[3]); 
+        printf("Difficulty %d\n", Difficulty); 
     }
 
     // copy ipAddress  
@@ -245,7 +245,7 @@ int main(int argc, char* argv[])
     // initialize semaphore 
     sem_id = semget((key_t)2345, 1, 0666); 
 
-	/************************ tell server avatar ready ************************/
+    /************************ tell server avatar ready ************************/
     // create a socket for the client
     if ((sockfd = socket (AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("Problem creating the socket.\n");
@@ -505,7 +505,16 @@ int main(int argc, char* argv[])
             }
         } 
         if (ntohl(msg.type) == AM_MAZE_SOLVED) {
-            // make sure only one avatar writes to the file 
+
+            // detach the memory 
+            if (shmdt(shared_mem) == -1) {
+                perror("shmdt failed\n");
+                exit(EXIT_FAILURE);
+            }
+
+            sleep(2); 
+
+            // make sure only one avatar writes to the file and deletes the memory 
             if (avatarId == 0) {
                 // write to file that program finished 
                 fp = fopen(filename, "a"); 
@@ -516,9 +525,18 @@ int main(int argc, char* argv[])
 
                 fprintf(fp, "Solved the maze at %s!\n", ctime(&cur)); 
                 fclose(fp); 
+
+
+                // one avatar should delete the memory 
+                if (shmctl(shmid, IPC_RMID, 0) == -1) {
+                    perror("shmctl(IPC_RMID) failed\n");
+                    exit(EXIT_FAILURE);
+                }
+                del_semvalue();
+                
             }
-//            printf("Solved the maze\n"); 
-//            exit(EXIT_SUCCESS); 
+            printf("Solved the maze\n"); 
+            exit(EXIT_SUCCESS); 
         }
         //z++; 
     } 
@@ -543,7 +561,7 @@ int main(int argc, char* argv[])
 
     printf("ended\n"); 
 
-    exit(EXIT_SUCCESS);
+    exit(EXIT_FAILURE);
 }
 
 /* =========================================================================== */
