@@ -104,6 +104,11 @@
 // ---------------- Private prototypes
 int IsNotNumeric(char *input);
 
+int HasNorthWall(int index); 
+int HasWestWall(int index); 
+int HasSouthWall(int index); 
+int HasEastWall(int index); 
+
 
 static void del_semvalue(void);
 static int semaphore_p(void);
@@ -111,6 +116,7 @@ static int semaphore_v(void);
 
 
 static int sem_id;
+static int *shared_mem; 
 
 
 /* =========================================================================== */
@@ -128,10 +134,12 @@ int main(int argc, char* argv[])
     float yAvg; 
     int xlast; 
     int ylast; 
+    int xcurr; 
+    int ycurr; 
     int MazeWidth; 
     int MazeHeight; 
     // for shared memory 
-    int *shared_mem; 
+
     int shmid;
     
     // for sockets 
@@ -274,7 +282,7 @@ int main(int argc, char* argv[])
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
-    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<2000) {
+    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<30) {
 //        printf("received: %d\n", avatarId); 
 
         // check if error 
@@ -313,6 +321,7 @@ int main(int argc, char* argv[])
                 xAvg = (int) xAvg; 
                 yAvg = (int) yAvg; 
 
+                // set "first" flag to false 
                 first = 0; 
 
                 // set the array direction to go right 
@@ -327,41 +336,62 @@ int main(int argc, char* argv[])
 
                 // grab the key 
 //                if (!semaphore_p()) exit(EXIT_FAILURE);
+                xcurr = ntohl(msg.avatar_turn.Pos[avatarId].x); 
+                ycurr = ntohl(msg.avatar_turn.Pos[avatarId].y); 
+                
+                // log the avatar's move to a file 
+                fp = fopen(filename, "a"); 
+                ASSERT_FAIL(stderr, fp); 
 
                 // if current position is same as last
-                if ( (ntohl(msg.avatar_turn.Pos[avatarId].x) == xlast) 
-                    && (ntohl(msg.avatar_turn.Pos[avatarId].y) == ylast) ) {
+                if ( (xcurr == xlast) && (ycurr == ylast) ) {
 
                     if(!arrived) {
                         // hit a wall 
                         printf("hit a wall\n"); 
-                        fprintf(fp, "Hit a wall\n"); 
+                        fprintf(fp, "avatar %d hit a wall\n", avatarId); 
                         index = (ylast * MazeWidth) + xlast; 
                         
                         /******* update the shared memory to reflect the wall *******/
                         switch(direction[dir]){
                             case M_NORTH: 
                                 shared_mem[index] += N_WALL; 
-                                printf("northern wall\n"); 
+                                if ( ((index - MazeWidth) >= 0) && (!HasSouthWall(index - MazeWidth)) ) {
+                                    
+                                    shared_mem[index - MazeWidth] += S_WALL; 
+                                
+                                }
+                                fprintf(fp, "northern wall\n"); 
+                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_EAST: 
                                 shared_mem[index] += E_WALL; 
-                                printf("eastern wall\n"); 
+                                if ( ((index + 1) < (MazeHeight * MazeWidth)) && (!HasWestWall(index + 1)) ) {
+                                    shared_mem[index + 1] += W_WALL; 
+                                }
+                                fprintf(fp, "eastern wall\n"); 
+                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_SOUTH: 
                                 shared_mem[index] += S_WALL; 
-                                printf("southern wall\n"); 
+                                if ( ((index + MazeWidth) < (MazeHeight * MazeWidth)) && (!HasNorthWall(index + MazeWidth)) ) {
+                                    shared_mem[index + MazeWidth] += N_WALL; 
+                                }
+                                fprintf(fp, "southern wall\n"); 
+                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_WEST: 
                                 shared_mem[index] += W_WALL; 
-                                printf("western wall\n"); 
+                                if ( ((index - 1) >= 0) && (!HasEastWall(index - 1)) ) {
+                                    shared_mem[index - 1] += E_WALL; 
+                                }
+                                fprintf(fp, "western wall\n"); 
+                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                         }
-
                         dir++;
                     }
-
-
+                    
                 } else {
                     // figure out which way avatar moved 
                     switch(direction[dir]){
@@ -397,49 +427,74 @@ int main(int argc, char* argv[])
 
                 }
 
- 
-                // get the avatar's current location
-                xlast = ntohl(msg.avatar_turn.Pos[avatarId].x); 
-                ylast = ntohl(msg.avatar_turn.Pos[avatarId].y); 
 
+/*
                 if (avatarId == 1) {
                     printf("xlast: %d, ylast: %d\n", xlast, ylast); 
-                }
+                } */
 
-                if ((xlast == xAvg) && (ylast == yAvg)) {
-                    arrived = 1;
-                    // don't move
-                    msg.type = htonl(AM_AVATAR_MOVE); 
-                    msg.avatar_move.AvatarId = htonl(avatarId); 
-                    printf("dir:%d\n", dir); 
-                    msg.avatar_move.Direction = htonl(M_NULL_MOVE);
-
-                    send(sockfd, &msg, sizeof(msg), 0);
-                    continue;
-                }
-
-                
-                // move in next direction dictated by direction array
-                if (avatarId == 0) {
-                    printf("avatar 0\n\n"); 
-                }
-                printf("make a move\n"); 
+                /************************ Send the move ************************/ 
+                // time to make a move 
                 msg.type = htonl(AM_AVATAR_MOVE); 
                 msg.avatar_move.AvatarId = htonl(avatarId); 
-                printf("id: %d dir:%d\n", avatarId, direction[dir]); 
-                msg.avatar_move.Direction = htonl(direction[dir]);
+                
+                if ( (ntohl(msg.avatar_turn.Pos[avatarId].x) == xAvg) 
+                    && (ntohl(msg.avatar_turn.Pos[avatarId].y) == yAvg) ) {
+                    arrived = 1;
+                    // don't move
+                    printf("dir:%d\n", dir); 
+                    msg.avatar_move.Direction = htonl(M_NULL_MOVE);
+                } else {
+                    index = (ycurr * MazeWidth) + xcurr; 
+                    // check the walls to see if prioritized direction is wise 
+                    if ((direction[dir] == M_NORTH) && HasNorthWall(index)) {
+                        dir++; 
+                    } 
 
+                    if ((direction[dir] == M_WEST) && HasWestWall(index)) {
+                        dir++; 
+                    }  
+
+                    if ((direction[dir] == M_SOUTH) && HasSouthWall(index)) {
+                        dir++; 
+                    } 
+
+                    if ((direction[dir] == M_EAST) && HasEastWall(index)) {
+                        dir++; 
+                        fprintf(fp, "east\n\n"); 
+                    }
+
+                    if ((direction[dir] == M_NORTH) && HasNorthWall(index)) {
+                        dir++; 
+                    } 
+
+                    if ((direction[dir] == M_WEST) && HasWestWall(index)) {
+                        dir++; 
+                    }  
+
+                    if ((direction[dir] == M_SOUTH) && HasSouthWall(index)) {
+                        dir++; 
+                        fprintf(fp,"south\n\n"); 
+                    } 
+
+                    if ((direction[dir] == M_EAST) && HasEastWall(index)) {
+                        dir++; 
+                    }
+
+                    // move in next direction dictated by direction array
+                    msg.avatar_move.Direction = htonl(direction[dir]);
+                }
 
                 send(sockfd, &msg, sizeof(msg), 0);
+                
 
-                // log the avatar's move to a file 
-                fp = fopen(filename, "a"); 
-                ASSERT_FAIL(stderr, fp); 
-
-                fprintf(fp, "Id: %d, Move: %d\n", avatarId, direction[dir]); 
-//                fclose(fp); 
-
+                fprintf(fp, "Id: %d, Move: %d, Dir: %d\n", avatarId, direction[dir], dir); 
+                fprintf(fp, "xlast: %d, ylast: %d, xcurr: %d, ycurr: %d\n", xlast, ylast, xcurr, ycurr); 
                 fclose(fp);  
+
+                // assign the avatar's last location
+                xlast = xcurr; 
+                ylast = ycurr; 
 
                 // release the key 
 //                if (!semaphore_v()) exit(EXIT_FAILURE);
@@ -465,7 +520,7 @@ int main(int argc, char* argv[])
 //            printf("Solved the maze\n"); 
 //            exit(EXIT_SUCCESS); 
         }
-        z++; 
+        //z++; 
     } 
 
     // detach the memory 
@@ -512,6 +567,102 @@ int IsNotNumeric(char *input)
     return(0); // success
 }
 
+
+int HasNorthWall(int index) 
+{
+    switch(shared_mem[index]){
+        case 2: 
+            return 1; 
+        case 3: 
+            return 1; 
+        case 6: 
+            return 1; 
+        case 10: 
+            return 1;
+        case 7: 
+            return 1;
+        case 11: 
+            return 1;
+        case 14: 
+            return 1;
+        case 15: 
+            return 1;
+    }
+    return 0; 
+}
+
+
+int HasWestWall(int index) 
+{
+    switch(shared_mem[index]){
+        case 1: 
+            return 1; 
+        case 3: 
+            return 1; 
+        case 5: 
+            return 1; 
+        case 9: 
+            return 1;
+        case 7: 
+            return 1;
+        case 11: 
+            return 1;
+        case 13: 
+            return 1;
+        case 15: 
+            return 1;
+    }
+    return 0; 
+}
+
+
+
+int HasSouthWall(int index) 
+{
+    switch(shared_mem[index]){
+        case 4: 
+            return 1; 
+        case 5: 
+            return 1; 
+        case 6: 
+            return 1; 
+        case 12: 
+            return 1;
+        case 7: 
+            return 1;
+        case 13: 
+            return 1;
+        case 14: 
+            return 1;
+        case 15: 
+            return 1;
+    }
+    return 0; 
+}
+
+
+int HasEastWall(int index) 
+{
+    switch(shared_mem[index]){
+        case 8: 
+            return 1; 
+        case 12: 
+            return 1; 
+        case 10: 
+            return 1; 
+        case 9: 
+            return 1;
+        case 13: 
+            return 1;
+        case 14: 
+            return 1;
+        case 11: 
+            return 1;
+        case 15: 
+            return 1;
+    }
+    return 0; 
+}
 
 /* =========================================================================== */
 /*            Semaphore Functions, taken from Dartmouth CS Resources           */
