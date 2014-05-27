@@ -303,12 +303,16 @@ int main(int argc, char* argv[])
             }
             exit(4);
         } 
+   MazeCell ***maze;
+    maze = parselog(MazeWidth,MazeHeight);
+	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
 
         // check message type 
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
             // the first time it receives a message, find central point 
             if (first) {
-                // get the central point
+  
+              // get the central point
                 int i; 
                 for ( i = 0; i < nAvatars; i++ ) {
                     xAvg += ntohl(msg.avatar_turn.Pos[i].x);  
@@ -331,7 +335,9 @@ int main(int argc, char* argv[])
                 ylast = -1;  
             }
 
-            // if the avatar is the one to move, move 
+    	    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+            
+	    // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
                 // grab the key 
@@ -423,7 +429,7 @@ int main(int argc, char* argv[])
 
                     // reset the direction priority
                     dir = 0;
-                    printf("direction\n"); 
+  //                  printf("direction\n"); 
 
                 }
 
