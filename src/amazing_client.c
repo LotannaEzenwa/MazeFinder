@@ -282,10 +282,12 @@ int main(int argc, char* argv[])
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
+    
+    // initialize the two dimensional array and draw its initial state
     MazeCell ***maze;
     maze = parselog(MazeWidth,MazeHeight);
-	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
-   
+    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+  
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<30) {
 //        printf("received: %d\n", avatarId); 
 
@@ -310,6 +312,7 @@ int main(int argc, char* argv[])
 
         // check message type 
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
+
             // the first time it receives a message, find central point 
             if (first) {
   
@@ -336,9 +339,12 @@ int main(int argc, char* argv[])
                 ylast = -1;  
             }
 
+ 	    // update the graphics after all the avatars move once 
+ 	    // (when the turn message is directed towards the first avatar again)
 	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
-    	    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+    	        update(maze,MazeWidth,MazeHeight,msg,nAvatars);
             }
+
 	    // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
