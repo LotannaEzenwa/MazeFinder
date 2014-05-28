@@ -115,6 +115,8 @@ MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
 			cell += strlen("borders: WNSE");
 		}
 	}
+	free(readin);
+	free(block);
 	return array;
 }
 void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message msg, int nAvatars) {
@@ -261,5 +263,6 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 		}
 		printf("\n");
 	}
+	free(node);
 }
 
