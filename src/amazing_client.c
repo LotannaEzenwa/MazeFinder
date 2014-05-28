@@ -449,7 +449,6 @@ int main(int argc, char* argv[])
                     && (ntohl(msg.avatar_turn.Pos[avatarId].y) == yAvg) ) {
                     arrived = 1;
                     // don't move
-                    printf("dir:%d\n", dir); 
                     msg.avatar_move.Direction = htonl(M_NULL_MOVE);
                 } else {
                     index = (ycurr * MazeWidth) + xcurr; 
