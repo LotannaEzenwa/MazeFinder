@@ -282,9 +282,10 @@ int main(int argc, char* argv[])
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
-   MazeCell ***maze;
+    MazeCell ***maze;
     maze = parselog(MazeWidth,MazeHeight);
 	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+    
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<30) {
 //        printf("received: %d\n", avatarId); 
 
@@ -477,15 +478,6 @@ int main(int argc, char* argv[])
                     if ((direction[dir] == M_WEST) && HasWestWall(index)) {
                         dir++; 
                     }  
-
-                    if ((direction[dir] == M_SOUTH) && HasSouthWall(index)) {
-                        dir++; 
-                        fprintf(fp,"south\n\n"); 
-                    } 
-
-                    if ((direction[dir] == M_EAST) && HasEastWall(index)) {
-                        dir++; 
-                    }
 
                     // move in next direction dictated by direction array
                     msg.avatar_move.Direction = htonl(direction[dir]);
