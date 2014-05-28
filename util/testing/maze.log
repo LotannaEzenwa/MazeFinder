@@ -1,0 +1,628 @@
+got msg: AM_INIT (nAvatars = 4, Difficulty = 4)
+maze generated for 4 avatars with difficulty = 4 (25 x 25, seed = 0)
+MazeCell [00][00]: walls: WN    borders: WN  
+MazeCell [00][01]: walls:  NS   borders:  N  
+MazeCell [00][02]: walls:  N E  borders:  N  
+MazeCell [00][03]: walls: WN    borders:  N  
+MazeCell [00][04]: walls:  N E  borders:  N  
+MazeCell [00][05]: walls: WNS   borders:  N  
+MazeCell [00][06]: walls:  NS   borders:  N  
+MazeCell [00][07]: walls:  N E  borders:  N  
+MazeCell [00][08]: walls: WN E  borders:  N  
+MazeCell [00][09]: walls: WNS   borders:  N  
+MazeCell [00][10]: walls:  NS   borders:  N  
+MazeCell [00][11]: walls:  N    borders:  N  
+MazeCell [00][12]: walls:  N    borders:  N  
+MazeCell [00][13]: walls:  NS   borders:  N  
+MazeCell [00][14]: walls:  NSE  borders:  N  
+MazeCell [00][15]: walls: WN    borders:  N  
+MazeCell [00][16]: walls:  NS   borders:  N  
+MazeCell [00][17]: walls:  NS   borders:  N  
+MazeCell [00][18]: walls:  N    borders:  N  
+MazeCell [00][19]: walls:  NS   borders:  N  
+MazeCell [00][20]: walls:  N E  borders:  N  
+MazeCell [00][21]: walls: WN    borders:  N  
+MazeCell [00][22]: walls:  NS   borders:  N  
+MazeCell [00][23]: walls:  NS   borders:  N  
+MazeCell [00][24]: walls:  N E  borders:  N E
+MazeCell [01][00]: walls: W  E  borders: W   
+MazeCell [01][01]: walls: WNS   borders:     
+MazeCell [01][02]: walls:   S   borders:     
+MazeCell [01][03]: walls:   SE  borders:     
+MazeCell [01][04]: walls: W S   borders:     
+MazeCell [01][05]: walls:  N E  borders:     
+MazeCell [01][06]: walls: WN    borders:     
+MazeCell [01][07]: walls:    E  borders:     
+MazeCell [01][08]: walls: W S   borders:     
+MazeCell [01][09]: walls:  NS   borders:     
+MazeCell [01][10]: walls:  N E  borders:     
+MazeCell [01][11]: walls: W  E  borders:     
+MazeCell [01][12]: walls: W S   borders:     
+MazeCell [01][13]: walls:  NS   borders:     
+MazeCell [01][14]: walls:  NS   borders:     
+MazeCell [01][15]: walls:   S   borders:     
+MazeCell [01][16]: walls:  NS   borders:     
+MazeCell [01][17]: walls:  NSE  borders:     
+MazeCell [01][18]: walls: W  E  borders:     
+MazeCell [01][19]: walls: WNS   borders:     
+MazeCell [01][20]: walls:    E  borders:     
+MazeCell [01][21]: walls: W SE  borders:     
+MazeCell [01][22]: walls: WN    borders:     
+MazeCell [01][23]: walls:  NS   borders:     
+MazeCell [01][24]: walls:    E  borders:    E
+MazeCell [02][00]: walls: W S   borders: W   
+MazeCell [02][01]: walls:  N E  borders:     
+MazeCell [02][02]: walls: WN    borders:     
+MazeCell [02][03]: walls:  NS   borders:     
+MazeCell [02][04]: walls:  NSE  borders:     
+MazeCell [02][05]: walls: W  E  borders:     
+MazeCell [02][06]: walls: W  E  borders:     
+MazeCell [02][07]: walls: W S   borders:     
+MazeCell [02][08]: walls:  NS   borders:     
+MazeCell [02][09]: walls:  N E  borders:     
+MazeCell [02][10]: walls: W  E  borders:     
+MazeCell [02][11]: walls: W S   borders:     
+MazeCell [02][12]: walls:  NS   borders:     
+MazeCell [02][13]: walls:  NS   borders:     
+MazeCell [02][14]: walls:  NSE  borders:     
+MazeCell [02][15]: walls: WN    borders:     
+MazeCell [02][16]: walls:  NS   borders:     
+MazeCell [02][17]: walls:  N E  borders:     
+MazeCell [02][18]: walls: W     borders:     
+MazeCell [02][19]: walls:  N E  borders:     
+MazeCell [02][20]: walls: W S   borders:     
+MazeCell [02][21]: walls:  NS   borders:     
+MazeCell [02][22]: walls:   SE  borders:     
+MazeCell [02][23]: walls: WN    borders:     
+MazeCell [02][24]: walls:   SE  borders:    E
+MazeCell [03][00]: walls: WN    borders: W   
+MazeCell [03][01]: walls:   SE  borders:     
+MazeCell [03][02]: walls: W     borders:     
+MazeCell [03][03]: walls:  NS   borders:     
+MazeCell [03][04]: walls:  NS   borders:     
+MazeCell [03][05]: walls:   S   borders:     
+MazeCell [03][06]: walls:   SE  borders:     
+MazeCell [03][07]: walls: WN    borders:     
+MazeCell [03][08]: walls:  NS   borders:     
+MazeCell [03][09]: walls:   SE  borders:     
+MazeCell [03][10]: walls: W  E  borders:     
+MazeCell [03][11]: walls: WN    borders:     
+MazeCell [03][12]: walls:  N E  borders:     
+MazeCell [03][13]: walls: WN    borders:     
+MazeCell [03][14]: walls:  NS   borders:     
+MazeCell [03][15]: walls:   SE  borders:     
+MazeCell [03][16]: walls: WN E  borders:     
+MazeCell [03][17]: walls: W  E  borders:     
+MazeCell [03][18]: walls: W SE  borders:     
+MazeCell [03][19]: walls: W S   borders:     
+MazeCell [03][20]: walls:  N E  borders:     
+MazeCell [03][21]: walls: WN E  borders:     
+MazeCell [03][22]: walls: WN    borders:     
+MazeCell [03][23]: walls:   SE  borders:     
+MazeCell [03][24]: walls: WN E  borders:    E
+MazeCell [04][00]: walls: W     borders: W   
+MazeCell [04][01]: walls:  N E  borders:     
+MazeCell [04][02]: walls: W S   borders:     
+MazeCell [04][03]: walls:  NSE  borders:     
+MazeCell [04][04]: walls: WN    borders:     
+MazeCell [04][05]: walls:  NS   borders:     
+MazeCell [04][06]: walls:  N E  borders:     
+MazeCell [04][07]: walls: W S   borders:     
+MazeCell [04][08]: walls:  NS   borders:     
+MazeCell [04][09]: walls:  NSE  borders:     
+MazeCell [04][10]: walls: W S   borders:     
+MazeCell [04][11]: walls:   SE  borders:     
+MazeCell [04][12]: walls: W  E  borders:     
+MazeCell [04][13]: walls: W     borders:     
+MazeCell [04][14]: walls:  N E  borders:     
+MazeCell [04][15]: walls: WN    borders:     
+MazeCell [04][16]: walls:   SE  borders:     
+MazeCell [04][17]: walls: W S   borders:     
+MazeCell [04][18]: walls:  N E  borders:     
+MazeCell [04][19]: walls: WN    borders:     
+MazeCell [04][20]: walls:   SE  borders:     
+MazeCell [04][21]: walls: W  E  borders:     
+MazeCell [04][22]: walls: W S   borders:     
+MazeCell [04][23]: walls:  N E  borders:     
+MazeCell [04][24]: walls: W  E  borders:    E
+MazeCell [05][00]: walls: W  E  borders: W   
+MazeCell [05][01]: walls: W S   borders:     
+MazeCell [05][02]: walls:  NS   borders:     
+MazeCell [05][03]: walls:  NS   borders:     
+MazeCell [05][04]: walls:   SE  borders:     
+MazeCell [05][05]: walls: WN E  borders:     
+MazeCell [05][06]: walls: W S   borders:     
+MazeCell [05][07]: walls:  NS   borders:     
+MazeCell [05][08]: walls:  N E  borders:     
+MazeCell [05][09]: walls: WN    borders:     
+MazeCell [05][10]: walls:  NS   borders:     
+MazeCell [05][11]: walls:  NS   borders:     
+MazeCell [05][12]: walls:   SE  borders:     
+MazeCell [05][13]: walls: W SE  borders:     
+MazeCell [05][14]: walls: W  E  borders:     
+MazeCell [05][15]: walls: W S   borders:     
+MazeCell [05][16]: walls:  NS   borders:     
+MazeCell [05][17]: walls:  N E  borders:     
+MazeCell [05][18]: walls: W  E  borders:     
+MazeCell [05][19]: walls: W S   borders:     
+MazeCell [05][20]: walls:  N E  borders:     
+MazeCell [05][21]: walls: W  E  borders:     
+MazeCell [05][22]: walls: WN    borders:     
+MazeCell [05][23]: walls:   SE  borders:     
+MazeCell [05][24]: walls: W  E  borders:    E
+MazeCell [06][00]: walls: W  E  borders: W   
+MazeCell [06][01]: walls: WNS   borders:     
+MazeCell [06][02]: walls:  N    borders:     
+MazeCell [06][03]: walls:  N E  borders:     
+MazeCell [06][04]: walls: WNS   borders:     
+MazeCell [06][05]: walls:       borders:     
+MazeCell [06][06]: walls:  NSE  borders:     
+MazeCell [06][07]: walls: WN    borders:     
+MazeCell [06][08]: walls:    E  borders:     
+MazeCell [06][09]: walls: W S   borders:     
+MazeCell [06][10]: walls:  NS   borders:     
+MazeCell [06][11]: walls:  NS   borders:     
+MazeCell [06][12]: walls:  NS   borders:     
+MazeCell [06][13]: walls:  N E  borders:     
+MazeCell [06][14]: walls: W S   borders:     
+MazeCell [06][15]: walls:  N E  borders:     
+MazeCell [06][16]: walls: WN    borders:     
+MazeCell [06][17]: walls:   SE  borders:     
+MazeCell [06][18]: walls: W  E  borders:     
+MazeCell [06][19]: walls: WN    borders:     
+MazeCell [06][20]: walls:   SE  borders:     
+MazeCell [06][21]: walls: W  E  borders:     
+MazeCell [06][22]: walls: W S   borders:     
+MazeCell [06][23]: walls:  NS   borders:     
+MazeCell [06][24]: walls:    E  borders:    E
+MazeCell [07][00]: walls: W S   borders: W   
+MazeCell [07][01]: walls:  NS   borders:     
+MazeCell [07][02]: walls:   SE  borders:     
+MazeCell [07][03]: walls: W  E  borders:     
+MazeCell [07][04]: walls: WN    borders:     
+MazeCell [07][05]: walls:   SE  borders:     
+MazeCell [07][06]: walls: WN    borders:     
+MazeCell [07][07]: walls:   SE  borders:     
+MazeCell [07][08]: walls: W S   borders:     
+MazeCell [07][09]: walls:  NSE  borders:     
+MazeCell [07][10]: walls: WN    borders:     
+MazeCell [07][11]: walls:  NS   borders:     
+MazeCell [07][12]: walls:  NS   borders:     
+MazeCell [07][13]: walls:   SE  borders:     
+MazeCell [07][14]: walls: WN    borders:     
+MazeCell [07][15]: walls:   SE  borders:     
+MazeCell [07][16]: walls: W     borders:     
+MazeCell [07][17]: walls:  NS   borders:     
+MazeCell [07][18]: walls:   SE  borders:     
+MazeCell [07][19]: walls: W  E  borders:     
+MazeCell [07][20]: walls: WNS   borders:     
+MazeCell [07][21]: walls:       borders:     
+MazeCell [07][22]: walls:  NS   borders:     
+MazeCell [07][23]: walls:  N E  borders:     
+MazeCell [07][24]: walls: W  E  borders:    E
+MazeCell [08][00]: walls: WN    borders: W   
+MazeCell [08][01]: walls:  NS   borders:     
+MazeCell [08][02]: walls:  NSE  borders:     
+MazeCell [08][03]: walls: W  E  borders:     
+MazeCell [08][04]: walls: W     borders:     
+MazeCell [08][05]: walls:  N E  borders:     
+MazeCell [08][06]: walls: W S   borders:     
+MazeCell [08][07]: walls:  N E  borders:     
+MazeCell [08][08]: walls: WN    borders:     
+MazeCell [08][09]: walls:  NS   borders:     
+MazeCell [08][10]: walls:   SE  borders:     
+MazeCell [08][11]: walls: WN    borders:     
+MazeCell [08][12]: walls:  N E  borders:     
+MazeCell [08][13]: walls: WN    borders:     
+MazeCell [08][14]: walls:   SE  borders:     
+MazeCell [08][15]: walls: WN E  borders:     
+MazeCell [08][16]: walls: W S   borders:     
+MazeCell [08][17]: walls:  N E  borders:     
+MazeCell [08][18]: walls: WN E  borders:     
+MazeCell [08][19]: walls: W     borders:     
+MazeCell [08][20]: walls:  N E  borders:     
+MazeCell [08][21]: walls: W  E  borders:     
+MazeCell [08][22]: walls: WN E  borders:     
+MazeCell [08][23]: walls: W  E  borders:     
+MazeCell [08][24]: walls: W  E  borders:    E
+MazeCell [09][00]: walls: W     borders: W   
+MazeCell [09][01]: walls:  N E  borders:     
+MazeCell [09][02]: walls: WN    borders:     
+MazeCell [09][03]: walls:   SE  borders:     
+MazeCell [09][04]: walls: W SE  borders:     
+MazeCell [09][05]: walls: W     borders:     
+MazeCell [09][06]: walls:  N E  borders:     
+MazeCell [09][07]: walls: W  E  borders:     
+MazeCell [09][08]: walls: W  E  borders:     
+MazeCell [09][09]: walls: WN    borders:     
+MazeCell [09][10]: walls:  NS   borders:     
+MazeCell [09][11]: walls:   SE  borders:     
+MazeCell [09][12]: walls: W  E  borders:     
+MazeCell [09][13]: walls: W S   borders:     
+MazeCell [09][14]: walls:  N E  borders:     
+MazeCell [09][15]: walls: W  E  borders:     
+MazeCell [09][16]: walls: WN    borders:     
+MazeCell [09][17]: walls:   SE  borders:     
+MazeCell [09][18]: walls: W     borders:     
+MazeCell [09][19]: walls:   SE  borders:     
+MazeCell [09][20]: walls: W  E  borders:     
+MazeCell [09][21]: walls: W S   borders:     
+MazeCell [09][22]: walls:    E  borders:     
+MazeCell [09][23]: walls: W S   borders:     
+MazeCell [09][24]: walls:   SE  borders:    E
+MazeCell [10][00]: walls: W  E  borders: W   
+MazeCell [10][01]: walls: W S   borders:     
+MazeCell [10][02]: walls:   SE  borders:     
+MazeCell [10][03]: walls: WNS   borders:     
+MazeCell [10][04]: walls:  N    borders:     
+MazeCell [10][05]: walls:   SE  borders:     
+MazeCell [10][06]: walls: W  E  borders:     
+MazeCell [10][07]: walls: W  E  borders:     
+MazeCell [10][08]: walls: W  E  borders:     
+MazeCell [10][09]: walls: W  E  borders:     
+MazeCell [10][10]: walls: WN    borders:     
+MazeCell [10][11]: walls:  N E  borders:     
+MazeCell [10][12]: walls: W S   borders:     
+MazeCell [10][13]: walls:  NS   borders:     
+MazeCell [10][14]: walls:   SE  borders:     
+MazeCell [10][15]: walls: W  E  borders:     
+MazeCell [10][16]: walls: W  E  borders:     
+MazeCell [10][17]: walls: WNS   borders:     
+MazeCell [10][18]: walls:   S   borders:     
+MazeCell [10][19]: walls:  NSE  borders:     
+MazeCell [10][20]: walls: W  E  borders:     
+MazeCell [10][21]: walls: WN    borders:     
+MazeCell [10][22]: walls:   SE  borders:     
+MazeCell [10][23]: walls: WN    borders:     
+MazeCell [10][24]: walls:  N E  borders:    E
+MazeCell [11][00]: walls: W  E  borders: W   
+MazeCell [11][01]: walls: WNS   borders:     
+MazeCell [11][02]: walls:  N    borders:     
+MazeCell [11][03]: walls:  NS   borders:     
+MazeCell [11][04]: walls:   SE  borders:     
+MazeCell [11][05]: walls: WN E  borders:     
+MazeCell [11][06]: walls: W  E  borders:     
+MazeCell [11][07]: walls: W S   borders:     
+MazeCell [11][08]: walls:   SE  borders:     
+MazeCell [11][09]: walls: W  E  borders:     
+MazeCell [11][10]: walls: W  E  borders:     
+MazeCell [11][11]: walls: W  E  borders:     
+MazeCell [11][12]: walls: WN    borders:     
+MazeCell [11][13]: walls:  NS   borders:     
+MazeCell [11][14]: walls:  NS   borders:     
+MazeCell [11][15]: walls:    E  borders:     
+MazeCell [11][16]: walls: W S   borders:     
+MazeCell [11][17]: walls:  NS   borders:     
+MazeCell [11][18]: walls:  NS   borders:     
+MazeCell [11][19]: walls:  N E  borders:     
+MazeCell [11][20]: walls: W  E  borders:     
+MazeCell [11][21]: walls: W S   borders:     
+MazeCell [11][22]: walls:  NS   borders:     
+MazeCell [11][23]: walls:   SE  borders:     
+MazeCell [11][24]: walls: W  E  borders:    E
+MazeCell [12][00]: walls: W S   borders: W   
+MazeCell [12][01]: walls:  N E  borders:     
+MazeCell [12][02]: walls: W     borders:     
+MazeCell [12][03]: walls:  NS   borders:     
+MazeCell [12][04]: walls:  N E  borders:     
+MazeCell [12][05]: walls: W  E  borders:     
+MazeCell [12][06]: walls: W S   borders:     
+MazeCell [12][07]: walls:  N E  borders:     
+MazeCell [12][08]: walls: WNS   borders:     
+MazeCell [12][09]: walls:    E  borders:     
+MazeCell [12][10]: walls: W SE  borders:     
+MazeCell [12][11]: walls: W S   borders:     
+MazeCell [12][12]: walls:   S   borders:     
+MazeCell [12][13]: walls:  NSE  borders:     
+MazeCell [12][14]: walls: WN    borders:     
+MazeCell [12][15]: walls:       borders:     
+MazeCell [12][16]: walls:  NSE  borders:     
+MazeCell [12][17]: walls: WN    borders:     
+MazeCell [12][18]: walls:  NS   borders:     
+MazeCell [12][19]: walls:   SE  borders:     
+MazeCell [12][20]: walls: W S   borders:     
+MazeCell [12][21]: walls:  N E  borders:     
+MazeCell [12][22]: walls: WN    borders:     
+MazeCell [12][23]: walls:  NSE  borders:     
+MazeCell [12][24]: walls: W  E  borders:    E
+MazeCell [13][00]: walls: WN E  borders: W   
+MazeCell [13][01]: walls: W  E  borders:     
+MazeCell [13][02]: walls: W SE  borders:     
+MazeCell [13][03]: walls: WN    borders:     
+MazeCell [13][04]: walls:   SE  borders:     
+MazeCell [13][05]: walls: W S   borders:     
+MazeCell [13][06]: walls:  N E  borders:     
+MazeCell [13][07]: walls: W  E  borders:     
+MazeCell [13][08]: walls: WN    borders:     
+MazeCell [13][09]: walls:   SE  borders:     
+MazeCell [13][10]: walls: WN    borders:     
+MazeCell [13][11]: walls:  NS   borders:     
+MazeCell [13][12]: walls:  NS   borders:     
+MazeCell [13][13]: walls:  N E  borders:     
+MazeCell [13][14]: walls: W  E  borders:     
+MazeCell [13][15]: walls: W SE  borders:     
+MazeCell [13][16]: walls: WN    borders:     
+MazeCell [13][17]: walls:   SE  borders:     
+MazeCell [13][18]: walls: WNS   borders:     
+MazeCell [13][19]: walls:  N    borders:     
+MazeCell [13][20]: walls:  N    borders:     
+MazeCell [13][21]: walls:    E  borders:     
+MazeCell [13][22]: walls: W S   borders:     
+MazeCell [13][23]: walls:  NS   borders:     
+MazeCell [13][24]: walls:   SE  borders:    E
+MazeCell [14][00]: walls: W  E  borders: W   
+MazeCell [14][01]: walls: W S   borders:     
+MazeCell [14][02]: walls:  N E  borders:     
+MazeCell [14][03]: walls: W  E  borders:     
+MazeCell [14][04]: walls: WN    borders:     
+MazeCell [14][05]: walls:  N E  borders:     
+MazeCell [14][06]: walls: W S   borders:     
+MazeCell [14][07]: walls:   S   borders:     
+MazeCell [14][08]: walls:    E  borders:     
+MazeCell [14][09]: walls: WN    borders:     
+MazeCell [14][10]: walls:   SE  borders:     
+MazeCell [14][11]: walls: WN    borders:     
+MazeCell [14][12]: walls:  N E  borders:     
+MazeCell [14][13]: walls: W  E  borders:     
+MazeCell [14][14]: walls: W S   borders:     
+MazeCell [14][15]: walls:  N E  borders:     
+MazeCell [14][16]: walls: W S   borders:     
+MazeCell [14][17]: walls:  NS   borders:     
+MazeCell [14][18]: walls:  N E  borders:     
+MazeCell [14][19]: walls: W  E  borders:     
+MazeCell [14][20]: walls: W  E  borders:     
+MazeCell [14][21]: walls: W  E  borders:     
+MazeCell [14][22]: walls: WN    borders:     
+MazeCell [14][23]: walls:  NS   borders:     
+MazeCell [14][24]: walls:  N E  borders:    E
+MazeCell [15][00]: walls: W     borders: W   
+MazeCell [15][01]: walls:  NSE  borders:     
+MazeCell [15][02]: walls: W  E  borders:     
+MazeCell [15][03]: walls: W  E  borders:     
+MazeCell [15][04]: walls: W  E  borders:     
+MazeCell [15][05]: walls: W S   borders:     
+MazeCell [15][06]: walls:  N E  borders:     
+MazeCell [15][07]: walls: WNS   borders:     
+MazeCell [15][08]: walls:   SE  borders:     
+MazeCell [15][09]: walls: W S   borders:     
+MazeCell [15][10]: walls:  N E  borders:     
+MazeCell [15][11]: walls: W  E  borders:     
+MazeCell [15][12]: walls: W  E  borders:     
+MazeCell [15][13]: walls: W S   borders:     
+MazeCell [15][14]: walls:  N E  borders:     
+MazeCell [15][15]: walls: W S   borders:     
+MazeCell [15][16]: walls:  N    borders:     
+MazeCell [15][17]: walls:  N E  borders:     
+MazeCell [15][18]: walls: W  E  borders:     
+MazeCell [15][19]: walls: W SE  borders:     
+MazeCell [15][20]: walls: W  E  borders:     
+MazeCell [15][21]: walls: W SE  borders:     
+MazeCell [15][22]: walls: W  E  borders:     
+MazeCell [15][23]: walls: WN    borders:     
+MazeCell [15][24]: walls:    E  borders:    E
+MazeCell [16][00]: walls: W  E  borders: W   
+MazeCell [16][01]: walls: WN    borders:     
+MazeCell [16][02]: walls:   SE  borders:     
+MazeCell [16][03]: walls: W  E  borders:     
+MazeCell [16][04]: walls: W S   borders:     
+MazeCell [16][05]: walls:  N E  borders:     
+MazeCell [16][06]: walls: W  E  borders:     
+MazeCell [16][07]: walls: WN    borders:     
+MazeCell [16][08]: walls:  N E  borders:     
+MazeCell [16][09]: walls: WN    borders:     
+MazeCell [16][10]: walls:   SE  borders:     
+MazeCell [16][11]: walls: W  E  borders:     
+MazeCell [16][12]: walls: W S   borders:     
+MazeCell [16][13]: walls:  N E  borders:     
+MazeCell [16][14]: walls: W S   borders:     
+MazeCell [16][15]: walls:  N E  borders:     
+MazeCell [16][16]: walls: W  E  borders:     
+MazeCell [16][17]: walls: W  E  borders:     
+MazeCell [16][18]: walls: W S   borders:     
+MazeCell [16][19]: walls:  N E  borders:     
+MazeCell [16][20]: walls: W     borders:     
+MazeCell [16][21]: walls:  N E  borders:     
+MazeCell [16][22]: walls: W  E  borders:     
+MazeCell [16][23]: walls: W  E  borders:     
+MazeCell [16][24]: walls: W  E  borders:    E
+MazeCell [17][00]: walls: W  E  borders: W   
+MazeCell [17][01]: walls: W S   borders:     
+MazeCell [17][02]: walls:  N E  borders:     
+MazeCell [17][03]: walls: W     borders:     
+MazeCell [17][04]: walls:  N E  borders:     
+MazeCell [17][05]: walls: W  E  borders:     
+MazeCell [17][06]: walls: W S   borders:     
+MazeCell [17][07]: walls:   SE  borders:     
+MazeCell [17][08]: walls: W  E  borders:     
+MazeCell [17][09]: walls: W  E  borders:     
+MazeCell [17][10]: walls: WNS   borders:     
+MazeCell [17][11]: walls:    E  borders:     
+MazeCell [17][12]: walls: WN    borders:     
+MazeCell [17][13]: walls:   S   borders:     
+MazeCell [17][14]: walls:  NSE  borders:     
+MazeCell [17][15]: walls: W  E  borders:     
+MazeCell [17][16]: walls: W  E  borders:     
+MazeCell [17][17]: walls: W S   borders:     
+MazeCell [17][18]: walls:  N E  borders:     
+MazeCell [17][19]: walls: W  E  borders:     
+MazeCell [17][20]: walls: W  E  borders:     
+MazeCell [17][21]: walls: W  E  borders:     
+MazeCell [17][22]: walls: W  E  borders:     
+MazeCell [17][23]: walls: W  E  borders:     
+MazeCell [17][24]: walls: W  E  borders:    E
+MazeCell [18][00]: walls: W S   borders: W   
+MazeCell [18][01]: walls:  N E  borders:     
+MazeCell [18][02]: walls: W  E  borders:     
+MazeCell [18][03]: walls: W SE  borders:     
+MazeCell [18][04]: walls: W  E  borders:     
+MazeCell [18][05]: walls: W  E  borders:     
+MazeCell [18][06]: walls: WN E  borders:     
+MazeCell [18][07]: walls: WN    borders:     
+MazeCell [18][08]: walls:   SE  borders:     
+MazeCell [18][09]: walls: W S   borders:     
+MazeCell [18][10]: walls:  N E  borders:     
+MazeCell [18][11]: walls: W SE  borders:     
+MazeCell [18][12]: walls: W S   borders:     
+MazeCell [18][13]: walls:  NS   borders:     
+MazeCell [18][14]: walls:  N E  borders:     
+MazeCell [18][15]: walls: W  E  borders:     
+MazeCell [18][16]: walls: W  E  borders:     
+MazeCell [18][17]: walls: WNS   borders:     
+MazeCell [18][18]: walls:   SE  borders:     
+MazeCell [18][19]: walls: W  E  borders:     
+MazeCell [18][20]: walls: W  E  borders:     
+MazeCell [18][21]: walls: W S   borders:     
+MazeCell [18][22]: walls:   SE  borders:     
+MazeCell [18][23]: walls: W  E  borders:     
+MazeCell [18][24]: walls: W  E  borders:    E
+MazeCell [19][00]: walls: WN    borders: W   
+MazeCell [19][01]: walls:   SE  borders:     
+MazeCell [19][02]: walls: W S   borders:     
+MazeCell [19][03]: walls:  N E  borders:     
+MazeCell [19][04]: walls: W S   borders:     
+MazeCell [19][05]: walls:       borders:     
+MazeCell [19][06]: walls:   SE  borders:     
+MazeCell [19][07]: walls: W S   borders:     
+MazeCell [19][08]: walls:  N    borders:     
+MazeCell [19][09]: walls:  NSE  borders:     
+MazeCell [19][10]: walls: W S   borders:     
+MazeCell [19][11]: walls:  N E  borders:     
+MazeCell [19][12]: walls: WN    borders:     
+MazeCell [19][13]: walls:  N    borders:     
+MazeCell [19][14]: walls:   SE  borders:     
+MazeCell [19][15]: walls: W  E  borders:     
+MazeCell [19][16]: walls: W S   borders:     
+MazeCell [19][17]: walls:  NS   borders:     
+MazeCell [19][18]: walls:  N    borders:     
+MazeCell [19][19]: walls:   SE  borders:     
+MazeCell [19][20]: walls: W S   borders:     
+MazeCell [19][21]: walls:  NS   borders:     
+MazeCell [19][22]: walls:  NSE  borders:     
+MazeCell [19][23]: walls: W  E  borders:     
+MazeCell [19][24]: walls: W  E  borders:    E
+MazeCell [20][00]: walls: W     borders: W   
+MazeCell [20][01]: walls:  NS   borders:     
+MazeCell [20][02]: walls:  N E  borders:     
+MazeCell [20][03]: walls: W S   borders:     
+MazeCell [20][04]: walls:  N E  borders:     
+MazeCell [20][05]: walls: W SE  borders:     
+MazeCell [20][06]: walls: WN    borders:     
+MazeCell [20][07]: walls:  N E  borders:     
+MazeCell [20][08]: walls: W     borders:     
+MazeCell [20][09]: walls:  N    borders:     
+MazeCell [20][10]: walls:  N E  borders:     
+MazeCell [20][11]: walls: W  E  borders:     
+MazeCell [20][12]: walls: W  E  borders:     
+MazeCell [20][13]: walls: W SE  borders:     
+MazeCell [20][14]: walls: WN    borders:     
+MazeCell [20][15]: walls:   SE  borders:     
+MazeCell [20][16]: walls: WN    borders:     
+MazeCell [20][17]: walls:  N E  borders:     
+MazeCell [20][18]: walls: W S   borders:     
+MazeCell [20][19]: walls:  NS   borders:     
+MazeCell [20][20]: walls:  N E  borders:     
+MazeCell [20][21]: walls: WN    borders:     
+MazeCell [20][22]: walls:  NS   borders:     
+MazeCell [20][23]: walls:   SE  borders:     
+MazeCell [20][24]: walls: W  E  borders:    E
+MazeCell [21][00]: walls: W S   borders: W   
+MazeCell [21][01]: walls:  N E  borders:     
+MazeCell [21][02]: walls: W     borders:     
+MazeCell [21][03]: walls:  NSE  borders:     
+MazeCell [21][04]: walls: W S   borders:     
+MazeCell [21][05]: walls:  NS   borders:     
+MazeCell [21][06]: walls:   SE  borders:     
+MazeCell [21][07]: walls: W  E  borders:     
+MazeCell [21][08]: walls: W SE  borders:     
+MazeCell [21][09]: walls: W  E  borders:     
+MazeCell [21][10]: walls: W SE  borders:     
+MazeCell [21][11]: walls: W S   borders:     
+MazeCell [21][12]: walls:    E  borders:     
+MazeCell [21][13]: walls: WN    borders:     
+MazeCell [21][14]: walls:   SE  borders:     
+MazeCell [21][15]: walls: WN    borders:     
+MazeCell [21][16]: walls:   SE  borders:     
+MazeCell [21][17]: walls: W  E  borders:     
+MazeCell [21][18]: walls: WN    borders:     
+MazeCell [21][19]: walls:  N E  borders:     
+MazeCell [21][20]: walls: W  E  borders:     
+MazeCell [21][21]: walls: W  E  borders:     
+MazeCell [21][22]: walls: WN    borders:     
+MazeCell [21][23]: walls:  NSE  borders:     
+MazeCell [21][24]: walls: W  E  borders:    E
+MazeCell [22][00]: walls: WN E  borders: W   
+MazeCell [22][01]: walls: W  E  borders:     
+MazeCell [22][02]: walls: W S   borders:     
+MazeCell [22][03]: walls:  N    borders:     
+MazeCell [22][04]: walls:  NS   borders:     
+MazeCell [22][05]: walls:  NS   borders:     
+MazeCell [22][06]: walls:  NSE  borders:     
+MazeCell [22][07]: walls: W S   borders:     
+MazeCell [22][08]: walls:  N E  borders:     
+MazeCell [22][09]: walls: W     borders:     
+MazeCell [22][10]: walls:  NS   borders:     
+MazeCell [22][11]: walls:  NS   borders:     
+MazeCell [22][12]: walls:   SE  borders:     
+MazeCell [22][13]: walls: W S   borders:     
+MazeCell [22][14]: walls:  N    borders:     
+MazeCell [22][15]: walls:   S   borders:     
+MazeCell [22][16]: walls:  NSE  borders:     
+MazeCell [22][17]: walls: W  E  borders:     
+MazeCell [22][18]: walls: W SE  borders:     
+MazeCell [22][19]: walls: W S   borders:     
+MazeCell [22][20]: walls:   S   borders:     
+MazeCell [22][21]: walls:   SE  borders:     
+MazeCell [22][22]: walls: W     borders:     
+MazeCell [22][23]: walls:  NS   borders:     
+MazeCell [22][24]: walls:   SE  borders:    E
+MazeCell [23][00]: walls: W  E  borders: W   
+MazeCell [23][01]: walls: W  E  borders:     
+MazeCell [23][02]: walls: WN E  borders:     
+MazeCell [23][03]: walls: W S   borders:     
+MazeCell [23][04]: walls:  NS   borders:     
+MazeCell [23][05]: walls:  NS   borders:     
+MazeCell [23][06]: walls:  N    borders:     
+MazeCell [23][07]: walls:  NSE  borders:     
+MazeCell [23][08]: walls: W  E  borders:     
+MazeCell [23][09]: walls: W SE  borders:     
+MazeCell [23][10]: walls: WN    borders:     
+MazeCell [23][11]: walls:  N E  borders:     
+MazeCell [23][12]: walls: WN    borders:     
+MazeCell [23][13]: walls:  N E  borders:     
+MazeCell [23][14]: walls: W SE  borders:     
+MazeCell [23][15]: walls: WN    borders:     
+MazeCell [23][16]: walls:  N E  borders:     
+MazeCell [23][17]: walls: W S   borders:     
+MazeCell [23][18]: walls:  NS   borders:     
+MazeCell [23][19]: walls:  N E  borders:     
+MazeCell [23][20]: walls: WN    borders:     
+MazeCell [23][21]: walls:  NSE  borders:     
+MazeCell [23][22]: walls: W S   borders:     
+MazeCell [23][23]: walls:  NS   borders:     
+MazeCell [23][24]: walls:  N E  borders:    E
+MazeCell [24][00]: walls: W S   borders: W S 
+MazeCell [24][01]: walls:   S   borders:   S 
+MazeCell [24][02]: walls:   S   borders:   S 
+MazeCell [24][03]: walls:  NS   borders:   S 
+MazeCell [24][04]: walls:  NS   borders:   S 
+MazeCell [24][05]: walls:  NSE  borders:   S 
+MazeCell [24][06]: walls: W S   borders:   S 
+MazeCell [24][07]: walls:  NS   borders:   S 
+MazeCell [24][08]: walls:   S   borders:   S 
+MazeCell [24][09]: walls:  NS   borders:   S 
+MazeCell [24][10]: walls:   SE  borders:   S 
+MazeCell [24][11]: walls: W S   borders:   S 
+MazeCell [24][12]: walls:   SE  borders:   S 
+MazeCell [24][13]: walls: W S   borders:   S 
+MazeCell [24][14]: walls:  NS   borders:   S 
+MazeCell [24][15]: walls:   SE  borders:   S 
+MazeCell [24][16]: walls: W S   borders:   S 
+MazeCell [24][17]: walls:  NS   borders:   S 
+MazeCell [24][18]: walls:  NS   borders:   S 
+MazeCell [24][19]: walls:   SE  borders:   S 
+MazeCell [24][20]: walls: W S   borders:   S 
+MazeCell [24][21]: walls:  NS   borders:   S 
+MazeCell [24][22]: walls:  NS   borders:   S 
+MazeCell [24][23]: walls:  NS   borders:   S 
+MazeCell [24][24]: walls:   SE  borders:   SE
+sent msg: AM_INIT (MazePort = 54505)
