@@ -69,8 +69,6 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
-#include "../util/src/shm_com.h"
-#include "../util/src/dstarlite2.h"
 #include "maze.h"
 
 // ---------------- Constant definitions
@@ -90,10 +88,6 @@
 
 // ---------------- Private prototypes
 int IsNotNumeric(char *input);
-
-static int set_semvalue(void);
-
-static int sem_id;
 
 void initializeMaze(int MazeHeight, int MazeWidth, int * maze); 
 
@@ -244,20 +238,6 @@ int main(int argc, char* argv[])
 //    	exit(EXIT_SUCCESS); 
     }
 
-	/*************************** set up semaphore ***************************/
-    sem_id = semget((key_t)2345, 1, 0666 | IPC_CREAT);
-
-    if (sem_id == -1) {
-        fprintf(stderr, "semget failed\n");
-        exit(EXIT_FAILURE);
-    } 
-
-    // initialize the semaphore 
-	if (!set_semvalue()) {
-        fprintf(stderr, "Failed to initialize semaphore\n");
-        exit(EXIT_FAILURE);
-    }
-
 
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 
@@ -318,20 +298,7 @@ int IsNotNumeric(char *input)
     return(0); // success
 }
 
-/* =========================================================================== */
-/*            Semaphore Functions, taken from Dartmouth CS Resources           */
-/* =========================================================================== */
-/* The function set_semvalue initializes the semaphore using the SETVAL command in a
- semctl call. We need to do this before we can use the semaphore. */
 
-static int set_semvalue(void)
-{
-    union semun sem_union;
-
-    sem_union.val = 1;
-    if (semctl(sem_id, 0, SETVAL, sem_union) == -1) return(0);
-    return(1);
-}
 
 
 

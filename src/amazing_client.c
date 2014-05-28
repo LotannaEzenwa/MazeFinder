@@ -83,8 +83,6 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
-#include "../util/src/shm_com.h"
-#include "../util/src/dstarlite2.h"
 #include "maze.h"
 
 // ---------------- Constant definitions
@@ -110,12 +108,12 @@ int HasSouthWall(int index);
 int HasEastWall(int index); 
 
 
-static void del_semvalue(void);
-static int semaphore_p(void);
-static int semaphore_v(void);
+// static void del_semvalue(void);
+// static int semaphore_p(void);
+// static int semaphore_v(void);
 
 
-static int sem_id;
+// static int sem_id;
 static int *shared_mem; 
 
 
@@ -139,7 +137,6 @@ int main(int argc, char* argv[])
     int MazeWidth; 
     int MazeHeight; 
     // for shared memory 
-
     int shmid;
     
     // for sockets 
@@ -242,8 +239,6 @@ int main(int argc, char* argv[])
 
     printf("Memory attached at %p\n", (void *)shared_mem);
 
-    // initialize semaphore 
-    sem_id = semget((key_t)2345, 1, 0666); 
 
     /************************ tell server avatar ready ************************/
     // create a socket for the client
@@ -276,9 +271,9 @@ int main(int argc, char* argv[])
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
-    MazeCell ***maze;
-    maze = parselog(MazeWidth,MazeHeight);
-	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+//    MazeCell ***maze;
+//    maze = parselog(MazeWidth,MazeHeight);
+//	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
     
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 )) {
 //        printf("received: %d\n", avatarId); 
@@ -331,7 +326,7 @@ int main(int argc, char* argv[])
             }
 
     	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
-        	    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+//        	    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
             }
 
     	    // if the avatar is the one to move, move 
@@ -513,7 +508,7 @@ int main(int argc, char* argv[])
                     perror("shmctl(IPC_RMID) failed\n");
                     exit(EXIT_FAILURE);
                 }
-                del_semvalue();
+//                del_semvalue();
                 
             }
             printf("Solved the maze\n"); 
@@ -537,7 +532,7 @@ int main(int argc, char* argv[])
             perror("shmctl(IPC_RMID) failed\n");
             exit(EXIT_FAILURE);
         }
-        del_semvalue();
+//        del_semvalue();
     }
 
     printf("ended\n"); 
@@ -663,49 +658,4 @@ int HasEastWall(int index)
     return 0; 
 }
 
-/* =========================================================================== */
-/*            Semaphore Functions, taken from Dartmouth CS Resources           */
-/* =========================================================================== */
-/* The del_semvalue function has almost the same form, except the call to semctl uses
- the command IPC_RMID to remove the semaphore's ID. */
 
-static void del_semvalue(void)
-{
-    union semun sem_union;
-    
-    if (semctl(sem_id, 0, IPC_RMID, sem_union) == -1)
-        fprintf(stderr, "Failed to delete semaphore\n");
-}
-
-/* semaphore_p changes the semaphore by -1 (waiting). */
-
-static int semaphore_p(void)
-{
-    struct sembuf sem_b;
-    
-    sem_b.sem_num = 0;
-    sem_b.sem_op = -1; /* P() */
-    sem_b.sem_flg = SEM_UNDO;
-    if (semop(sem_id, &sem_b, 1) == -1) {
-        fprintf(stderr, "semaphore_p failed\n");
-        return(0);
-    }
-    return(1);
-}
-
-/* semaphore_v is similar except for setting the sem_op part of the sembuf structure to 1,
- so that the semaphore becomes available. */
-
-static int semaphore_v(void)
-{
-    struct sembuf sem_b;
-    
-    sem_b.sem_num = 0;
-    sem_b.sem_op = 1; /* V() */
-    sem_b.sem_flg = SEM_UNDO;
-    if (semop(sem_id, &sem_b, 1) == -1) {
-        fprintf(stderr, "semaphore_v failed\n");
-        return(0);
-    }
-    return(1);
-}
