@@ -208,16 +208,16 @@ int main(int argc, char* argv[])
 
 	// create log file for avatars 
 	time (&cur);
-	uid_t id = getuid(); 
-	sprintf(filename,"AMAZING_%d_%d_%d.log", id, nAvatars, Difficulty); 
+	char * id = getenv("USER"); 
+	sprintf(filename,"AMAZING_%s_%d_%d.log", id, nAvatars, Difficulty); 
 
 	// get log for graphics
 	getlog(MazePort);
 
 	// first line of file should contain $USER, the MazePort, and the date & time
 	fp = fopen(filename, "w"); 
-	printf("%d, %d, %s\n", id, MazePort, ctime(&cur)); 
-	fprintf(fp, "%d, %d, %s\n", id, MazePort, ctime(&cur)); 
+	printf("%s, %d, %s\n", id, MazePort, ctime(&cur)); 
+	fprintf(fp, "%s, %d, %s\n", id, MazePort, ctime(&cur)); 
 	fclose(fp); 
 
 	/************************** open shared memory **************************/

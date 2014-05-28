@@ -431,7 +431,7 @@ int main(int argc, char* argv[])
                     // don't move
                     msg.avatar_move.Direction = htonl(M_NULL_MOVE);
                 } else {
-                    index = (ycurr * MazeWidth) + xcurr; 
+/*                    index = (ycurr * MazeWidth) + xcurr; 
                     // check the walls to see if prioritized direction is wise 
                     if ((direction[dir] == M_NORTH) && HasNorthWall(index)) {
                         dir++; 
@@ -456,7 +456,7 @@ int main(int argc, char* argv[])
 
                     if ((direction[dir] == M_WEST) && HasWestWall(index)) {
                         dir++; 
-                    }  
+                    }  */
 
                     // move in next direction dictated by direction array
                     msg.avatar_move.Direction = htonl(direction[dir]);
@@ -475,7 +475,6 @@ int main(int argc, char* argv[])
 
             } else {
                 continue; 
-                printf("not my turn\n"); 
             }
         } 
         if (ntohl(msg.type) == AM_MAZE_SOLVED) {
@@ -504,13 +503,11 @@ int main(int argc, char* argv[])
                     perror("shmctl(IPC_RMID) failed\n");
                     exit(EXIT_FAILURE);
                 }
-//                del_semvalue();
                 
             }
             printf("Solved the maze\n"); 
             exit(EXIT_SUCCESS); 
         }
-        //z++; 
     } 
 
     // detach the memory 
