@@ -59,10 +59,10 @@ MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
 	uint32_t xcord;
 	uint32_t ycord;
 	MazeCell *newnode;
-	MazeCell ***array = calloc(width,sizeof(MazeCell));
+	MazeCell ***array = calloc(width,sizeof(int*));
 	int a;
 	for (a=0;a<width;a++) {
-		array[a] = calloc(height,sizeof(MazeCell));
+		array[a] = calloc(height,sizeof(int*));
 	}
 	
 
@@ -115,6 +115,9 @@ MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
 			cell += strlen("borders: WNSE");
 		}
 	}
+	free(readin);
+	free(block);
+	fclose(logfile);
 	return array;
 }
 
@@ -124,7 +127,7 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 	uint32_t width = MazeWidth;
 	uint32_t height = MazeHeight;
 
-	MazeCell *node = calloc(1,sizeof(MazeCell));
+	MazeCell *node;
 	int e;
 	int f;
 
@@ -132,7 +135,7 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 
 		for (f=0;f<width;f++) {
 
-			node = array[e][f];
+			node = array[f][e];
 
 			node->maze_boolean = 0;
 
@@ -271,12 +274,17 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 		}
 		printf("\n");
 	}
+	
 }
 
 void freeMaze(MazeCell ***array, uint32_t width, uint32_t height){
 	int i;
+	int j;
 	if (!array) return;
 	for (i=0;i<width;i++){
+		for(j=0;j<height;j++){
+			free(array[i][j]);
+		}
 		free(array[i]);
 	}
 	free(array);

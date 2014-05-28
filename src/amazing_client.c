@@ -530,7 +530,8 @@ int main(int argc, char* argv[])
                 del_semvalue();
                 
             }
-            printf("Solved the maze\n"); 
+            printf("Solved the maze\n");
+       		freeMaze(maze,MazeWidth,MazeHeight);
             exit(EXIT_SUCCESS); 
         }
         //z++; 
@@ -614,9 +615,9 @@ int HasWestWall(int index)
             return 1; 
         case 5: 
             return 1; 
-        case 9: 
-            return 1;
         case 7: 
+            return 1;
+        case 9: 
             return 1;
         case 11: 
             return 1;
