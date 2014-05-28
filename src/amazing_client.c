@@ -268,6 +268,12 @@ int main(int argc, char* argv[])
     
     send(sockfd, &msg, sizeof(msg), 0);
 
+    printf("sent\n"); 
+
+    /******* this z variable is so you can limit the number of steps for testing *******/ 
+    /******* used in the while loop below ********/ 
+    int z = 0; 
+
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
@@ -353,7 +359,9 @@ int main(int argc, char* argv[])
                             case M_NORTH: 
                                 shared_mem[index] += N_WALL; 
                                 if ( ((index - MazeWidth) >= 0) && (!HasSouthWall(index - MazeWidth)) ) {
+                                    
                                     shared_mem[index - MazeWidth] += S_WALL; 
+                                
                                 }
 //                                fprintf(fp, "northern wall\n"); 
 //                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
@@ -417,8 +425,15 @@ int main(int argc, char* argv[])
 
                     // reset the direction priority
                     dir = 0;
+  //                  printf("direction\n"); 
+
                 }
 
+
+/*
+                if (avatarId == 1) {
+                    printf("xlast: %d, ylast: %d\n", xlast, ylast); 
+                } */
 
                 /************************ Send the move ************************/ 
                 // time to make a move 
