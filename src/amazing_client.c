@@ -273,17 +273,15 @@ int main(int argc, char* argv[])
     
     send(sockfd, &msg, sizeof(msg), 0);
 
-    printf("before making maze\n"); 
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
     MazeCell ***maze;
     maze = parselog(MazeWidth,MazeHeight);
-    printf("after maze\n"); 
 	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
     
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 )) {
-        printf("received: %d\n", avatarId); 
+//        printf("received: %d\n", avatarId); 
 
         // check if error 
         if (IS_AM_ERROR(ntohl(msg.type))) {
@@ -303,8 +301,6 @@ int main(int argc, char* argv[])
             }
             exit(4);
         } 
-
-        printf("before turn\n"); 
 
         // check message type 
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
@@ -338,7 +334,6 @@ int main(int argc, char* argv[])
         	    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
             }
 
-            printf("after update\n"); 
     	    // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
