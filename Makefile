@@ -1,7 +1,7 @@
 # Filename: Amazing Project Makefile
 # Description: The make file is to build up the query.
 CC = gcc
-CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp `pkg-config --cflags --libs gtk+-2.0`
+CFLAGS = -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp
 SRCDIR = src/
 UTILDIR = ../util/src/
 UTILFLAG = -ltseutil
@@ -38,7 +38,7 @@ amazing_client.o: $(SRCDIR)amazing_client.c $(SRCDIR)amazing_client.h
 	$(CC) $(CFLAGS) -c $(SRCDIR)amazing_client.c 
 
 maze.o: $(SRCDIR)maze.c $(SRCDIR)maze.h
-	$(CC) $(CFLAGS) -c $(SRCDIR)maze.c `pkg-config --cflags --libs gtk+-2.0`
+	$(CC) $(CFLAGS) -c $(SRCDIR)maze.c
 
 $(UTILLIB): $(UTILC) $(UTILH)
 	cd $(UTILDIR); make
