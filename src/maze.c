@@ -158,16 +158,16 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			node = array[i][j];
 			if (node->north == W) {
 				if (node->west == W && node->east == W) {
-					printf("Г¯Ⴈ");
+					printf("Ð“Â¯á‚¨");
 				}
 				else if (node->west == W) {
-					printf("Г¯¯");
+					printf("Ð“Â¯Â¯");
 				}
 				else if (node->east == W) {
-					printf("¯¯Ⴈ");
+					printf("Â¯Â¯á‚¨");
 				}
 				else {
-					printf("¯¯¯");
+					printf("Â¯Â¯Â¯");
 				}
 			}
 			else {
@@ -242,13 +242,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			node = array[m][j];
 			if (node->south == W) {
 				if (node->west == W && node->east == W) {
-					printf("L_⎦");
+					printf("L_âŽ¦");
 				}
 				else if (node->west == W) {
 					printf("L__");
 				}
 				else if (node->east == W) {
-					printf("__⎦");
+					printf("__âŽ¦");
 				}
 				else {
 					printf("___");

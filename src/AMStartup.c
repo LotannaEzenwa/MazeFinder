@@ -209,6 +209,9 @@ int main(int argc, char* argv[])
 			MazePort = ntohl(msg.init_ok.MazePort);  
 			MazeWidth = ntohl(msg.init_ok.MazeWidth); 
 			MazeHeight = ntohl(msg.init_ok.MazeHeight); 
+			printf("Port:%d\n", MazePort); 
+			printf("Width:%d\n", MazeWidth); 
+			printf("Height: %d\n", MazeHeight);	
 		} 
 	}
 
@@ -227,7 +230,7 @@ int main(int argc, char* argv[])
 	fclose(fp); 
 
 	/************************** open shared memory **************************/
-    shmid = shmget((key_t)1234, sizeof(maze), 0666 | IPC_CREAT);
+    shmid = shmget((key_t)1129, sizeof(maze), 0666 | IPC_CREAT);
 
     if (shmid == -1) {
         fprintf(stderr, "shmget failed\n");
