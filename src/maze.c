@@ -147,20 +147,31 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 		for (i=0;i<width;i++) {
 			node = array[i][j];
 			if (node->north == W) {
-				printf("OOOOO");
+				if (node->west == W && node->east == W) {
+					printf("Г¯Ⴈ");
+				}
+				else if (node->west == W) {
+					printf("Г¯ ");
+				}
+				else if (node->east == W) {
+					printf(" ¯Ⴈ");
+				}
+				else {
+					printf("¯¯¯");
+				}
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("O   O");
+					printf("| |");
 				}
 				else if (node->west == W) {
-					printf("O    ");
+					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("    O");
+					printf("  |");
 				}
 				else {
-					printf("     ");
+					printf("   ");
 				}
 			}
 		}
@@ -171,30 +182,30 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			if (node->maze_boolean == 1) {
 
 				if (node->west == W && node->east == W) {
-					printf("O X O");
+					printf("|X|");
 				}
 				else if (node->west == W) {
-					printf("O X  ");
+					printf("|X ");
 				}
 				else if (node->east == W) {
-					printf("  X O");
+					printf(" X|");
 				}
 				else {
-					printf("  X  ");
+					printf(" X ");
 				}
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("O   O");
+					printf("| |");
 				}
 				else if (node->west == W) {
-					printf("O    ");
+					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("    O");
+					printf("  |");
 				}
 				else {
-					printf("     ");
+					printf("   ");
 				}
 			}
 		}
@@ -220,20 +231,31 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 		for (m=0;m<width;m++) {
 			node = array[m][j];
 			if (node->south == W) {
-				printf("OOOOO");
+				if (node->west == W && node->east == W) {
+					printf("L_⎦");
+				}
+				else if (node->west == W) {
+					printf("L_ ");
+				}
+				else if (node->east == W) {
+					printf(" _⎦");
+				}
+				else {
+					printf("___");
+				}
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("O   O");
+					printf("| |");
 				}
 				else if (node->west == W) {
-					printf("O    ");
+					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("    O");
+					printf("  |");
 				}
 				else {
-					printf("     ");
+					printf("   ");
 				}
 			}
 		}
