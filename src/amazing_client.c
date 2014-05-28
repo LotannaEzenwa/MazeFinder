@@ -270,10 +270,6 @@ int main(int argc, char* argv[])
 
     printf("sent\n"); 
 
-    /******* this z variable is so you can limit the number of steps for testing *******/ 
-    /******* used in the while loop below ********/ 
-    int z = 0; 
-
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
