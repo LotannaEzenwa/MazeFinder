@@ -7,7 +7,7 @@
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  *      When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
  * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] 
- *          [MAZEPORT] [FILENAME] [SHMID]
+ *          [MAZEPORT] [FILENAME] [SHMID] [MAZEWIDTH] [MAZEHEIGHT]
  *
  * 
  * Example command input
@@ -42,20 +42,30 @@
  * Requirement: 4 digit number 
  * Usage: Key for accessing shared memory  
  * 
- * Output:  
+ * [MAZEWIDTH] -> 20
+ * Requirement: Positive number 
+ * Usage: Maze's width, given by server   
+ * 
+ * [MAZEHEIGHT] -> 20
+ * Requirement: Positive number 
+ * Usage: Maze's height, given by server  
+ * 
+ * Output: All the avatars finding each other in a maze  
  * 
  * Error conditions: See requirements for each commandline input above
  * 
  * Pseudocode:
- *     1.   
- *     2.  
- *     3.  
- *     4.  
- *     5.    
- *     6.  
- *     7.  
- *     8.  
- *     9.   
+ *     1.  Check commandline arguments 
+ *     2.  Attach to shared memory and send an AM_AVATAR_READY message to the server 
+ *     3.  Receive server's AM_AVATAR_TURN message and if first turn, calculate central point
+ *     4.  If it's the avatar's turn, check to see if it hit a wall last time 
+ *     5.  If so, update wall within shared memory
+ *     6.  If not, recalculate priorities based on "Follow Right Wall" algorithm 
+ *     7.  If already where avatar needs to be, stay still 
+ *     8.  Otherwise, move in direction dictated by priority array  
+ *     9.  Repeat until server sends AM_MAZE_SOLVED message 
+ *     10. Detach memory and sleep for a second 
+ *     11. One avatar deletes memory and writes end to file 
  */
 
 /* ========================================================================== */
@@ -83,8 +93,6 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
-#include "../util/src/shm_com.h"
-#include "../util/src/dstarlite2.h"
 #include "maze.h"
 
 // ---------------- Constant definitions
@@ -109,13 +117,6 @@ int HasWestWall(int index);
 int HasSouthWall(int index); 
 int HasEastWall(int index); 
 
-
-static void del_semvalue(void);
-static int semaphore_p(void);
-static int semaphore_v(void);
-
-
-static int sem_id;
 static int *shared_mem; 
 
 
@@ -138,8 +139,8 @@ int main(int argc, char* argv[])
     int ycurr; 
     int MazeWidth; 
     int MazeHeight; 
-    // for shared memory 
 
+    // for shared memory 
     int shmid;
     
     // for sockets 
@@ -169,7 +170,6 @@ int main(int argc, char* argv[])
         exit(1); 
     } else {
         avatarId = atoi(argv[1]); 
-        printf("avatarId: %d\n", avatarId); 
     }
 
     // check the input for number of avatars 
@@ -181,7 +181,6 @@ int main(int argc, char* argv[])
         exit(1); 
     } else {
         nAvatars = atoi(argv[2]); 
-        printf("Number avatars: %d\n", nAvatars); 
     }
 
     // check input for difficulty of maze 
@@ -228,8 +227,14 @@ int main(int argc, char* argv[])
         shmid = atoi(argv[7]); 
     }    
 
-    MazeWidth = atoi(argv[8]); 
-    MazeHeight = atoi(argv[9]); 
+    // check width and height passed in  
+    if (IsNotNumeric(argv[8]) || IsNotNumeric(argv[9])) {
+        perror("MazeWidth or MazeHeight wrong. Exiting now.\n"); 
+        exit(1); 
+    } else {
+        MazeWidth = atoi(argv[8]); 
+        MazeHeight = atoi(argv[9]);
+    }     
     
     /************************ attach to shared memory ************************/
 
@@ -239,11 +244,6 @@ int main(int argc, char* argv[])
         fprintf(stderr, "shmat failed\n");
         exit(EXIT_FAILURE);
     }
-
-    printf("Memory attached at %p\n", (void *)shared_mem);
-
-    // initialize semaphore 
-    sem_id = semget((key_t)2345, 1, 0666); 
 
     /************************ tell server avatar ready ************************/
     // create a socket for the client
@@ -275,10 +275,6 @@ int main(int argc, char* argv[])
 
     printf("sent\n"); 
 
-    /******* this z variable is so you can limit the number of steps for testing *******/ 
-    /******* used in the while loop below ********/ 
-    int z = 0; 
-
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
@@ -288,7 +284,7 @@ int main(int argc, char* argv[])
     maze = parselog(MazeWidth,MazeHeight);
     update(maze,MazeWidth,MazeHeight,msg,nAvatars);
   
-    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<30) {
+    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 )) {
 //        printf("received: %d\n", avatarId); 
 
         // check if error 
@@ -339,6 +335,7 @@ int main(int argc, char* argv[])
                 ylast = -1;  
             }
 
+<<<<<<< HEAD
  	    // update the graphics after all the avatars move once 
  	    // (when the turn message is directed towards the first avatar again)
 	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
@@ -346,10 +343,16 @@ int main(int argc, char* argv[])
             }
 
 	    // if the avatar is the one to move, move 
+=======
+    	    // if (ntohl(msg.avatar_turn.TurnId == 0)) {
+        	//     update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+         //    }
+
+    	    // if the avatar is the one to move, move 
+>>>>>>> ad97c736a1e691b96ff8fe9053b0eb5f8b8e525e
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
-                // grab the key 
-//                if (!semaphore_p()) exit(EXIT_FAILURE);
+                // set current position 
                 xcurr = ntohl(msg.avatar_turn.Pos[avatarId].x); 
                 ycurr = ntohl(msg.avatar_turn.Pos[avatarId].y); 
                 
@@ -362,7 +365,7 @@ int main(int argc, char* argv[])
 
                     if(!arrived) {
                         // hit a wall 
-                        fprintf(fp, "avatar %d hit a wall\n", avatarId); 
+//                        fprintf(fp, "avatar %d hit a wall\n", avatarId); 
                         index = (ylast * MazeWidth) + xlast; 
                         
                         /******* update the shared memory to reflect the wall *******/
@@ -374,32 +377,32 @@ int main(int argc, char* argv[])
                                     shared_mem[index - MazeWidth] += S_WALL; 
                                 
                                 }
-                                fprintf(fp, "northern wall\n"); 
-                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
+//                                fprintf(fp, "northern wall\n"); 
+//                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_EAST: 
                                 shared_mem[index] += E_WALL; 
                                 if ( ((index + 1) < (MazeHeight * MazeWidth)) && (!HasWestWall(index + 1)) ) {
                                     shared_mem[index + 1] += W_WALL; 
                                 }
-                                fprintf(fp, "eastern wall\n"); 
-                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
+//                                fprintf(fp, "eastern wall\n"); 
+//                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_SOUTH: 
                                 shared_mem[index] += S_WALL; 
                                 if ( ((index + MazeWidth) < (MazeHeight * MazeWidth)) && (!HasNorthWall(index + MazeWidth)) ) {
                                     shared_mem[index + MazeWidth] += N_WALL; 
                                 }
-                                fprintf(fp, "southern wall\n"); 
-                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
+//                                fprintf(fp, "southern wall\n"); 
+//                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_WEST: 
                                 shared_mem[index] += W_WALL; 
                                 if ( ((index - 1) >= 0) && (!HasEastWall(index - 1)) ) {
                                     shared_mem[index - 1] += E_WALL; 
                                 }
-                                fprintf(fp, "western wall\n"); 
-                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
+//                                fprintf(fp, "western wall\n"); 
+//                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                         }
                         dir++;
@@ -436,15 +439,8 @@ int main(int argc, char* argv[])
 
                     // reset the direction priority
                     dir = 0;
-  //                  printf("direction\n"); 
-
                 }
 
-
-/*
-                if (avatarId == 1) {
-                    printf("xlast: %d, ylast: %d\n", xlast, ylast); 
-                } */
 
                 /************************ Send the move ************************/ 
                 // time to make a move 
@@ -457,7 +453,7 @@ int main(int argc, char* argv[])
                     // don't move
                     msg.avatar_move.Direction = htonl(M_NULL_MOVE);
                 } else {
-                    index = (ycurr * MazeWidth) + xcurr; 
+/*                    index = (ycurr * MazeWidth) + xcurr; 
                     // check the walls to see if prioritized direction is wise 
                     if ((direction[dir] == M_NORTH) && HasNorthWall(index)) {
                         dir++; 
@@ -473,7 +469,7 @@ int main(int argc, char* argv[])
 
                     if ((direction[dir] == M_EAST) && HasEastWall(index)) {
                         dir++; 
-                        fprintf(fp, "east\n\n"); 
+//                        fprintf(fp, "east\n\n"); 
                     }
 
                     if ((direction[dir] == M_NORTH) && HasNorthWall(index)) {
@@ -482,7 +478,7 @@ int main(int argc, char* argv[])
 
                     if ((direction[dir] == M_WEST) && HasWestWall(index)) {
                         dir++; 
-                    }  
+                    }  */
 
                     // move in next direction dictated by direction array
                     msg.avatar_move.Direction = htonl(direction[dir]);
@@ -491,7 +487,7 @@ int main(int argc, char* argv[])
                 send(sockfd, &msg, sizeof(msg), 0);
                 
 
-                fprintf(fp, "Id: %d, Move: %d, Dir: %d\n", avatarId, direction[dir], dir); 
+                fprintf(fp, "Avatar Id: %d, Move: %d\n", avatarId, direction[dir]); 
                 fprintf(fp, "xlast: %d, ylast: %d, xcurr: %d, ycurr: %d\n", xlast, ylast, xcurr, ycurr); 
                 fclose(fp);  
 
@@ -499,12 +495,8 @@ int main(int argc, char* argv[])
                 xlast = xcurr; 
                 ylast = ycurr; 
 
-                // release the key 
-//                if (!semaphore_v()) exit(EXIT_FAILURE);
-
             } else {
                 continue; 
-                printf("not my turn\n"); 
             }
         } 
         if (ntohl(msg.type) == AM_MAZE_SOLVED) {
@@ -533,13 +525,11 @@ int main(int argc, char* argv[])
                     perror("shmctl(IPC_RMID) failed\n");
                     exit(EXIT_FAILURE);
                 }
-                del_semvalue();
                 
             }
             printf("Solved the maze\n"); 
             exit(EXIT_SUCCESS); 
         }
-        //z++; 
     } 
 
     // detach the memory 
@@ -557,7 +547,6 @@ int main(int argc, char* argv[])
             perror("shmctl(IPC_RMID) failed\n");
             exit(EXIT_FAILURE);
         }
-        del_semvalue();
     }
 
     printf("ended\n"); 
@@ -683,49 +672,4 @@ int HasEastWall(int index)
     return 0; 
 }
 
-/* =========================================================================== */
-/*            Semaphore Functions, taken from Dartmouth CS Resources           */
-/* =========================================================================== */
-/* The del_semvalue function has almost the same form, except the call to semctl uses
- the command IPC_RMID to remove the semaphore's ID. */
 
-static void del_semvalue(void)
-{
-    union semun sem_union;
-    
-    if (semctl(sem_id, 0, IPC_RMID, sem_union) == -1)
-        fprintf(stderr, "Failed to delete semaphore\n");
-}
-
-/* semaphore_p changes the semaphore by -1 (waiting). */
-
-static int semaphore_p(void)
-{
-    struct sembuf sem_b;
-    
-    sem_b.sem_num = 0;
-    sem_b.sem_op = -1; /* P() */
-    sem_b.sem_flg = SEM_UNDO;
-    if (semop(sem_id, &sem_b, 1) == -1) {
-        fprintf(stderr, "semaphore_p failed\n");
-        return(0);
-    }
-    return(1);
-}
-
-/* semaphore_v is similar except for setting the sem_op part of the sembuf structure to 1,
- so that the semaphore becomes available. */
-
-static int semaphore_v(void)
-{
-    struct sembuf sem_b;
-    
-    sem_b.sem_num = 0;
-    sem_b.sem_op = 1; /* V() */
-    sem_b.sem_flg = SEM_UNDO;
-    if (semop(sem_id, &sem_b, 1) == -1) {
-        fprintf(stderr, "semaphore_v failed\n");
-        return(0);
-    }
-    return(1);
-}
