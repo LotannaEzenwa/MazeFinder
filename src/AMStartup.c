@@ -242,7 +242,6 @@ int main(int argc, char* argv[])
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 
 	int i; 
-	//pid_t parent = getpid();
 	pid_t pid;
 
 	for ( i=0; i < nAvatars; i++ ) {
