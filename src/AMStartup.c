@@ -24,20 +24,19 @@
  * Requirement: Must be a server
  * Usage: server name we want IP address of   
  *
- * Output:  
+ * Output: Starts N processes of avatars  
  * 
  * Error conditions: See requirements for each commandline input above
  * 
  * Pseudocode:
- *     1.   
- *     2.  
- *     3.  
- *     4.  
- *     5.    
- *     6.  
- * 	   7.  
- *     8.  
- *     9.   
+ *     1.  Checks commandline arguments 
+ * 	   2.  Runs and sends an AM_INIT message to the server  
+ *     3.  Server responds with AM_INIT_OK message and listens to client 
+ *     4.  Extracts the MazePort from message 
+ *     5.  Writes info to file 
+ *     6.  Creates and initializes shared memory 
+ *     7.  Starts N (number of avatars) processes (amazing_client.c) 
+ * 	   8.  Exits successfully 
  */
 
 /* ========================================================================== */
@@ -64,13 +63,10 @@
 #include <errno.h> //For errno - the error number
 #include <netdb.h> //hostent
 #include <sys/wait.h>
-#include <semaphore.h>
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
-#include "../util/src/shm_com.h"
-#include "../util/src/dstarlite2.h"
 #include "maze.h"
 
 // ---------------- Constant definitions
@@ -91,11 +87,7 @@
 // ---------------- Private prototypes
 int IsNotNumeric(char *input);
 
-static int set_semvalue(void);
-
-static int sem_id;
-
-void initializeMaze(int MazeHeight, int MazeWidth, int * maze); 
+void InitializeMaze(int MazeHeight, int MazeWidth, int * maze); 
 
 /* =========================================================================== */
 /*                                   main                                      */
@@ -187,8 +179,6 @@ int main(int argc, char* argv[])
 
 	send(sockinit, &msg, sizeof(msg), 0);
 
-	printf("sent msg\n"); 
-
 	/*********************** receive AM_INIT_OK message ***********************/
 	// receive a reply   
 	if( recv(sockinit, &msg, sizeof(msg) , 0) < 0) {
@@ -209,24 +199,21 @@ int main(int argc, char* argv[])
 			MazePort = ntohl(msg.init_ok.MazePort);  
 			MazeWidth = ntohl(msg.init_ok.MazeWidth); 
 			MazeHeight = ntohl(msg.init_ok.MazeHeight); 
-			printf("Port:%d\n", MazePort); 
-			printf("Width:%d\n", MazeWidth); 
-			printf("Height: %d\n", MazeHeight);	
 		} 
 	}
 
 	// create log file for avatars 
 	time (&cur);
-	uid_t id = getuid(); 
-	sprintf(filename,"AMAZING_%d_%d_%d.log", id, nAvatars, Difficulty); 
+	char * id = getenv("USER"); 
+	sprintf(filename,"AMAZING_%s_%d_%d.log", id, nAvatars, Difficulty); 
 
 	// get log for graphics
 	getlog(MazePort);
 
 	// first line of file should contain $USER, the MazePort, and the date & time
 	fp = fopen(filename, "w"); 
-	printf("%d, %d, %s\n", id, MazePort, ctime(&cur)); 
-	fprintf(fp, "%d, %d, %s\n", id, MazePort, ctime(&cur)); 
+	printf("%s, %d, %s\n", id, MazePort, ctime(&cur)); 
+	fprintf(fp, "%s, %d, %s\n", id, MazePort, ctime(&cur)); 
 	fclose(fp); 
 
 	/************************** open shared memory **************************/
@@ -240,44 +227,23 @@ int main(int argc, char* argv[])
     	// initialize the memory 
     	shared_mem = shmat(shmid, (void *)0, 0);
 
-    	printf("before initializing\n");
     	// initialize the maze in shared memory 
-    	initializeMaze(MazeHeight, MazeWidth, shared_mem); 
-    	printf("after initializing\n"); 
-//    	exit(EXIT_SUCCESS); 
+    	InitializeMaze(MazeHeight, MazeWidth, shared_mem); 
     }
-
-	/*************************** set up semaphore ***************************/
-    sem_id = semget((key_t)2345, 1, 0666 | IPC_CREAT);
-
-    if (sem_id == -1) {
-        fprintf(stderr, "semget failed\n");
-        exit(EXIT_FAILURE);
-    } 
-
-    // initialize the semaphore 
-	if (!set_semvalue()) {
-        fprintf(stderr, "Failed to initialize semaphore\n");
-        exit(EXIT_FAILURE);
-    }
-
 
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 
 	int i; 
-	//pid_t parent = getpid();
 	pid_t pid;
 
 	for ( i=0; i < nAvatars; i++ ) {
-		printf("in for loop\n"); 
 		pid = fork();
 
 		if (pid == -1) {
 			perror("Failed to fork.\n"); 
 		    exit(EXIT_FAILURE); 	// error, failed to fork()
 		} else if (pid > 0) {
-		    //int status;
-		    //waitpid(pid, &status, 0);
+			
 		} else {
 		    char avId[MAX_ID_LEN]; 
 			char port[MAX_PORT_LEN]; 
@@ -321,24 +287,19 @@ int IsNotNumeric(char *input)
     return(0); // success
 }
 
+
+
+
 /* =========================================================================== */
-/*            Semaphore Functions, taken from Dartmouth CS Resources           */
+/*                              InitializeMaze	                               */
 /* =========================================================================== */
-/* The function set_semvalue initializes the semaphore using the SETVAL command in a
- semctl call. We need to do this before we can use the semaphore. */
-
-static int set_semvalue(void)
-{
-    union semun sem_union;
-
-    sem_union.val = 1;
-    if (semctl(sem_id, 0, SETVAL, sem_union) == -1) return(0);
-    return(1);
-}
-
-
-
-void initializeMaze(int MazeHeight, int MazeWidth, int * maze) 
+/*  Assigns 0 to every cell of the maze, meaning walls are unknown
+ *  
+ *  @MazeHeight: height of maze returned from server
+ * 	@MazeWidth: width of maze returned from server
+ * 	@maze: pointer to the shared memory of the maze 
+ */
+void InitializeMaze(int MazeHeight, int MazeWidth, int * maze) 
 {
 	int i; 
 	for (i=0; i<(MazeHeight * MazeWidth); i++) {
