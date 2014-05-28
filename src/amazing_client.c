@@ -285,7 +285,7 @@ int main(int argc, char* argv[])
     MazeCell ***maze;
     maze = parselog(MazeWidth,MazeHeight);
 	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
-    
+   
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<30) {
 //        printf("received: %d\n", avatarId); 
 

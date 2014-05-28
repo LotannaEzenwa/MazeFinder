@@ -1,10 +1,14 @@
 /* ========================================================================== */
- /* Author: Emily Greene
- * Date: 05/19/2014
+ /* 
+ * File: maze.c - Amazing Project
+ *
+ * Author: Emily Greene
+ * Date: 05/28/2014
  *
  * Description: Graphically depicts the maze and the avatar's motion through the maze
+ *
  */
-/* ======================================================================================*/
+/* ========================================================================== */
 // ---------------- Open Issues
 
 // ---------------- System includes e.g., <stdio.h>
@@ -31,20 +35,26 @@
 // ---------------- Private variables
 
 // ---------------- Private prototypes
+
+/*
+ * Function to get the maze log from the server with all of the 
+ *
+ */
 void getlog(uint32_t mazeport) {
 	uint32_t port = mazeport;
+	
 	char *filename = "/var/tmp/%zu/log.out";
 	char buffer[24];
 	sprintf(buffer,filename,port);
+	
 	char *start = "scp $USER@pierce.cs.dartmouth.edu:";
 	char *end = " maze.log";
+	
 	char *command = calloc((strlen(start) + strlen(buffer) + strlen(end) + 1),sizeof(char));
 	strcat(command,start);
 	strcat(command,buffer);
 	strcat(command,end);
 	
-	
-
 	system(command);
 }
 
@@ -132,7 +142,7 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 
 		for (f=0;f<width;f++) {
 
-			node = array[e][f];
+			node = array[f][e];
 
 			node->maze_boolean = 0;
 
@@ -158,27 +168,27 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			node = array[i][j];
 			if (node->north == W) {
 				if (node->west == W && node->east == W) {
-					printf("Ð“Â¯á‚¨");
+					printf("Г¯Ⴈ");
 				}
 				else if (node->west == W) {
-					printf("Ð“Â¯Â¯");
+					printf("Г¯¯");
 				}
 				else if (node->east == W) {
-					printf("Â¯Â¯á‚¨");
+					printf("¯¯Ⴈ");
 				}
 				else {
-					printf("Â¯Â¯Â¯");
+					printf("¯¯¯");
 				}
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("| |");
+					printf("| ⎟");
 				}
 				else if (node->west == W) {
 					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("  |");
+					printf("  ⎟");
 				}
 				else {
 					printf("   ");
@@ -192,13 +202,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			if (node->maze_boolean == 1) {
 
 				if (node->west == W && node->east == W) {
-					printf("|X|");
+					printf("|X⎟");
 				}
 				else if (node->west == W) {
 					printf("|X ");
 				}
 				else if (node->east == W) {
-					printf(" X|");
+					printf(" X⎟");
 				}
 				else {
 					printf(" X ");
@@ -206,13 +216,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("| |");
+					printf("| ⎟");
 				}
 				else if (node->west == W) {
 					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("  |");
+					printf("  ⎟");
 				}
 				else {
 					printf("   ");
@@ -242,13 +252,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			node = array[m][j];
 			if (node->south == W) {
 				if (node->west == W && node->east == W) {
-					printf("L_âŽ¦");
+					printf("L_⎦");
 				}
 				else if (node->west == W) {
 					printf("L__");
 				}
 				else if (node->east == W) {
-					printf("__âŽ¦");
+					printf("__⎦");
 				}
 				else {
 					printf("___");
@@ -256,13 +266,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("| |");
+					printf("| ⎟");
 				}
 				else if (node->west == W) {
 					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("  |");
+					printf("  ⎟");
 				}
 				else {
 					printf("   ");
