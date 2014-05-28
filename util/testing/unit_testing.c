@@ -42,7 +42,13 @@ static int TEST2(){
 }
 
 static int TEST3(){
-	return 0;
+	int c = 1;
+	
+	
+	
+	
+	
+	return c;
 	
 
 }
