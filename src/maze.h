@@ -33,6 +33,7 @@ typedef struct MazeCell {
 void getlog(uint32_t mazeport);
 MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight);
 void update(MazeCell ***array,uint32_t mazewidth, uint32_t mazeheight, AM_Message msg, int nAvatars);
+void freeMaze(MazeCell ***array, uint32_t width, uint32_t height);
 
 #endif // MAZE.H
 

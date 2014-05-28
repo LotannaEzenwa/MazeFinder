@@ -273,3 +273,12 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 	}
 }
 
+void freeMaze(MazeCell ***array, uint32_t width, uint32_t height){
+	int i;
+	if (!array) return;
+	for (i=0;i<width;i++){
+		free(array[i]);
+	}
+	free(array);
+	return;
+}
