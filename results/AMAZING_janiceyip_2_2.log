@@ -1,0 +1,1842 @@
+janiceyip, 33846, Tue May 27 21:22:32 2014
+
+Id: 0, Move: 3, Dir: 0
+xlast: -1, ylast: -1, xcurr: 4, ycurr: 9
+Id: 1, Move: 3, Dir: 0
+xlast: -1, ylast: -1, xcurr: 3, ycurr: 7
+Id: 0, Move: 2, Dir: 0
+xlast: 4, ylast: 9, xcurr: 5, ycurr: 9
+avatar 1 hit a wall
+eastern wall
+index: 87, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 3, ylast: 7, xcurr: 3, ycurr: 7
+avatar 0 hit a wall
+southern wall
+index: 113, value: 4
+Id: 0, Move: 3, Dir: 1
+xlast: 5, ylast: 9, xcurr: 5, ycurr: 9
+Id: 1, Move: 3, Dir: 0
+xlast: 3, ylast: 7, xcurr: 3, ycurr: 6
+Id: 0, Move: 2, Dir: 0
+xlast: 5, ylast: 9, xcurr: 6, ycurr: 9
+Id: 1, Move: 2, Dir: 0
+xlast: 3, ylast: 6, xcurr: 4, ycurr: 6
+avatar 0 hit a wall
+southern wall
+index: 114, value: 4
+Id: 0, Move: 3, Dir: 1
+xlast: 6, ylast: 9, xcurr: 6, ycurr: 9
+Id: 1, Move: 2, Dir: 1
+xlast: 4, ylast: 6, xcurr: 4, ycurr: 7
+Id: 0, Move: 2, Dir: 0
+xlast: 6, ylast: 9, xcurr: 7, ycurr: 9
+Id: 1, Move: 0, Dir: 0
+xlast: 4, ylast: 7, xcurr: 4, ycurr: 8
+avatar 0 hit a wall
+southern wall
+index: 115, value: 4
+Id: 0, Move: 3, Dir: 1
+xlast: 7, ylast: 9, xcurr: 7, ycurr: 9
+avatar 1 hit a wall
+western wall
+index: 100, value: 1
+Id: 1, Move: 2, Dir: 1
+xlast: 4, ylast: 8, xcurr: 4, ycurr: 8
+avatar 0 hit a wall
+eastern wall
+index: 115, value: 12
+Id: 0, Move: 1, Dir: 2
+xlast: 7, ylast: 9, xcurr: 7, ycurr: 9
+avatar 1 hit a wall
+southern wall
+index: 100, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 4, ylast: 8, xcurr: 4, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 7, ylast: 9, xcurr: 7, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 4, ylast: 8, xcurr: 5, ycurr: 8
+avatar 0 hit a wall
+eastern wall
+index: 103, value: 8
+Id: 0, Move: 1, Dir: 1
+xlast: 7, ylast: 8, xcurr: 7, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 101, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 5, ylast: 8, xcurr: 5, ycurr: 8
+avatar 0 hit a wall
+northern wall
+index: 103, value: 10
+Id: 0, Move: 0, Dir: 2
+xlast: 7, ylast: 8, xcurr: 7, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 5, ylast: 8, xcurr: 6, ycurr: 8
+avatar 0 hit a wall
+western wall
+index: 103, value: 11
+Id: 0, Move: 2, Dir: 3
+xlast: 7, ylast: 8, xcurr: 7, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 102, value: 12
+east
+
+Id: 1, Move: 1, Dir: 2
+xlast: 6, ylast: 8, xcurr: 6, ycurr: 8
+Id: 0, Move: 0, Dir: 0
+xlast: 7, ylast: 8, xcurr: 7, ycurr: 9
+Id: 1, Move: 3, Dir: 0
+xlast: 6, ylast: 8, xcurr: 6, ycurr: 7
+Id: 0, Move: 0, Dir: 1
+xlast: 7, ylast: 9, xcurr: 6, ycurr: 9
+Id: 1, Move: 3, Dir: 1
+xlast: 6, ylast: 7, xcurr: 7, ycurr: 7
+Id: 0, Move: 0, Dir: 1
+xlast: 6, ylast: 9, xcurr: 5, ycurr: 9
+avatar 1 hit a wall
+eastern wall
+index: 91, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 7, ylast: 7, xcurr: 7, ycurr: 7
+Id: 0, Move: 0, Dir: 1
+xlast: 5, ylast: 9, xcurr: 4, ycurr: 9
+Id: 1, Move: 3, Dir: 0
+xlast: 7, ylast: 7, xcurr: 7, ycurr: 6
+Id: 0, Move: 1, Dir: 0
+xlast: 4, ylast: 9, xcurr: 3, ycurr: 9
+avatar 1 hit a wall
+eastern wall
+index: 79, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 7, ylast: 6, xcurr: 7, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 9, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 7, ylast: 6, xcurr: 7, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 7, ylast: 5, xcurr: 8, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 68, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 8, ylast: 5, xcurr: 8, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 8, ylast: 5, xcurr: 9, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 9, ylast: 5, xcurr: 9, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 2
+xlast: 9, ylast: 6, xcurr: 8, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 8, ylast: 6, xcurr: 8, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 8, ylast: 7, xcurr: 8, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 104, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 8, ylast: 8, xcurr: 8, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 8, ylast: 8, xcurr: 9, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 9, ylast: 8, xcurr: 9, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 2
+xlast: 9, ylast: 9, xcurr: 8, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 116, value: 7
+Id: 1, Move: 3, Dir: 3
+xlast: 8, ylast: 9, xcurr: 8, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 8, ylast: 9, xcurr: 9, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 117, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 9, ylast: 9, xcurr: 9, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 9, ylast: 9, xcurr: 10, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 118, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 10, ylast: 9, xcurr: 10, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 10, ylast: 9, xcurr: 11, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 119, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 11, ylast: 9, xcurr: 11, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 119, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 11, ylast: 9, xcurr: 11, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 11, ylast: 9, xcurr: 11, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 107, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 11, ylast: 8, xcurr: 11, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 107, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 11, ylast: 8, xcurr: 11, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 11, ylast: 8, xcurr: 10, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 10, ylast: 8, xcurr: 10, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 94, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 10, ylast: 7, xcurr: 10, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 10, ylast: 7, xcurr: 10, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 82, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 10, ylast: 6, xcurr: 10, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 10, ylast: 6, xcurr: 10, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 70, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 10, ylast: 5, xcurr: 10, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 10, ylast: 5, xcurr: 10, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 58, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 10, ylast: 4, xcurr: 10, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 58, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 10, ylast: 4, xcurr: 10, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 10, ylast: 4, xcurr: 9, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 57, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 9, ylast: 4, xcurr: 9, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 9, ylast: 4, xcurr: 8, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 56, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 8, ylast: 4, xcurr: 8, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 8, ylast: 4, xcurr: 7, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 7, ylast: 4, xcurr: 7, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 7, ylast: 3, xcurr: 8, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 44, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 8, ylast: 3, xcurr: 8, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 8, ylast: 3, xcurr: 8, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 32, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 8, ylast: 2, xcurr: 8, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 8, ylast: 2, xcurr: 8, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 20, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 8, ylast: 1, xcurr: 8, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 8, ylast: 1, xcurr: 8, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 8, ylast: 0, xcurr: 9, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 9, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 9, ylast: 0, xcurr: 9, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 9, ylast: 0, xcurr: 10, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 10, ylast: 0, xcurr: 10, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 22, value: 1
+Id: 1, Move: 2, Dir: 1
+xlast: 10, ylast: 1, xcurr: 10, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 22, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 10, ylast: 1, xcurr: 10, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 10, ylast: 1, xcurr: 11, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 11, ylast: 1, xcurr: 11, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 35, value: 1
+Id: 1, Move: 2, Dir: 1
+xlast: 11, ylast: 2, xcurr: 11, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 11, ylast: 2, xcurr: 11, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 11, ylast: 3, xcurr: 10, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 0, Dir: 2
+xlast: 10, ylast: 3, xcurr: 10, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 10, ylast: 2, xcurr: 9, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 2, Dir: 3
+xlast: 9, ylast: 2, xcurr: 9, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 9, ylast: 1, xcurr: 9, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 2
+xlast: 9, ylast: 2, xcurr: 9, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 45, value: 13
+Id: 1, Move: 1, Dir: 3
+xlast: 9, ylast: 3, xcurr: 9, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 9, ylast: 3, xcurr: 9, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 9, ylast: 2, xcurr: 10, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 2
+xlast: 10, ylast: 2, xcurr: 10, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 10, ylast: 3, xcurr: 11, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 11, ylast: 3, xcurr: 11, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 11, ylast: 4, xcurr: 11, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 11, ylast: 5, xcurr: 11, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 2
+xlast: 11, ylast: 6, xcurr: 11, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 95, value: 13
+Id: 1, Move: 1, Dir: 3
+xlast: 11, ylast: 7, xcurr: 11, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 11, ylast: 7, xcurr: 11, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 83, value: 9
+Id: 1, Move: 1, Dir: 1
+xlast: 11, ylast: 6, xcurr: 11, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 11, ylast: 6, xcurr: 11, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 71, value: 9
+Id: 1, Move: 1, Dir: 1
+xlast: 11, ylast: 5, xcurr: 11, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 11, ylast: 5, xcurr: 11, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 59, value: 9
+Id: 1, Move: 1, Dir: 1
+xlast: 11, ylast: 4, xcurr: 11, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 11, ylast: 4, xcurr: 11, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 47, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 11, ylast: 3, xcurr: 11, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 11, ylast: 3, xcurr: 11, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 35, value: 9
+Id: 1, Move: 1, Dir: 1
+xlast: 11, ylast: 2, xcurr: 11, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 11, ylast: 2, xcurr: 11, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 23, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 11, ylast: 1, xcurr: 11, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 11, ylast: 1, xcurr: 11, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 11, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 11, ylast: 0, xcurr: 11, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 11, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 11, ylast: 0, xcurr: 11, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 11, value: 11
+Id: 1, Move: 2, Dir: 3
+xlast: 11, ylast: 0, xcurr: 11, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 11, ylast: 0, xcurr: 11, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 11, ylast: 1, xcurr: 10, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 10, ylast: 1, xcurr: 10, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 10, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 10, ylast: 0, xcurr: 10, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 10, ylast: 0, xcurr: 9, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 9, value: 6
+Id: 1, Move: 0, Dir: 1
+xlast: 9, ylast: 0, xcurr: 9, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 9, ylast: 0, xcurr: 8, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 8, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 8, ylast: 0, xcurr: 8, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 8, ylast: 0, xcurr: 7, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 7, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 7, ylast: 0, xcurr: 7, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 7, ylast: 0, xcurr: 6, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 6, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 6, ylast: 0, xcurr: 6, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 6, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 6, ylast: 0, xcurr: 6, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 6, ylast: 0, xcurr: 6, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 18, value: 1
+Id: 1, Move: 2, Dir: 1
+xlast: 6, ylast: 1, xcurr: 6, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 6, ylast: 1, xcurr: 6, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 6, ylast: 2, xcurr: 5, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 29, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 5, ylast: 2, xcurr: 5, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 5, ylast: 2, xcurr: 4, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 28, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 4, ylast: 2, xcurr: 4, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 4, ylast: 2, xcurr: 3, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 3, ylast: 2, xcurr: 3, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 15, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 3, ylast: 1, xcurr: 3, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 15, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 3, ylast: 1, xcurr: 3, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 3, ylast: 1, xcurr: 2, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 14, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 2, ylast: 1, xcurr: 2, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 14, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 2, ylast: 1, xcurr: 2, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 2, ylast: 1, xcurr: 2, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 2, ylast: 2, xcurr: 1, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 25, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 1, ylast: 2, xcurr: 1, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 1, ylast: 2, xcurr: 0, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 0, ylast: 2, xcurr: 0, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 2
+xlast: 0, ylast: 1, xcurr: 1, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 1, ylast: 1, xcurr: 1, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 1, ylast: 0, xcurr: 2, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 2, ylast: 0, xcurr: 3, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 3, ylast: 0, xcurr: 4, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 2
+xlast: 4, ylast: 0, xcurr: 4, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 2
+xlast: 4, ylast: 1, xcurr: 5, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 5, ylast: 1, xcurr: 5, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 5, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 5, ylast: 0, xcurr: 5, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 5, value: 11
+Id: 1, Move: 2, Dir: 3
+xlast: 5, ylast: 0, xcurr: 5, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 5, ylast: 0, xcurr: 5, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 5, ylast: 1, xcurr: 4, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 4, ylast: 1, xcurr: 4, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 4, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 4, ylast: 0, xcurr: 4, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 4, ylast: 0, xcurr: 3, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 3, value: 6
+Id: 1, Move: 0, Dir: 1
+xlast: 3, ylast: 0, xcurr: 3, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 3, ylast: 0, xcurr: 2, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 2, value: 6
+Id: 1, Move: 0, Dir: 1
+xlast: 2, ylast: 0, xcurr: 2, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 2, ylast: 0, xcurr: 1, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 1, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 1, ylast: 0, xcurr: 1, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 1, ylast: 0, xcurr: 0, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 0, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 0, ylast: 0, xcurr: 0, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 0, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 0, ylast: 0, xcurr: 0, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 0, value: 7
+Id: 1, Move: 3, Dir: 3
+xlast: 0, ylast: 0, xcurr: 0, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 0, ylast: 0, xcurr: 1, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 1, ylast: 0, xcurr: 1, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 2
+xlast: 1, ylast: 1, xcurr: 0, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 0, ylast: 1, xcurr: 0, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 0, ylast: 2, xcurr: 0, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 0, ylast: 3, xcurr: 0, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 48, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 0, ylast: 4, xcurr: 0, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 0, ylast: 4, xcurr: 1, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 49, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 1, ylast: 4, xcurr: 1, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 49, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 1, ylast: 4, xcurr: 1, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 1, ylast: 4, xcurr: 1, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 1, ylast: 3, xcurr: 2, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 2, ylast: 3, xcurr: 2, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 50, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 2, ylast: 4, xcurr: 2, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 2, ylast: 4, xcurr: 3, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 51, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 3, ylast: 4, xcurr: 3, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 51, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 3, ylast: 4, xcurr: 3, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 3, ylast: 4, xcurr: 3, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 3, ylast: 3, xcurr: 4, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 4, ylast: 3, xcurr: 4, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 52, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 4, ylast: 4, xcurr: 4, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 4, ylast: 4, xcurr: 5, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 53, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 5, ylast: 4, xcurr: 5, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 53, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 5, ylast: 4, xcurr: 5, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 5, ylast: 4, xcurr: 5, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 5, ylast: 3, xcurr: 6, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 6, ylast: 3, xcurr: 6, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 6, ylast: 4, xcurr: 6, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 66, value: 1
+Id: 1, Move: 2, Dir: 1
+xlast: 6, ylast: 5, xcurr: 6, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 6, ylast: 5, xcurr: 6, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 6, ylast: 6, xcurr: 5, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 0, Dir: 2
+xlast: 5, ylast: 6, xcurr: 5, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 1
+xlast: 5, ylast: 5, xcurr: 4, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 1
+xlast: 4, ylast: 5, xcurr: 3, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 1
+xlast: 3, ylast: 5, xcurr: 2, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 62, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 2, ylast: 5, xcurr: 2, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 2, ylast: 5, xcurr: 2, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 2, ylast: 6, xcurr: 1, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 73, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 1, ylast: 6, xcurr: 1, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 1, ylast: 6, xcurr: 0, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 0, ylast: 6, xcurr: 0, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 0, Dir: 3
+xlast: 0, ylast: 5, xcurr: 1, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 2
+xlast: 1, ylast: 5, xcurr: 0, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 0, ylast: 5, xcurr: 0, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 0, ylast: 6, xcurr: 0, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 84, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 0, ylast: 7, xcurr: 0, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 0, ylast: 7, xcurr: 1, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 85, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 1, ylast: 7, xcurr: 1, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 1, ylast: 7, xcurr: 2, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 2, ylast: 7, xcurr: 2, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 1
+xlast: 2, ylast: 8, xcurr: 1, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 97, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 1, ylast: 8, xcurr: 1, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 1, ylast: 8, xcurr: 1, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 1, ylast: 9, xcurr: 0, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 2, Dir: 3
+xlast: 0, ylast: 9, xcurr: 0, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 0, ylast: 8, xcurr: 0, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 108, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 0, ylast: 9, xcurr: 0, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 0, ylast: 9, xcurr: 1, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 109, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 1, ylast: 9, xcurr: 1, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 1, ylast: 9, xcurr: 2, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 110, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 2, ylast: 9, xcurr: 2, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 110, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 2, ylast: 9, xcurr: 2, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 110, value: 14
+Id: 1, Move: 0, Dir: 3
+xlast: 2, ylast: 9, xcurr: 2, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 2, ylast: 9, xcurr: 1, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 1, ylast: 9, xcurr: 1, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 1, ylast: 8, xcurr: 2, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 98, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 2, ylast: 8, xcurr: 2, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 2, ylast: 8, xcurr: 2, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 86, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 2, ylast: 7, xcurr: 2, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 86, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 2, ylast: 7, xcurr: 2, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 2, ylast: 7, xcurr: 1, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 85, value: 6
+Id: 1, Move: 0, Dir: 1
+xlast: 1, ylast: 7, xcurr: 1, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 1, ylast: 7, xcurr: 0, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 0, ylast: 7, xcurr: 0, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 0, ylast: 6, xcurr: 1, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 1, ylast: 6, xcurr: 2, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 74, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 2, ylast: 6, xcurr: 2, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 2, ylast: 6, xcurr: 2, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 2, ylast: 5, xcurr: 3, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 63, value: 6
+Id: 1, Move: 3, Dir: 1
+xlast: 3, ylast: 5, xcurr: 3, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 3, ylast: 5, xcurr: 4, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 64, value: 6
+Id: 1, Move: 3, Dir: 1
+xlast: 4, ylast: 5, xcurr: 4, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 4, ylast: 5, xcurr: 5, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 5, ylast: 5, xcurr: 5, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 77, value: 1
+Id: 1, Move: 2, Dir: 1
+xlast: 5, ylast: 6, xcurr: 5, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 5, ylast: 6, xcurr: 5, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 89, value: 1
+Id: 1, Move: 2, Dir: 1
+xlast: 5, ylast: 7, xcurr: 5, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 89, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 5, ylast: 7, xcurr: 5, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 89, value: 13
+Id: 1, Move: 1, Dir: 3
+xlast: 5, ylast: 7, xcurr: 5, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 5, ylast: 7, xcurr: 5, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 5, ylast: 6, xcurr: 6, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 78, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 6, ylast: 6, xcurr: 6, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 78, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 6, ylast: 6, xcurr: 6, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 6, ylast: 6, xcurr: 6, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 66, value: 9
+Id: 1, Move: 1, Dir: 1
+xlast: 6, ylast: 5, xcurr: 6, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 6, ylast: 5, xcurr: 6, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 54, value: 9
+Id: 1, Move: 1, Dir: 1
+xlast: 6, ylast: 4, xcurr: 6, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 6, ylast: 4, xcurr: 6, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 42, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 6, ylast: 3, xcurr: 6, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 42, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 6, ylast: 3, xcurr: 6, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 6, ylast: 3, xcurr: 5, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 41, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 5, ylast: 3, xcurr: 5, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 41, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 5, ylast: 3, xcurr: 5, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 5, ylast: 3, xcurr: 5, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 5, ylast: 4, xcurr: 4, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 4, ylast: 4, xcurr: 4, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 40, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 4, ylast: 3, xcurr: 4, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 4, ylast: 3, xcurr: 3, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 39, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 3, ylast: 3, xcurr: 3, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 39, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 3, ylast: 3, xcurr: 3, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 3, ylast: 3, xcurr: 3, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 3, ylast: 4, xcurr: 2, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 2, ylast: 4, xcurr: 2, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 38, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 2, ylast: 3, xcurr: 2, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 2, ylast: 3, xcurr: 1, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 37, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 1, ylast: 3, xcurr: 1, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 37, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 1, ylast: 3, xcurr: 1, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 1, ylast: 3, xcurr: 1, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 1, ylast: 4, xcurr: 0, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 0, ylast: 4, xcurr: 0, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 0, ylast: 3, xcurr: 0, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 0, ylast: 2, xcurr: 1, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 1, ylast: 2, xcurr: 2, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 26, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 2, ylast: 2, xcurr: 2, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 2, ylast: 2, xcurr: 2, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 2, ylast: 1, xcurr: 3, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 2
+xlast: 3, ylast: 1, xcurr: 3, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 3, ylast: 2, xcurr: 4, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 4, ylast: 2, xcurr: 5, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 5, ylast: 2, xcurr: 6, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 6, ylast: 2, xcurr: 7, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 31, value: 4
+Id: 1, Move: 3, Dir: 1
+xlast: 7, ylast: 2, xcurr: 7, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 31, value: 12
+Id: 1, Move: 1, Dir: 2
+xlast: 7, ylast: 2, xcurr: 7, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 7, ylast: 2, xcurr: 7, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+eastern wall
+index: 19, value: 8
+Id: 1, Move: 1, Dir: 1
+xlast: 7, ylast: 1, xcurr: 7, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 19, value: 10
+Id: 1, Move: 0, Dir: 2
+xlast: 7, ylast: 1, xcurr: 7, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 19, value: 11
+Id: 1, Move: 2, Dir: 3
+xlast: 7, ylast: 1, xcurr: 7, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 7, ylast: 1, xcurr: 7, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 7, ylast: 2, xcurr: 6, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 6, ylast: 2, xcurr: 6, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 6, ylast: 1, xcurr: 6, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 1
+xlast: 6, ylast: 0, xcurr: 7, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 7, ylast: 0, xcurr: 8, ycurr: 0
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 8, ylast: 0, xcurr: 8, ycurr: 1
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 8, ylast: 1, xcurr: 8, ycurr: 2
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 8, ylast: 2, xcurr: 8, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 2
+xlast: 8, ylast: 3, xcurr: 7, ycurr: 3
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 7, ylast: 3, xcurr: 7, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 55, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 7, ylast: 4, xcurr: 7, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 7, ylast: 4, xcurr: 8, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 56, value: 6
+Id: 1, Move: 3, Dir: 1
+xlast: 8, ylast: 4, xcurr: 8, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 8, ylast: 4, xcurr: 9, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 57, value: 6
+Id: 1, Move: 3, Dir: 1
+xlast: 9, ylast: 4, xcurr: 9, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 9, ylast: 4, xcurr: 10, ycurr: 4
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 10, ylast: 4, xcurr: 10, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 70, value: 9
+Id: 1, Move: 2, Dir: 1
+xlast: 10, ylast: 5, xcurr: 10, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 10, ylast: 5, xcurr: 10, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 82, value: 9
+Id: 1, Move: 2, Dir: 1
+xlast: 10, ylast: 6, xcurr: 10, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 10, ylast: 6, xcurr: 10, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 10, ylast: 7, xcurr: 9, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+northern wall
+index: 93, value: 2
+Id: 1, Move: 0, Dir: 1
+xlast: 9, ylast: 7, xcurr: 9, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 93, value: 3
+Id: 1, Move: 2, Dir: 2
+xlast: 9, ylast: 7, xcurr: 9, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 93, value: 7
+Id: 1, Move: 3, Dir: 3
+xlast: 9, ylast: 7, xcurr: 9, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 9, ylast: 7, xcurr: 10, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 10, ylast: 7, xcurr: 10, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+western wall
+index: 106, value: 1
+Id: 1, Move: 2, Dir: 1
+xlast: 10, ylast: 8, xcurr: 10, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+avatar 1 hit a wall
+southern wall
+index: 106, value: 5
+Id: 1, Move: 3, Dir: 2
+xlast: 10, ylast: 8, xcurr: 10, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 0
+xlast: 10, ylast: 8, xcurr: 11, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 11, ylast: 8, xcurr: 11, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 1
+xlast: 11, ylast: 9, xcurr: 10, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 10, ylast: 9, xcurr: 9, ycurr: 9
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 0, Dir: 2
+xlast: 9, ylast: 9, xcurr: 9, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 9, ylast: 8, xcurr: 8, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 8, ylast: 8, xcurr: 8, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 3, Dir: 0
+xlast: 8, ylast: 7, xcurr: 8, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 2
+xlast: 8, ylast: 6, xcurr: 9, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 0, Dir: 2
+xlast: 9, ylast: 6, xcurr: 9, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 1
+xlast: 9, ylast: 5, xcurr: 8, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 2
+xlast: 8, ylast: 5, xcurr: 7, ycurr: 5
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 7, ylast: 5, xcurr: 7, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 7, ylast: 6, xcurr: 7, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 2
+xlast: 7, ylast: 7, xcurr: 6, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 0
+xlast: 6, ylast: 7, xcurr: 6, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 0, Dir: 1
+xlast: 6, ylast: 8, xcurr: 5, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 1, Dir: 0
+xlast: 5, ylast: 8, xcurr: 4, ycurr: 8
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 1, Dir: 1
+xlast: 4, ylast: 8, xcurr: 4, ycurr: 7
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+east
+
+Id: 1, Move: 0, Dir: 2
+xlast: 4, ylast: 7, xcurr: 4, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 2
+xlast: 4, ylast: 6, xcurr: 3, ycurr: 6
+Id: 0, Move: 3, Dir: 0
+xlast: 3, ylast: 8, xcurr: 3, ycurr: 8
+Id: 1, Move: 2, Dir: 1
+xlast: 3, ylast: 6, xcurr: 3, ycurr: 7
+Solved the maze at Tue May 27 21:22:55 2014
+!
