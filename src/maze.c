@@ -126,6 +126,7 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 	int f;
 	for (e=0;e<height;e++) {
 		for (f=0;f<width;f++) {
+			node = array[e][f];
 			node->maze_boolean = 0;
 		}
 	}
@@ -197,7 +198,7 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 				}
 			}
 		}
-		printf("\n");
+/*		printf("\n");
 		int o;
 		for (o=0;o<width;o++) {
 			node = array[o][j];
@@ -213,7 +214,7 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			else {
 				printf("     ");
 			}
-		}
+		}*/
 		printf("\n");
 		int m;
 		for (m=0;m<width;m++) {
