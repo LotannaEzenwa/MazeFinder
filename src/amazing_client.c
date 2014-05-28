@@ -273,21 +273,17 @@ int main(int argc, char* argv[])
     
     send(sockfd, &msg, sizeof(msg), 0);
 
-    printf("sent\n"); 
-
-    /******* this z variable is so you can limit the number of steps for testing *******/ 
-    /******* used in the while loop below ********/ 
-    int z = 0; 
-
+    printf("before making maze\n"); 
 
     int dir = 0; 
     /************************** listen for avatarID **************************/
     MazeCell ***maze;
     maze = parselog(MazeWidth,MazeHeight);
+    printf("after maze\n"); 
 	update(maze,MazeWidth,MazeHeight,msg,nAvatars);
     
-    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 ) && z<30) {
-//        printf("received: %d\n", avatarId); 
+    while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 )) {
+        printf("received: %d\n", avatarId); 
 
         // check if error 
         if (IS_AM_ERROR(ntohl(msg.type))) {
@@ -307,6 +303,8 @@ int main(int argc, char* argv[])
             }
             exit(4);
         } 
+
+        printf("before turn\n"); 
 
         // check message type 
         if (ntohl(msg.type) == AM_AVATAR_TURN) {
@@ -336,10 +334,12 @@ int main(int argc, char* argv[])
                 ylast = -1;  
             }
 
-	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
-    	    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+    	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
+        	    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
             }
-	    // if the avatar is the one to move, move 
+
+            printf("after update\n"); 
+    	    // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
                 // grab the key 
@@ -364,9 +364,7 @@ int main(int argc, char* argv[])
                             case M_NORTH: 
                                 shared_mem[index] += N_WALL; 
                                 if ( ((index - MazeWidth) >= 0) && (!HasSouthWall(index - MazeWidth)) ) {
-                                    
                                     shared_mem[index - MazeWidth] += S_WALL; 
-                                
                                 }
                                 fprintf(fp, "northern wall\n"); 
                                 fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
@@ -430,15 +428,8 @@ int main(int argc, char* argv[])
 
                     // reset the direction priority
                     dir = 0;
-  //                  printf("direction\n"); 
-
                 }
 
-
-/*
-                if (avatarId == 1) {
-                    printf("xlast: %d, ylast: %d\n", xlast, ylast); 
-                } */
 
                 /************************ Send the move ************************/ 
                 // time to make a move 

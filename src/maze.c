@@ -117,20 +117,41 @@ MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
 	}
 	return array;
 }
+
+
 void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message msg, int nAvatars) {
 	printf("\n");
 	uint32_t width = MazeWidth;
 	uint32_t height = MazeHeight;
+
+	printf("width: %d\n", width); 
+	printf("height: %d\n", height); 
+
 	MazeCell *node = calloc(1,sizeof(MazeCell));
 	int e;
 	int f;
+
+	printf("before first function\n"); 
+
 	for (e=0;e<height;e++) {
-		for (f=0;f<width;f++) {
+		printf("got in here \n"); 
+
+/*		for (f=0;f<width;f++) {
+			printf("width: %d\n", width); 
+
 			node = array[e][f];
+
+			printf("height: %d\n", height); 
+
 			node->maze_boolean = 0;
-		}
+
+			printf("after node\n"); 
+		} */
+		printf("outerloop\n"); 
 	}
 	
+	printf("before message\n"); 
+
 	if (ntohl(msg.type) == AM_AVATAR_TURN) {
 		int a;
 		for (a=0;a<nAvatars;a++) {
@@ -140,6 +161,8 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			node->maze_boolean = 1;
 		}
 	}
+
+	printf("before looping\n"); 
 	
 	int i;
 	int j;
