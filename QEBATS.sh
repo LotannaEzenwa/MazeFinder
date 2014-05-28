@@ -122,10 +122,20 @@ echo "" >> $OUTPUT
 
 
 # Testing 2 avatars on difficulty 2 
-echo "Testing word not in index" >> $OUTPUT
-echo "query ~cs50/tse/indexer/cs_lvl3.dat ~cs50/tse/crawler/lvl3" >> $OUTPUT
-echo "QUERY:> asdfjkl" >> $OUTPUT
-echo -e "asdfjkl" | query ~cs50/tse/indexer/cs_lvl3.dat ~cs50/tse/crawler/lvl3 >> $OUTPUT 2>&1
+echo "Testing 2 avatars on difficulty 2" >> $OUTPUT
+echo "./AMStartup 2 2 pierce.cs.dartmouth.edu" >> $OUTPUT
+echo "" >> $OUTPUT
+./AMStartup 2 2 pierce.cs.dartmouth.edu >> $OUTPUT 2>&1
+echo "" >> $OUTPUT
+echo "---" >> $OUTPUT
+echo "" >> $OUTPUT
+
+
+# Testing 6 avatars on difficulty 5 
+echo "Testing 6 avatars on difficulty 5" >> $OUTPUT
+echo "./AMStartup 6 5 pierce.cs.dartmouth.edu" >> $OUTPUT
+echo "" >> $OUTPUT
+./AMStartup 6 5 pierce.cs.dartmouth.edu >> $OUTPUT 2>&1
 echo "" >> $OUTPUT
 echo "---" >> $OUTPUT
 echo "" >> $OUTPUT
