@@ -227,8 +227,14 @@ int main(int argc, char* argv[])
         shmid = atoi(argv[7]); 
     }    
 
-    MazeWidth = atoi(argv[8]); 
-    MazeHeight = atoi(argv[9]); 
+    // check width and height passed in  
+    if (IsNotNumeric(argv[8]) || IsNotNumeric(argv[9])) {
+        perror("MazeWidth or MazeHeight wrong. Exiting now.\n"); 
+        exit(1); 
+    } else {
+        MazeWidth = atoi(argv[8]); 
+        MazeHeight = atoi(argv[9]);
+    }     
     
     /************************ attach to shared memory ************************/
 
