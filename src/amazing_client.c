@@ -335,7 +335,6 @@ int main(int argc, char* argv[])
                 ylast = -1;  
             }
 
-<<<<<<< HEAD
  	    // update the graphics after all the avatars move once 
  	    // (when the turn message is directed towards the first avatar again)
 	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
@@ -343,13 +342,6 @@ int main(int argc, char* argv[])
             }
 
 	    // if the avatar is the one to move, move 
-=======
-    	    // if (ntohl(msg.avatar_turn.TurnId == 0)) {
-        	//     update(maze,MazeWidth,MazeHeight,msg,nAvatars);
-         //    }
-
-    	    // if the avatar is the one to move, move 
->>>>>>> ad97c736a1e691b96ff8fe9053b0eb5f8b8e525e
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
                 // set current position 

@@ -97,7 +97,7 @@ MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
 	uint32_t xcord;
 	uint32_t ycord;
 
-	MazeCell *newnode = calloc(1,sizeof(MazeCell)); // pointer to the current node being edited
+	MazeCell *newnode; // pointer to the current node being edited
 
 	// allocating a two dimensional array of MazeCells
 	MazeCell ***array = calloc(width,sizeof(MazeCell));
@@ -122,7 +122,7 @@ MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
 		// read the line only if it starts with "MazeCell"
 		sscanf(cell,"%s",readin);
 		if (strcmp(readin,"MazeCell") == 0) {
-			
+			newnode = calloc(1,sizeof(MazeCell));		
 			// update the pointer
 			cell += strlen(readin) + 2;
 	
