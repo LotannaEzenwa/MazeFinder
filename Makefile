@@ -52,4 +52,5 @@ clean:
 	rm -f ./amazing_client
 	rm -f *.o
 	rm -f src/*.o
+	rm -f ./maze.log
 #	cd $(UTILDIR); make clean;
