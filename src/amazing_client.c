@@ -7,7 +7,7 @@
  * Description: validates the arguments, constructs and sends AM_INIT message to server.
  *      When server responds with AM_INIT_OK, AMStartup recovers MazePort from the reply 
  * Commandline input: amazing_client [AVATARID] [NAVATARS] [DIFFICULTY] [IPADDRESS] 
- *          [MAZEPORT] [FILENAME] [SHMID]
+ *          [MAZEPORT] [FILENAME] [SHMID] [MAZEWIDTH] [MAZEHEIGHT]
  *
  * 
  * Example command input
@@ -42,20 +42,30 @@
  * Requirement: 4 digit number 
  * Usage: Key for accessing shared memory  
  * 
- * Output:  
+ * [MAZEWIDTH] -> 20
+ * Requirement: Positive number 
+ * Usage: Maze's width, given by server   
+ * 
+ * [MAZEHEIGHT] -> 20
+ * Requirement: Positive number 
+ * Usage: Maze's height, given by server  
+ * 
+ * Output: All the avatars finding each other in a maze  
  * 
  * Error conditions: See requirements for each commandline input above
  * 
  * Pseudocode:
- *     1.   
- *     2.  
- *     3.  
- *     4.  
- *     5.    
- *     6.  
- *     7.  
- *     8.  
- *     9.   
+ *     1.  Check commandline arguments 
+ *     2.  Attach to shared memory and send an AM_AVATAR_READY message to the server 
+ *     3.  Receive server's AM_AVATAR_TURN message and if first turn, calculate central point
+ *     4.  If it's the avatar's turn, check to see if it hit a wall last time 
+ *     5.  If so, update wall within shared memory
+ *     6.  If not, recalculate priorities based on "Follow Right Wall" algorithm 
+ *     7.  If already where avatar needs to be, stay still 
+ *     8.  Otherwise, move in direction dictated by priority array  
+ *     9.  Repeat until server sends AM_MAZE_SOLVED message 
+ *     10. Detach memory and sleep for a second 
+ *     11. One avatar deletes memory and writes end to file 
  */
 
 /* ========================================================================== */
@@ -107,13 +117,6 @@ int HasWestWall(int index);
 int HasSouthWall(int index); 
 int HasEastWall(int index); 
 
-
-// static void del_semvalue(void);
-// static int semaphore_p(void);
-// static int semaphore_v(void);
-
-
-// static int sem_id;
 static int *shared_mem; 
 
 
@@ -136,6 +139,7 @@ int main(int argc, char* argv[])
     int ycurr; 
     int MazeWidth; 
     int MazeHeight; 
+
     // for shared memory 
     int shmid;
     
@@ -166,7 +170,6 @@ int main(int argc, char* argv[])
         exit(1); 
     } else {
         avatarId = atoi(argv[1]); 
-        printf("avatarId: %d\n", avatarId); 
     }
 
     // check the input for number of avatars 
@@ -178,7 +181,6 @@ int main(int argc, char* argv[])
         exit(1); 
     } else {
         nAvatars = atoi(argv[2]); 
-        printf("Number avatars: %d\n", nAvatars); 
     }
 
     // check input for difficulty of maze 
@@ -236,9 +238,6 @@ int main(int argc, char* argv[])
         fprintf(stderr, "shmat failed\n");
         exit(EXIT_FAILURE);
     }
-
-    printf("Memory attached at %p\n", (void *)shared_mem);
-
 
     /************************ tell server avatar ready ************************/
     // create a socket for the client
@@ -421,15 +420,8 @@ int main(int argc, char* argv[])
 
                     // reset the direction priority
                     dir = 0;
-  //                  printf("direction\n"); 
-
                 }
 
-
-/*
-                if (avatarId == 1) {
-                    printf("xlast: %d, ylast: %d\n", xlast, ylast); 
-                } */
 
                 /************************ Send the move ************************/ 
                 // time to make a move 
@@ -536,7 +528,6 @@ int main(int argc, char* argv[])
             perror("shmctl(IPC_RMID) failed\n");
             exit(EXIT_FAILURE);
         }
-//        del_semvalue();
     }
 
     printf("ended\n"); 

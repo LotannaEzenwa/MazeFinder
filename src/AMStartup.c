@@ -24,20 +24,19 @@
  * Requirement: Must be a server
  * Usage: server name we want IP address of   
  *
- * Output:  
+ * Output: Starts N processes of avatars  
  * 
  * Error conditions: See requirements for each commandline input above
  * 
  * Pseudocode:
- *     1.   
- *     2.  
- *     3.  
- *     4.  
- *     5.    
- *     6.  
- * 	   7.  
- *     8.  
- *     9.   
+ *     1.  Checks commandline arguments 
+ * 	   2.  Runs and sends an AM_INIT message to the server  
+ *     3.  Server responds with AM_INIT_OK message and listens to client 
+ *     4.  Extracts the MazePort from message 
+ *     5.  Writes info to file 
+ *     6.  Creates and initializes shared memory 
+ *     7.  Starts N (number of avatars) processes (amazing_client.c) 
+ * 	   8.  Exits successfully 
  */
 
 /* ========================================================================== */
@@ -64,7 +63,6 @@
 #include <errno.h> //For errno - the error number
 #include <netdb.h> //hostent
 #include <sys/wait.h>
-#include <semaphore.h>
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
@@ -89,7 +87,7 @@
 // ---------------- Private prototypes
 int IsNotNumeric(char *input);
 
-void initializeMaze(int MazeHeight, int MazeWidth, int * maze); 
+void InitializeMaze(int MazeHeight, int MazeWidth, int * maze); 
 
 /* =========================================================================== */
 /*                                   main                                      */
@@ -181,8 +179,6 @@ int main(int argc, char* argv[])
 
 	send(sockinit, &msg, sizeof(msg), 0);
 
-	printf("sent msg\n"); 
-
 	/*********************** receive AM_INIT_OK message ***********************/
 	// receive a reply   
 	if( recv(sockinit, &msg, sizeof(msg) , 0) < 0) {
@@ -203,9 +199,6 @@ int main(int argc, char* argv[])
 			MazePort = ntohl(msg.init_ok.MazePort);  
 			MazeWidth = ntohl(msg.init_ok.MazeWidth); 
 			MazeHeight = ntohl(msg.init_ok.MazeHeight); 
-			printf("Port:%d\n", MazePort); 
-			printf("Width:%d\n", MazeWidth); 
-			printf("Height: %d\n", MazeHeight);	
 		} 
 	}
 
@@ -234,13 +227,9 @@ int main(int argc, char* argv[])
     	// initialize the memory 
     	shared_mem = shmat(shmid, (void *)0, 0);
 
-    	printf("before initializing\n");
     	// initialize the maze in shared memory 
-    	initializeMaze(MazeHeight, MazeWidth, shared_mem); 
-    	printf("after initializing\n"); 
-//    	exit(EXIT_SUCCESS); 
+    	InitializeMaze(MazeHeight, MazeWidth, shared_mem); 
     }
-
 
 	/***************************** start Avatars *****************************/
 	// fork processes so that each avatar gets its own id 
@@ -248,15 +237,13 @@ int main(int argc, char* argv[])
 	pid_t pid;
 
 	for ( i=0; i < nAvatars; i++ ) {
-		printf("in for loop\n"); 
 		pid = fork();
 
 		if (pid == -1) {
 			perror("Failed to fork.\n"); 
 		    exit(EXIT_FAILURE); 	// error, failed to fork()
 		} else if (pid > 0) {
-		    //int status;
-		    //waitpid(pid, &status, 0);
+			
 		} else {
 		    char avId[MAX_ID_LEN]; 
 			char port[MAX_PORT_LEN]; 
@@ -303,8 +290,16 @@ int IsNotNumeric(char *input)
 
 
 
-
-void initializeMaze(int MazeHeight, int MazeWidth, int * maze) 
+/* =========================================================================== */
+/*                              InitializeMaze	                               */
+/* =========================================================================== */
+/*  Assigns 0 to every cell of the maze, meaning walls are unknown
+ *  
+ *  @MazeHeight: height of maze returned from server
+ * 	@MazeWidth: width of maze returned from server
+ * 	@maze: pointer to the shared memory of the maze 
+ */
+void InitializeMaze(int MazeHeight, int MazeWidth, int * maze) 
 {
 	int i; 
 	for (i=0; i<(MazeHeight * MazeWidth); i++) {
