@@ -187,13 +187,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("| |");
+					printf("| ⎟");
 				}
 				else if (node->west == W) {
 					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("  |");
+					printf("  ⎟");
 				}
 				else {
 					printf("   ");
@@ -207,13 +207,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			if (node->maze_boolean == 1) {
 
 				if (node->west == W && node->east == W) {
-					printf("|X|");
+					printf("|X⎟");
 				}
 				else if (node->west == W) {
 					printf("|X ");
 				}
 				else if (node->east == W) {
-					printf(" X|");
+					printf(" X⎟");
 				}
 				else {
 					printf(" X ");
@@ -221,13 +221,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("| |");
+					printf("| ⎟");
 				}
 				else if (node->west == W) {
 					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("  |");
+					printf("  ⎟");
 				}
 				else {
 					printf("   ");
@@ -271,13 +271,13 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 			}
 			else {
 				if (node->west == W && node->east == W) {
-					printf("| |");
+					printf("| ⎜");
 				}
 				else if (node->west == W) {
 					printf("|  ");
 				}
 				else if (node->east == W) {
-					printf("  |");
+					printf("  ⎜");
 				}
 				else {
 					printf("   ");
