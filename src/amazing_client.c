@@ -87,13 +87,12 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <time.h> 
-#include <semaphore.h>
 
 
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
-#include "maze.h"
+#include "../util/src/maze.h"
 
 // ---------------- Constant definitions
 
@@ -268,9 +267,9 @@ int main(int argc, char* argv[])
     send(sockfd, &msg, sizeof(msg), 0);
 
     int dir = 0; 
-    int nummoves = 0; 
+
     /************************** listen for avatarID **************************/
-    
+
     // initialize the two dimensional array and draw its initial state
     MazeCell ***maze;
     maze = parselog(MazeWidth,MazeHeight);
@@ -355,9 +354,7 @@ int main(int argc, char* argv[])
                             case M_NORTH: 
                                 shared_mem[index] += N_WALL; 
                                 if ( ((index - MazeWidth) >= 0) && (!HasSouthWall(index - MazeWidth)) ) {
-                                    
                                     shared_mem[index - MazeWidth] += S_WALL; 
-                                
                                 }
                                 break;
                             case M_EAST: 
@@ -432,7 +429,6 @@ int main(int argc, char* argv[])
                 }
 
                 send(sockfd, &msg, sizeof(msg), 0);
-                
 
                 fprintf(fp, "Avatar Id: %d, Move: %d\n", avatarId, direction[dir]); 
                 fprintf(fp, "xlast: %d, ylast: %d, xcurr: %d, ycurr: %d\n", xlast, ylast, xcurr, ycurr); 
@@ -442,8 +438,6 @@ int main(int argc, char* argv[])
                 xlast = xcurr; 
                 ylast = ycurr; 
 
-                // count number of moves 
-                nummoves++; 
             } else {
                 continue; 
             }
@@ -466,7 +460,7 @@ int main(int argc, char* argv[])
 
                 time (&cur);
                 
-                fprintf(fp, "Solved the maze in %d moves at %s!\n", nummoves, ctime(&cur)); 
+                fprintf(fp, "Solved the maze in %d moves at %s!\n", ntohl(msg.maze_solved.nMoves), ctime(&cur)); 
                 fclose(fp); 
 
                 // one avatar should delete the memory 
@@ -523,6 +517,15 @@ int IsNotNumeric(char *input)
 }
 
 
+/* =========================================================================== */
+/*                              HasNorthWall                                   */
+/* =========================================================================== */
+/*  Checks whether the current maze cell has a north wall 
+ *  
+ *  @index: cell of the maze to check
+ *
+ *  Returns 1 if it has the wall; otherwise, 0 (as true and false booleans)
+ */
 int HasNorthWall(int index) 
 {
     switch(shared_mem[index]){
