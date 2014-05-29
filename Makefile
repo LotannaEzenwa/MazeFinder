@@ -19,12 +19,6 @@ HDRS = ../util/src/amazing.h ../util/src/utils.h
 all: AMStartup amazing_client
 
 
-#query:$(SRCS) $(HDRS) $(UTILLIB)
-#	$(CC) $(CFLAGS) -o $@ $(SRCS) -L$(UTILDIR) $(UTILFLAG)
-
-#$(UTILLIB): $(SRCS) $(HDRS)
-#	cd $(UTILDIR); make;
-
 AMStartup: $(SRCDIR)AMStartup.o  $(SRCDIR)maze.o $(UTILLIB)
 	$(CC) $(CFLAGS) -o AMStartup $(SRCDIR)AMStartup.o $(SRCDIR)maze.o
 
@@ -53,4 +47,3 @@ clean:
 	rm -f *.o
 	rm -f src/*.o
 	rm -f ./maze.log
-#	cd $(UTILDIR); make clean;

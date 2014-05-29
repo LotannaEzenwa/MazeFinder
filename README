@@ -1,5 +1,12 @@
-Janice Yip
+Team Oseleta: Janice Yip, Lotanna Ezenwa, and Emily Greene
+We use a Mac OS X 10.9 computer, a Ubuntu 14.04 on Redhat Linux, and a Mac OS X 10.8 computer respectively to complete this project.
 
-Lotanna Ezenwa
+All information about our implementation and design decisions can be found in the design documentation.
 
-Emily Greene
+The user must enter in their password in order to access the log.out file from the server.
+
+We made the following assumptions when completing this project:
+1) All components would remain in their current directory structure and would be called within each other appropriately.
+2) The user who runs this program has a username that can log into pierce.cs.dartmouth.edu.
+3) The user would have a computer compatible with the ASCII characters that we chose to display the graphics.
+
