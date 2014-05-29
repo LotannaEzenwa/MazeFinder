@@ -12,7 +12,7 @@
 #define MAZE_H
 
 // ---------------- Prerequisites e.g., Requires "math.h"
-#include "../util/src/amazing.h"
+#include "amazing.h"
 // ---------------- Constants
 
 // ---------------- Structures/Types
