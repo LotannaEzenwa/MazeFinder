@@ -550,6 +550,15 @@ int HasNorthWall(int index)
 }
 
 
+/* =========================================================================== */
+/*                              HasWestWall                                   */
+/* =========================================================================== */
+/*  Checks whether the current maze cell has a west wall 
+ *  
+ *  @index: cell of the maze to check
+ *
+ *  Returns 1 if it has the wall; otherwise, 0 (as true and false booleans)
+ */
 int HasWestWall(int index) 
 {
     switch(shared_mem[index]){
@@ -574,6 +583,15 @@ int HasWestWall(int index)
 }
 
 
+/* =========================================================================== */
+/*                              HasSouthWall                                   */
+/* =========================================================================== */
+/*  Checks whether the current maze cell has a south wall 
+ *  
+ *  @index: cell of the maze to check
+ *
+ *  Returns 1 if it has the wall; otherwise, 0 (as true and false booleans)
+ */
 
 int HasSouthWall(int index) 
 {
@@ -598,6 +616,15 @@ int HasSouthWall(int index)
     return 0; 
 }
 
+/* =========================================================================== */
+/*                              HasEastWall                                   */
+/* =========================================================================== */
+/*  Checks whether the current maze cell has a east wall 
+ *  
+ *  @index: cell of the maze to check
+ *
+ *  Returns 1 if it has the wall; otherwise, 0 (as true and false booleans)
+ */
 
 int HasEastWall(int index) 
 {
