@@ -96,14 +96,11 @@ MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
 	// coordinates of the MazeCell
 	uint32_t xcord;
 	uint32_t ycord;
-
-	MazeCell *newnode; // pointer to the current node being edited
-
-	// allocating a two dimensional array of MazeCells
-	MazeCell ***array = calloc(width,sizeof(MazeCell));
+	MazeCell *newnode;
+	MazeCell ***array = calloc(width,sizeof(int*));
 	int a;
 	for (a=0;a<width;a++) {
-		array[a] = calloc(height,sizeof(MazeCell));
+		array[a] = calloc(height,sizeof(int*));
 	}
 	
 	// attempt to open the log file
@@ -177,6 +174,9 @@ MazeCell *** parselog(uint32_t mazewidth, uint32_t mazeheight){
 			cell += strlen("borders: WNSE");
 		}
 	}
+	free(readin);
+	free(block);
+	fclose(logfile);
 	return array;
 }
 
@@ -194,13 +194,12 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 	uint32_t width = MazeWidth;
 	uint32_t height = MazeHeight;
 
-	MazeCell *node = calloc(1,sizeof(MazeCell)); // pointer to the MazeCell 
-	
-	// iterate through the maze and clear out the last place the avatars were
+	MazeCell *node;
 	int e;
 	int f;
 	for (e=0;e<height;e++) {
 		for (f=0;f<width;f++) {
+
 			node = array[f][e];
 			node->maze_boolean = 0;
 
@@ -335,6 +334,7 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
 		}
 		printf("\n");
 	}
+	
 }
 
 /*
@@ -347,8 +347,12 @@ void update(MazeCell ***array,uint32_t MazeWidth,uint32_t MazeHeight, AM_Message
  */
 void freeMaze(MazeCell ***array, uint32_t width, uint32_t height){
 	int i;
+	int j;
 	if (!array) return;
 	for (i=0;i<width;i++){
+		for(j=0;j<height;j++){
+			free(array[i][j]);
+		}
 		free(array[i]);
 	}
 	free(array);
