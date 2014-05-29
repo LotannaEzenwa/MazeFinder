@@ -1,0 +1,64 @@
+amazingTestlog.Wed_May_28_22:30:49_2014
+This is a test shell script for the amazing project.
+Hostname: moose.cs.dartmouth.edu
+Operating System: Linux
+
+Author: Oseleta
+Date written: 05/28/2014
+make clean:  rm -f *~ rm -f *# rm -f ./AMStartup rm -f ./amazing_client rm -f *.o rm -f src/*.o rm -f ./maze.log
+gcc -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp   -c -o src/AMStartup.o src/AMStartup.c
+gcc -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp   -c -o src/maze.o src/maze.c
+gcc -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp -o AMStartup src/AMStartup.o src/maze.o
+gcc -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp   -c -o src/amazing_client.o src/amazing_client.c
+gcc -Wall -pedantic -std=c11 -lcurl -ggdb -Wcpp -o amazing_client src/amazing_client.o src/maze.o
+Makefile and AMStartup and amazing_client created. Begin testing.
+
+---
+
+Invalid number of avatars; error expected
+./AMStartup A 2 pierce.cs.dartmouth.edu
+
+Not a positive number.
+Number of avatars must be a number. Exiting now.
+
+---
+
+Invalid difficulty; error expected
+./AMStartup 2 A pierce.cs.dartmouth.edu
+
+Not a positive number.
+Difficulty must be a number. Exiting now.
+
+---
+
+Invalid server; error expected
+./AMStartup 2 3 tahoe.cs.dartmouth.edu
+
+Problem connecting to the server.
+: Connection refused
+
+---
+
+Begin testing different inputs.
+   Expect log file in format AMAZING_.log
+   that contains avatar ID and its move and whether it solved the maze or not
+
+---
+
+Testing 2 avatars on difficulty 2
+./AMStartup 2 2 pierce.cs.dartmouth.edu
+
+
+---
+
+Testing 6 avatars on difficulty 5
+./AMStartup 6 5 pierce.cs.dartmouth.edu
+
+
+---
+
+Testing finished: Wed_May_28_22:31:31_2014
+
+make clean:  rm -f *~ rm -f *# rm -f ./AMStartup rm -f ./amazing_client rm -f *.o rm -f src/*.o rm -f ./maze.log
+
+DONE

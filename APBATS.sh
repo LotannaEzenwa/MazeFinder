@@ -3,9 +3,9 @@
 # Script name: QEBATS.sh
 # 
 # Author: Janice Yip
-# Date: 05/02/2014 
+# Date: 05/28/2014 
 #
-# Description: Script to test query.c.
+# Description: Script to test AMStartup.c 
 #
 # Command line options: none
 #
@@ -125,7 +125,7 @@ echo "" >> $OUTPUT
 echo "Testing 2 avatars on difficulty 2" >> $OUTPUT
 echo "./AMStartup 2 2 pierce.cs.dartmouth.edu" >> $OUTPUT
 echo "" >> $OUTPUT
-./AMStartup 2 2 pierce.cs.dartmouth.edu >> $OUTPUT 2>&1
+./AMStartup 2 2 pierce.cs.dartmouth.edu 
 echo "" >> $OUTPUT
 echo "---" >> $OUTPUT
 echo "" >> $OUTPUT
@@ -135,7 +135,7 @@ echo "" >> $OUTPUT
 echo "Testing 6 avatars on difficulty 5" >> $OUTPUT
 echo "./AMStartup 6 5 pierce.cs.dartmouth.edu" >> $OUTPUT
 echo "" >> $OUTPUT
-./AMStartup 6 5 pierce.cs.dartmouth.edu >> $OUTPUT 2>&1
+./AMStartup 6 5 pierce.cs.dartmouth.edu 
 echo "" >> $OUTPUT
 echo "---" >> $OUTPUT
 echo "" >> $OUTPUT

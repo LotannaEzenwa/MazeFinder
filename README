@@ -9,4 +9,4 @@ We made the following assumptions when completing this project:
 1) All components would remain in their current directory structure and would be called within each other appropriately.
 2) The user who runs this program has a username that can log into pierce.cs.dartmouth.edu.
 3) The user would have a computer compatible with the ASCII characters that we chose to display the graphics.
-
+4) Included log files are a bit inconsistent as they were edited to include more information. 
