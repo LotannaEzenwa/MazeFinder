@@ -206,7 +206,7 @@ int main(int argc, char* argv[])
 	sprintf(filename,"AMAZING_%s_%d_%d.log", id, nAvatars, Difficulty); 
 
 	// get log for graphics
-	getlog(MazePort);
+	//getlog(MazePort);
 
 	// first line of file should contain $USER, the MazePort, and the date & time
 	fp = fopen(filename, "w"); 

@@ -272,10 +272,10 @@ int main(int argc, char* argv[])
     /************************** listen for avatarID **************************/
     
     // initialize the two dimensional array and draw its initial state
-    MazeCell ***maze;
+ /*   MazeCell ***maze;
     maze = parselog(MazeWidth,MazeHeight);
     update(maze,MazeWidth,MazeHeight,msg,nAvatars);
-  
+  */
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 )) {
 
         // check if error 
@@ -328,11 +328,11 @@ int main(int argc, char* argv[])
 
      	    // update the graphics after all the avatars move once 
      	    // (when the turn message is directed towards the first avatar again)
-    	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
+    /*	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
     	        update(maze,MazeWidth,MazeHeight,msg,nAvatars);
             }
 
-	        // if the avatar is the one to move, move 
+*/	        // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
                 // set current position 
@@ -477,7 +477,7 @@ int main(int argc, char* argv[])
                 
             }
             printf("Solved the maze\n");
-       		freeMaze(maze,MazeWidth,MazeHeight);
+//       		freeMaze(maze,MazeWidth,MazeHeight);
             exit(EXIT_SUCCESS); 
         }
     } 

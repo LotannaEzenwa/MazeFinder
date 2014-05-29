@@ -31,7 +31,7 @@ amazing_client: $(SRCDIR)amazing_client.o $(SRCDIR)maze.o $(UTILLIB)
 amazing_client.o: $(SRCDIR)amazing_client.c $(SRCDIR)amazing_client.h 
 	$(CC) $(CFLAGS) -c $(SRCDIR)amazing_client.c 
 
-maze.o: $(SRCDIR)maze.c $(SRCDIR)maze.h
+maze.o: $(SRCDIR)maze.c $(UTILDIR)maze.h
 	$(CC) $(CFLAGS) -c $(SRCDIR)maze.c
 
 $(UTILLIB): $(UTILC) $(UTILH)
