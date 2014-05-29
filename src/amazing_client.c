@@ -268,9 +268,9 @@ int main(int argc, char* argv[])
     send(sockfd, &msg, sizeof(msg), 0);
 
     int dir = 0; 
-    int nummoves = 0; 
+
     /************************** listen for avatarID **************************/
-    
+
     // initialize the two dimensional array and draw its initial state
     MazeCell ***maze;
     maze = parselog(MazeWidth,MazeHeight);
@@ -442,8 +442,6 @@ int main(int argc, char* argv[])
                 xlast = xcurr; 
                 ylast = ycurr; 
 
-                // count number of moves 
-                nummoves++; 
             } else {
                 continue; 
             }
@@ -466,7 +464,7 @@ int main(int argc, char* argv[])
 
                 time (&cur);
                 
-                fprintf(fp, "Solved the maze in %d moves at %s!\n", nummoves, ctime(&cur)); 
+                fprintf(fp, "Solved the maze in %d moves at %s!\n", ntohl(msg.maze_solved.nMoves), ctime(&cur)); 
                 fclose(fp); 
 
                 // one avatar should delete the memory 
