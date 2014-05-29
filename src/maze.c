@@ -26,7 +26,7 @@
 // ---------------- Local includes  e.g., "file.h"
 #include "../util/src/amazing.h"
 #include "../util/src/utils.h"
-#include "maze.h"
+#include "../util/src/maze.h"
 
 // ---------------- Constant/Macro definitions
 
