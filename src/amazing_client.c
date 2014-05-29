@@ -128,7 +128,6 @@ int main(int argc, char* argv[])
 {
     int avatarId; 
     int nAvatars; 
-    int Difficulty; 
     char ipAddress[MAX_IP_LEN]; 
     char filename[MAX_FILE_NAME]; 
     float xAvg; 
@@ -160,8 +159,6 @@ int main(int argc, char* argv[])
     if (argc != 10) {
         perror("AC: Incorrect number of arguments. Exiting now.\n"); 
         exit(1); 
-    } else {
-        printf("getting called\n"); 
     }
 
     // check that the avatarid 
@@ -190,10 +187,7 @@ int main(int argc, char* argv[])
     } else if ((atoi(argv[3]) < 0) || (atoi(argv[3]) > 9)) {
         fprintf(stderr, "Difficulty level must be between 0 and 9. Exiting now.\n"); 
         exit(1); 
-    } else {
-        Difficulty = atoi(argv[3]); 
-        printf("Difficulty %d\n", Difficulty); 
-    }
+    } 
 
     // copy ipAddress  
     if (strlen(argv[4]) >= MAX_IP_LEN) {
@@ -273,19 +267,16 @@ int main(int argc, char* argv[])
     
     send(sockfd, &msg, sizeof(msg), 0);
 
-    printf("sent\n"); 
-
-
     int dir = 0; 
+    int nummoves = 0; 
     /************************** listen for avatarID **************************/
     
     // initialize the two dimensional array and draw its initial state
-    //MazeCell ***maze;
-    //maze = parselog(MazeWidth,MazeHeight);
-    //update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+    MazeCell ***maze;
+    maze = parselog(MazeWidth,MazeHeight);
+    update(maze,MazeWidth,MazeHeight,msg,nAvatars);
   
     while (( recv(sockfd, &msg, sizeof(msg) , 0) >= 0 )) {
-//        printf("received: %d\n", avatarId); 
 
         // check if error 
         if (IS_AM_ERROR(ntohl(msg.type))) {
@@ -335,13 +326,13 @@ int main(int argc, char* argv[])
                 ylast = -1;  
             }
 
- 	    // update the graphics after all the avatars move once 
- 	    // (when the turn message is directed towards the first avatar again)
-	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
-    	        //update(maze,MazeWidth,MazeHeight,msg,nAvatars);
+     	    // update the graphics after all the avatars move once 
+     	    // (when the turn message is directed towards the first avatar again)
+    	    if (ntohl(msg.avatar_turn.TurnId == 0)) {
+    	        update(maze,MazeWidth,MazeHeight,msg,nAvatars);
             }
 
-	    // if the avatar is the one to move, move 
+	        // if the avatar is the one to move, move 
             if (avatarId == ntohl(msg.avatar_turn.TurnId)) {
 
                 // set current position 
@@ -357,7 +348,6 @@ int main(int argc, char* argv[])
 
                     if(!arrived) {
                         // hit a wall 
-//                        fprintf(fp, "avatar %d hit a wall\n", avatarId); 
                         index = (ylast * MazeWidth) + xlast; 
                         
                         /******* update the shared memory to reflect the wall *******/
@@ -369,32 +359,24 @@ int main(int argc, char* argv[])
                                     shared_mem[index - MazeWidth] += S_WALL; 
                                 
                                 }
-//                                fprintf(fp, "northern wall\n"); 
-//                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_EAST: 
                                 shared_mem[index] += E_WALL; 
                                 if ( ((index + 1) < (MazeHeight * MazeWidth)) && (!HasWestWall(index + 1)) ) {
                                     shared_mem[index + 1] += W_WALL; 
                                 }
-//                                fprintf(fp, "eastern wall\n"); 
-//                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_SOUTH: 
                                 shared_mem[index] += S_WALL; 
                                 if ( ((index + MazeWidth) < (MazeHeight * MazeWidth)) && (!HasNorthWall(index + MazeWidth)) ) {
                                     shared_mem[index + MazeWidth] += N_WALL; 
                                 }
-//                                fprintf(fp, "southern wall\n"); 
-//                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                             case M_WEST: 
                                 shared_mem[index] += W_WALL; 
                                 if ( ((index - 1) >= 0) && (!HasEastWall(index - 1)) ) {
                                     shared_mem[index - 1] += E_WALL; 
                                 }
-//                                fprintf(fp, "western wall\n"); 
-//                                fprintf(fp, "index: %d, value: %d\n", index, shared_mem[index]); 
                                 break;
                         }
                         dir++;
@@ -445,33 +427,6 @@ int main(int argc, char* argv[])
                     // don't move
                     msg.avatar_move.Direction = htonl(M_NULL_MOVE);
                 } else {
-/*                    index = (ycurr * MazeWidth) + xcurr; 
-                    // check the walls to see if prioritized direction is wise 
-                    if ((direction[dir] == M_NORTH) && HasNorthWall(index)) {
-                        dir++; 
-                    } 
-
-                    if ((direction[dir] == M_WEST) && HasWestWall(index)) {
-                        dir++; 
-                    }  
-
-                    if ((direction[dir] == M_SOUTH) && HasSouthWall(index)) {
-                        dir++; 
-                    } 
-
-                    if ((direction[dir] == M_EAST) && HasEastWall(index)) {
-                        dir++; 
-//                        fprintf(fp, "east\n\n"); 
-                    }
-
-                    if ((direction[dir] == M_NORTH) && HasNorthWall(index)) {
-                        dir++; 
-                    } 
-
-                    if ((direction[dir] == M_WEST) && HasWestWall(index)) {
-                        dir++; 
-                    }  */
-
                     // move in next direction dictated by direction array
                     msg.avatar_move.Direction = htonl(direction[dir]);
                 }
@@ -487,6 +442,8 @@ int main(int argc, char* argv[])
                 xlast = xcurr; 
                 ylast = ycurr; 
 
+                // count number of moves 
+                nummoves++; 
             } else {
                 continue; 
             }
@@ -509,7 +466,7 @@ int main(int argc, char* argv[])
 
                 time (&cur);
                 
-                fprintf(fp, "Solved the maze at %s!\n", ctime(&cur)); 
+                fprintf(fp, "Solved the maze in %d moves at %s!\n", nummoves, ctime(&cur)); 
                 fclose(fp); 
 
                 // one avatar should delete the memory 
@@ -520,7 +477,7 @@ int main(int argc, char* argv[])
                 
             }
             printf("Solved the maze\n");
-       		//freeMaze(maze,MazeWidth,MazeHeight);
+       		freeMaze(maze,MazeWidth,MazeHeight);
             exit(EXIT_SUCCESS); 
         }
     } 
@@ -531,7 +488,6 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    printf("almost end\n");
     sleep(2); 
 
     // one avatar should delete the memory 
@@ -541,8 +497,6 @@ int main(int argc, char* argv[])
             exit(EXIT_FAILURE);
         }
     }
-
-    printf("ended\n"); 
 
     exit(EXIT_FAILURE);
 }

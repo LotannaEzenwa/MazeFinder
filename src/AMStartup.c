@@ -129,7 +129,6 @@ int main(int argc, char* argv[])
     	exit(1); 
     } else {
     	nAvatars = atoi(argv[1]); 
-    	printf("Number avatars: %d\n", nAvatars); 
     }
 
     // check input for difficulty of maze 
@@ -141,7 +140,6 @@ int main(int argc, char* argv[])
     	exit(1); 
     } else {
     	Difficulty = atoi(argv[2]); 
-    	printf("Difficulty %d\n", Difficulty); 
     }
 
 	// check hostname 
