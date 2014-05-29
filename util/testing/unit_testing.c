@@ -1,5 +1,5 @@
 #include <time.h>
-#include "../../src/maze.h"
+#include "../src/maze.h"
 #include "../../src/maze.c"
 
 
