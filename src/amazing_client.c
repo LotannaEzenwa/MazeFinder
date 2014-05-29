@@ -551,7 +551,7 @@ int HasNorthWall(int index)
 
 
 /* =========================================================================== */
-/*                              HasWestWall                                   */
+/*                               HasWestWall                                   */
 /* =========================================================================== */
 /*  Checks whether the current maze cell has a west wall 
  *  
@@ -617,7 +617,7 @@ int HasSouthWall(int index)
 }
 
 /* =========================================================================== */
-/*                              HasEastWall                                   */
+/*                               HasEastWall                                   */
 /* =========================================================================== */
 /*  Checks whether the current maze cell has a east wall 
  *  
